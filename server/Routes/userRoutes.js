@@ -31,8 +31,6 @@ router.post('/register', async (req, res) => {
 		address,
 		pincode,
 		hometown,
-		workExperience,
-		role,
 	} = req.body;
 
 	//@desc: Creating user using register route
@@ -61,8 +59,6 @@ router.post('/register', async (req, res) => {
 			address,
 			pincode,
 			hometown,
-			workExperience,
-			role,
 		});
 
 		// Creating the secret key for the JWT
@@ -83,7 +79,7 @@ router.post('/register', async (req, res) => {
 		// Creating the JWT token
 		jwt.sign(
 			payload,
-			config.get('jwtSecret'),
+			process.env.JWT_SECRET,
 			{ expiresIn: '5 days' },
 			(err, token) => {
 				if (err) throw err;
