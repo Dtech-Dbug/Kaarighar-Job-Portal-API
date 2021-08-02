@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 
 //routes
 readdirSync("./Routes").map((route) =>
-	app.use("/api", require("./Routes" + route))
+	app.use("/api", require("./Routes/" + route))
 );
 
 app.listen(process.env.PORT, () => {
