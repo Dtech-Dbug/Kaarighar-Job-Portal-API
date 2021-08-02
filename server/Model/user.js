@@ -13,6 +13,11 @@ const userSchema = new Schema(
 		pinCode: Number,
 		hometown: String,
 		workExperience: String,
+
+		role: {
+			type: String,
+			enum: ["Admin", "Job Seeker", "Recruiter"],
+		},
 	},
 	{ timestamps: true }
 );
