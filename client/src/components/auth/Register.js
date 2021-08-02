@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Register = () => {
+	const handleClick = () => {
+		console.log('handleClick');
+	};
+
+	const [formValue, setFormValue] = useState({
+		firstName: 'john',
+		lastName: 'doe',
+		mobileNumber: '1234567890',
+		email: 'johndoe@gmail.com',
+		password: 'password',
+		aadharNumber: '14632161566',
+		panNumber: '12345678d9',
+		address:
+			'B-201 Triveni Residency Plot No. 23-24 Shree Narayan Nagar Society Near VEG. Market',
+		city: 'Surat',
+		pinCode: '395004',
+		role: 'admin',
+	});
+
+	const handleChange = (event) => {
+		setFormValue((prevState) => ({
+			...prevState,
+			[event.target.name]: event.target.value,
+		}));
+
+		console.table({
+			Target: event.target.name,
+			Value: event.target.value,
+		});
+	};
 	return (
 		<div className="w-full flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-md w-full space-y-8">
@@ -35,11 +65,12 @@ const Register = () => {
 								</label>
 								<input
 									className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-									id="first_name"
+									name="firstName"
 									type="text"
 									required
+									value={formValue.firstName || ''}
 									placeholder="Yout first name"
-									value="John"
+									onChange={handleChange}
 								/>
 							</div>
 							<div className="w-1/2 ml-1">
@@ -51,11 +82,12 @@ const Register = () => {
 								</label>
 								<input
 									className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-									id="last_name"
+									name="lastName"
 									type="text"
 									required
+									value={formValue.lastName || ''}
 									placeholder="Your last name"
-									value="Doe"
+									onChange={handleChange}
 								/>
 							</div>
 						</div>
@@ -68,11 +100,12 @@ const Register = () => {
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-								id="mobile-no"
 								required
+								name="mobileNumber"
 								type="tel"
 								placeholder="Your mobile no."
-								value="8516655502"
+								value={formValue.mobileNumber || ''}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4 ">
@@ -83,11 +116,12 @@ const Register = () => {
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-								id="email"
+								name="email"
 								type="email"
 								required
 								placeholder="Your email address"
-								value="johndeo@gmail.com"
+								value={formValue.email || ''}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
@@ -101,11 +135,10 @@ const Register = () => {
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 								type="text"
 								required
-								name="aadhar-no"
+								name="aadharNo"
 								placeholder="Your aadhar no."
-								maxLength="12"
-								minLength="12"
-								value="123456890945"
+								value={formValue.aadharNo || ''}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
@@ -117,8 +150,10 @@ const Register = () => {
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 								type="text"
-								name="pan-no"
+								name="panNo"
 								placeholder="Your pan no"
+								value={formValue.panNo || ''}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
@@ -133,7 +168,8 @@ const Register = () => {
 								type="password"
 								required
 								placeholder="Password"
-								value="123456"
+								value={formValue.password || ''}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
@@ -148,7 +184,8 @@ const Register = () => {
 								type="text"
 								required
 								placeholder="Your address"
-								value="B-201 Triveni Residency Plot No. 23-24 Shree Narayan Nagar Society Near VEG. Market"
+								value={formValue.address || ''}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className="flex mb-4">
@@ -165,7 +202,8 @@ const Register = () => {
 									name="pincode"
 									required
 									placeholder="Yout pincode"
-									value="395044"
+									value={formValue.pincode || ''}
+									onChange={handleChange}
 								/>
 							</div>
 							<div className="w-1/2 ml-1 mb-1">
@@ -180,16 +218,34 @@ const Register = () => {
 									name="city"
 									required
 									placeholder="Your city"
-									value="surat"
+									value={formValue.city || ''}
+									onChange={handleChange}
 								/>
 							</div>
 						</div>
+						{/* <div className="mb-4">
+							<label
+								className="block text-grey-darker text-sm font-bold mb-2"
+								htmlFor="role">
+								Role<span className="text-red-900">*</span>
+							</label>
+							<select
+								id="country"
+								name="country"
+								autoComplete="country"
+								className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+								<option>Admin</option>
+								<option>Recruiter</option>
+								<option>Job Seeker</option>
+							</select>
+						</div> */}
 					</div>
 
 					<div>
 						<button
 							type="submit"
-							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+							onClick={handleClick}>
 							<span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
 							Sign up
 						</button>
