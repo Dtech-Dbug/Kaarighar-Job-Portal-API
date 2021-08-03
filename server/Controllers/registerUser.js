@@ -65,7 +65,7 @@ exports.registerUser = async (req, res) => {
 
 		//save user
 		const userSaved = await user.save();
-		console.log("USER ____>", userSaved);
+		console.log("USER --->", userSaved);
 
 		const payload = {
 			user: {
@@ -98,18 +98,56 @@ exports.loginUser = async (req, res) => {
 	return;
 	// const { mobileNumber, password } = req.body.values;
 
-	//step2
-	//query the databse using the mobileNo to find the user
+	const mobileNumber = 8758549166;
+	const password = "qwerty123";
 
-	const user = await UserModel.findOne(mobileNumber).exec();
+	console.log("mobileNumber: ", mobileNumber);
+	console.log("password: ", password);
 
 	//destructure mobile and password from user database
 	// const { mobileNumber, password } = user;
 	//step3
 	//compare the req.body.password with the password in the database
 
-	//step4
-	//send ok response and login user if the comparison matches
-	//else , show error
-	//BRO i am on a call, I have not left discord
+	// step 3
+	// checking if user exists or not
+	if (!user) {
+		// return res
+		// 	.status(400)
+		// 	.json({ errors: [{ msg: 'Invalid Credentials' }] });
+		console.log("Inavalid Credentials");
+	}
+
+	//step 4
+	//compare the req.body.password with the password in the database
+	const isMatch = await bcrypt.compare(password, user.password);
+
+	//step 5
+	//if password not matched then return error
+	if (!isMatch) {
+		return res.status(400).json("Mobile No. or Password is incorrect");
+	}
+
+	// step 6
+	//if password matched then create the token
+
+	// creating payload for the JWT
+	const payload = {
+		user: {
+			id: user.id,
+		},
+	};
+
+	// step 7
+	// Creating the JWT token
+	const token = jwt.sign(
+		payload,
+		process.env.JWT_SECRET,
+		{ expiresIn: "5 days" },
+		(err, token) => {
+			if (err) throw err;
+			res.json({ token });
+			console.log("TOKEN: ", res.json({ token }));
+		}
+	);
 };
