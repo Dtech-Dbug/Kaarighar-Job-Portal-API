@@ -5,5 +5,5 @@ export const registerUser = async (values) => {
 };
 
 export const loginUser = async (values) => {
-	return await axios.post("http://localhost:8000/api/login");
+	return await axios.post("http://localhost:8000/api/login", { values });
 };
