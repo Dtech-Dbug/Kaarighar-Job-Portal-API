@@ -151,7 +151,7 @@ exports.loginUser = async (req, res) => {
 		);
 	} catch (err) {
 		console.error(err.message);
-		console.log('ERROR WHILE LOGGING IN__>', err);
+		console.log('ERROR WHILE LOGGING IN-->', err);
 		res.status(500).send('Server error');
 	}
 };
