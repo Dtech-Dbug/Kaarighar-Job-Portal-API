@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 //importinf functions to make reqs to backend
-import { registerUser } from "../../functions/registerUser";
+import { registerUser } from "../../functions/userAuth";
 
 const Register = () => {
 	const handleClick = (e) => {
