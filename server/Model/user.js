@@ -1,31 +1,29 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
 	{
 		firstName: {
 			type: String,
-			required: "Name is Required",
+			required: 'Name is Required',
 		},
 		lastName: {
 			type: String,
-			required: "Name is Required",
+			required: 'Name is Required',
 		},
 		email: String,
 
 		mobileNumber: {
-			type: Number,
-			required: "Name is Required",
+			type: String,
+			required: 'Name is Required',
 		},
 		aadharCard: {
-			type: Number,
-			required: true,
+			type: String,
 		},
 		panCard: Number,
 
 		address: {
 			type: String,
-			required: true,
 		},
 		pinCode: Number,
 
@@ -34,10 +32,10 @@ const userSchema = new Schema(
 
 		role: {
 			type: String,
-			enum: ["Admin", "Job Seeker", "Recruiter"],
+			enum: ['Admin', 'Job Seeker', 'Recruiter'],
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 );
 
-module.exports = mongoose.model("USER", userSchema);
+module.exports = mongoose.model('USER', userSchema);

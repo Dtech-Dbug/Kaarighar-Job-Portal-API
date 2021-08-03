@@ -1,32 +1,32 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 //importinf functions to make reqs to backend
-import { registerUser } from "../../functions/registerUser";
+import { registerUser } from '../../functions/registerUser';
 
 const Register = () => {
 	const handleClick = (e) => {
 		e.preventDefault();
-		console.log("handleClick");
+		console.log('handleClick');
 		console.table(formValue);
 
 		registerUser(formValue)
-			.then((res) => alert("User Saved"))
+			.then((res) => alert('User Saved'))
 			.catch((err) => alert(err));
 	};
 
 	const [formValue, setFormValue] = useState({
-		firstName: "john",
-		lastName: "doe",
-		mobileNumber: "1234567890",
-		email: "johndoe@gmail.com",
-		password: "password",
-		aadharNumber: "14632161566",
-		panNumber: "12345678d9",
+		firstName: 'john',
+		lastName: 'doe',
+		mobileNumber: '1234567890',
+		email: 'johndoe@gmail.com',
+		password: 'password',
+		aadharCard: '14632161566',
+		panCard: '12345678d9',
 		address:
-			"B-201 Triveni Residency Plot No. 23-24 Shree Narayan Nagar Society Near VEG. Market",
-		city: "Surat",
-		pinCode: "395004",
-		role: "admin",
+			'B-201 Triveni Residency Plot No. 23-24 Shree Narayan Nagar Society Near VEG. Market',
+		city: 'Surat',
+		pinCode: '395004',
+		role: 'admin',
 	});
 
 	const handleChange = (event) => {
@@ -53,11 +53,10 @@ const Register = () => {
 						Sign up to your account
 					</h2>
 					<p className="mt-2 text-center text-sm text-gray-600">
-						Or{" "}
+						Or{' '}
 						<a
 							href="/#"
-							className="font-medium text-indigo-600 hover:text-indigo-500"
-						>
+							className="font-medium text-indigo-600 hover:text-indigo-500">
 							Sign in to your account
 						</a>
 					</p>
@@ -69,16 +68,16 @@ const Register = () => {
 							<div className="w-1/2 mr-1">
 								<label
 									className="block  text-grey-darker text-sm font-bold mb-2"
-									htmlFor="first_name"
-								>
-									First Name <span className="text-red-900">*</span>
+									htmlFor="first_name">
+									First Name{' '}
+									<span className="text-red-900">*</span>
 								</label>
 								<input
 									className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 									name="firstName"
 									type="text"
 									required
-									value={formValue.firstName || ""}
+									value={formValue.firstName || ''}
 									placeholder="Yout first name"
 									onChange={handleChange}
 								/>
@@ -86,16 +85,16 @@ const Register = () => {
 							<div className="w-1/2 ml-1">
 								<label
 									className="block text-grey-darker text-sm font-bold mb-2"
-									htmlFor="last_name"
-								>
-									Last Name <span className="text-red-900">*</span>
+									htmlFor="last_name">
+									Last Name{' '}
+									<span className="text-red-900">*</span>
 								</label>
 								<input
 									className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 									name="lastName"
 									type="text"
 									required
-									value={formValue.lastName || ""}
+									value={formValue.lastName || ''}
 									placeholder="Your last name"
 									onChange={handleChange}
 								/>
@@ -104,9 +103,9 @@ const Register = () => {
 						<div className="mb-4 mr-1">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="mobile-number"
-							>
-								Mobile No. <span className="text-red-900">*</span>
+								htmlFor="mobile-number">
+								Mobile No.{' '}
+								<span className="text-red-900">*</span>
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -114,15 +113,14 @@ const Register = () => {
 								name="mobileNumber"
 								type="tel"
 								placeholder="Your mobile no."
-								value={formValue.mobileNumber || ""}
+								value={formValue.mobileNumber || ''}
 								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4 ">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="email-address"
-							>
+								htmlFor="email-address">
 								Email Address
 							</label>
 							<input
@@ -131,48 +129,46 @@ const Register = () => {
 								type="email"
 								required
 								placeholder="Your email address"
-								value={formValue.email || ""}
+								value={formValue.email || ''}
 								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="aadhar-no"
-							>
-								Aadhar Card No. <span className="text-red-900">*</span>
+								htmlFor="aadharCard">
+								Aadhar Card No.{' '}
+								<span className="text-red-900">*</span>
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 								type="text"
 								required
-								name="aadharNo"
+								name="aadharCard"
 								placeholder="Your aadhar no."
-								value={formValue.aadharNo || ""}
+								value={formValue.aadharCard || ''}
 								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="pan-no"
-							>
+								htmlFor="pan-no">
 								Pan Card No.
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 								type="text"
-								name="panNo"
+								name="panCard"
 								placeholder="Your pan no"
-								value={formValue.panNo || ""}
+								value={formValue.panCard || ''}
 								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="password"
-							>
+								htmlFor="password">
 								Password <span className="text-red-900">*</span>
 							</label>
 							<input
@@ -181,15 +177,14 @@ const Register = () => {
 								type="password"
 								required
 								placeholder="Password"
-								value={formValue.password || ""}
+								value={formValue.password || ''}
 								onChange={handleChange}
 							/>
 						</div>
 						<div className="mb-4">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="password"
-							>
+								htmlFor="password">
 								Address <span className="text-red-900">*</span>
 							</label>
 							<input
@@ -198,7 +193,7 @@ const Register = () => {
 								type="text"
 								required
 								placeholder="Your address"
-								value={formValue.address || ""}
+								value={formValue.address || ''}
 								onChange={handleChange}
 							/>
 						</div>
@@ -206,9 +201,9 @@ const Register = () => {
 							<div className="w-1/2 mr-1">
 								<label
 									className="block  text-grey-darker text-sm font-bold mb-2"
-									htmlFor="pincode"
-								>
-									Pincode <span className="text-red-900">*</span>
+									htmlFor="pincode">
+									Pincode{' '}
+									<span className="text-red-900">*</span>
 								</label>
 								<input
 									className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -216,15 +211,14 @@ const Register = () => {
 									name="pincode"
 									required
 									placeholder="Yout pincode"
-									value={formValue.pincode || ""}
+									value={formValue.pincode || ''}
 									onChange={handleChange}
 								/>
 							</div>
 							<div className="w-1/2 ml-1 mb-1">
 								<label
 									className="block text-grey-darker text-sm font-bold mb-2"
-									htmlFor="city"
-								>
+									htmlFor="city">
 									City <span className="text-red-900">*</span>
 								</label>
 								<input
@@ -233,7 +227,7 @@ const Register = () => {
 									name="city"
 									required
 									placeholder="Your city"
-									value={formValue.city || ""}
+									value={formValue.city || ''}
 									onChange={handleChange}
 								/>
 							</div>
@@ -260,8 +254,7 @@ const Register = () => {
 						<button
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-							onClick={handleClick}
-						>
+							onClick={handleClick}>
 							<span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
 							Sign up
 						</button>

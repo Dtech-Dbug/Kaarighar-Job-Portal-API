@@ -11,7 +11,7 @@ exports.registerUser = async (req, res) => {
 	console.log(req.body);
 
 	//doactions here , move the call back function to a seperate controller folder for better structure
-
+	console.log("req.body: ", req.body);
 	const {
 		firstName,
 		lastName,
@@ -71,6 +71,7 @@ exports.registerUser = async (req, res) => {
 		// };
 
 		// Creating the JWT token
+
 		// jwt.sign(
 		// 	payload,
 		// 	process.env.JWT_SECRET,
@@ -80,6 +81,17 @@ exports.registerUser = async (req, res) => {
 		// 		res.json({ token });
 		// 	}
 		// );
+		// =======
+		// 		jwt.sign(
+		// 			payload,
+		// 			process.env.JWT_SECRET,
+		// 			{ expiresIn: '5 days' },
+		// 			(err, token) => {
+		// 				if (err) throw err;
+		// 				res.json({ token });
+		// 			},
+		// 		);
+		// >>>>>>> f4d7968f2fc6a290f173971cecbbafa0e0bb2e92
 	} catch (err) {
 		console.error(err.message);
 		console.log("ERROR WHILE RESGISTERING__>", err);
