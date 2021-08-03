@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-import { loginUser } from '../../functions/userAuth';
+import React, { useState } from "react";
+import { loginUser } from "../../functions/userAuth";
 
 const Login = () => {
 	const handleClick = (e) => {
 		e.preventDefault();
-		console.log('handleClick');
+		console.log("handleClick");
 		console.table(formValue);
 
 		loginUser(formValue)
 			.then((res) => {
-				console.log(res);
+				console.log("RESPONSE FROM LOGIN-->", res);
+				if (res.data.login) {
+					alert("Begin Your Session.You are logged In");
+				}
 			})
 			.catch((err) => alert(err));
 	};
 
 	const [formValue, setFormValue] = useState({
-		mobileNumber: '1234567890',
-		password: 'pass1234',
+		mobileNumber: "1234567890",
+		password: "pass1234",
 	});
 
 	const handleChange = (event) => {
@@ -43,10 +46,11 @@ const Login = () => {
 						Sign in to your account
 					</h2>
 					<p className="mt-2 text-center text-sm text-gray-600">
-						Or{' '}
+						Or{" "}
 						<a
 							href="/register"
-							className="font-medium text-indigo-600 hover:text-indigo-500">
+							className="font-medium text-indigo-600 hover:text-indigo-500"
+						>
 							Create an new account
 						</a>
 					</p>
@@ -57,9 +61,9 @@ const Login = () => {
 						<div className="mb-4 mr-1">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="mobile-number">
-								Mobile No.{' '}
-								<span className="text-red-900">*</span>
+								htmlFor="mobile-number"
+							>
+								Mobile No. <span className="text-red-900">*</span>
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -67,7 +71,7 @@ const Login = () => {
 								name="mobileNumber"
 								type="tel"
 								placeholder="Your mobile no."
-								value={formValue.mobileNumber || ''}
+								value={formValue.mobileNumber || ""}
 								onChange={handleChange}
 							/>
 						</div>
@@ -75,7 +79,8 @@ const Login = () => {
 						<div className="mb-4">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="password">
+								htmlFor="password"
+							>
 								Password <span className="text-red-900">*</span>
 							</label>
 							<input
@@ -84,7 +89,7 @@ const Login = () => {
 								type="password"
 								required
 								placeholder="Password"
-								value={formValue.password || ''}
+								value={formValue.password || ""}
 								onChange={handleChange}
 							/>
 						</div>
@@ -94,7 +99,8 @@ const Login = () => {
 						<button
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-							onClick={handleClick}>
+							onClick={handleClick}
+						>
 							<span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
 							Sign in
 						</button>

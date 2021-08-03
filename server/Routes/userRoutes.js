@@ -11,12 +11,15 @@ const {
 	registerUser,
 	loginUser,
 	getUserByID,
+	getUsers,
 } = require('../Controllers/registerUser');
-
 
 //routes
 router.get('/user', auth, getUserByID);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+
+//get users
+router.get('/users', getUsers);
 
 module.exports = router;

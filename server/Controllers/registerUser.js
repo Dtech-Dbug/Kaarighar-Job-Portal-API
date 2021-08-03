@@ -65,6 +65,9 @@ exports.registerUser = async (req, res) => {
 		//save user
 		const userSaved = await user.save();
 
+		//save user
+		const userSaved = await user.save();
+
 		const payload = {
 			user: {
 				id: user.id, // null.id
@@ -83,6 +86,7 @@ exports.registerUser = async (req, res) => {
 		);
 	} catch (err) {
 		console.error(err.message);
+
 		console.log('ERROR WHILE RESGISTERING-->', err);
 		res.status(500).send('Server error');
 	}
@@ -135,4 +139,57 @@ exports.loginUser = async (req, res) => {
 		console.log('ERROR WHILE LOGGING IN-->', err);
 		res.status(500).send('Server error');
 	}
+
+	//get the logIn details from frontend
+	console.log(req.body);
+
+	const { mobileNumber, password } = req.body.values;
+
+	const user = await UserModel.findOne({ mobileNumber }).exec();
+
+	// checking if user exists or not
+	if (!user) {
+		// return res
+		// 	.status(400)
+		// 	.json({ errors: [{ msg: 'Invalid Credentials' }] });
+		console.log('Inavalid Credentials');
+	}
+
+	//compare the req.body.password with the password in the database
+	const isMatch = await bcrypt.compare(password, user.password);
+
+	//if password not matched then return error
+	if (!isMatch) {
+		return res.status(400).json('Mobile No. or Password is incorrect');
+	}
+
+	//if password matched then create the token
+	else if (user) {
+		console.log('USER MATCHED');
+		res.json({ login: true });
+	}
+
+	// creating payload for the JWT
+	const payload = {
+		user: {
+			id: user.id,
+		},
+	};
+
+	// Creating the JWT token
+	const token = jwt.sign(
+		payload,
+		process.env.JWT_SECRET,
+		{ expiresIn: '5 days' },
+		(err, token) => {
+			if (err) throw err;
+			res.json({ token });
+			console.log('TOKEN: ', res.json({ token }));
+		},
+	);
+};
+
+exports.getUsers = async (req, res) => {
+	const allUsers = await UserModel.find().exec();
+	res.json(allUsers);
 };
