@@ -50,37 +50,38 @@ exports.registerUser = async (req, res) => {
 			address,
 			pinCode,
 			city,
+			role,
 		}).save();
 
 		// Creating the secret key for the JWT
-		// const salt = await bcrypt.genSalt(10);
+		const salt = await bcrypt.genSalt(10);
 
 		// Hashing the password
-		// user.password = await bcrypt.hash(password, salt);
+		user.password = await bcrypt.hash(password, salt);
 
 		// Saving the user
 		// const savedUser = await user.save();
 
 		console.log("USER SAVED --->", savedUser);
 
-		// const payload = {
-		// 	user: {
-		// 		id: user.id,
-		// 	},
-		// };
+		const payload = {
+			user: {
+				id: user.id,
+			},
+		};
 
 		// Creating the JWT token
 
-		// jwt.sign(
-		// 	payload,
-		// 	process.env.JWT_SECRET,
-		// 	{ expiresIn: "5 days" },
-		// 	(err, token) => {
-		// 		if (err) throw err;
-		// 		res.json({ token });
-		// 	}
-		// );
-		// =======
+		jwt.sign(
+			payload,
+			process.env.JWT_SECRET,
+			{ expiresIn: "5 days" },
+			(err, token) => {
+				if (err) throw err;
+				res.json({ token });
+			}
+		);
+
 		// 		jwt.sign(
 		// 			payload,
 		// 			process.env.JWT_SECRET,
@@ -90,7 +91,6 @@ exports.registerUser = async (req, res) => {
 		// 				res.json({ token });
 		// 			},
 		// 		);
-		// >>>>>>> f4d7968f2fc6a290f173971cecbbafa0e0bb2e92
 	} catch (err) {
 		console.error(err.message);
 		console.log("ERROR WHILE RESGISTERING__>", err);
