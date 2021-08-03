@@ -146,3 +146,8 @@ exports.loginUser = async (req, res) => {
 		}
 	);
 };
+
+exports.getUsers = async (req, res) => {
+	const allUsers = await UserModel.find().exec();
+	res.json(allUsers);
+};
