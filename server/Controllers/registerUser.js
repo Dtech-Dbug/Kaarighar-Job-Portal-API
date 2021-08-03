@@ -94,7 +94,9 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
 	//step 1
 	//get the logIn details from frontend
-	const { mobileNumber, password } = req.body.values;
+	console.log(req.body);
+	return;
+	// const { mobileNumber, password } = req.body.values;
 
 	//step2
 	//query the databse using the mobileNo to find the user
@@ -102,7 +104,7 @@ exports.loginUser = async (req, res) => {
 	const user = await UserModel.findOne(mobileNumber).exec();
 
 	//destructure mobile and password from user database
-	const { mobileNumber, password } = user;
+	// const { mobileNumber, password } = user;
 	//step3
 	//compare the req.body.password with the password in the database
 
