@@ -17,7 +17,7 @@ exports.registerUser = async (req, res) => {
 		firstName,
 		lastName,
 		email,
-		password,
+
 		mobileNumber,
 		aadharCard,
 		panCard,
@@ -27,12 +27,16 @@ exports.registerUser = async (req, res) => {
 		role,
 	} = req.body.values;
 
+	var { password } = req.body.values;
+
 	//@desc: Creating user using register route
 	//@input: Registet from data
 	//@output: JWT token for user (with expiry)
 
 	try {
 		let user = await UserModel.findOne({ mobileNumber });
+
+		console.log("USER--->", user);
 
 		if (user) {
 			return res.json({ ok: true });
@@ -53,20 +57,17 @@ exports.registerUser = async (req, res) => {
 			role,
 		}).save();
 
+		console.log("USER SAVED --->", savedUser);
 		// Creating the secret key for the JWT
 		const salt = await bcrypt.genSalt(10);
 
 		// Hashing the password
-		user.password = await bcrypt.hash(password, salt);
+		savedUser.password = await bcrypt.hash(password, salt);
 
-		// Saving the user
-		// const savedUser = await user.save();
-
-		console.log("USER SAVED --->", savedUser);
-
+		//
 		const payload = {
 			user: {
-				id: user.id,
+				id: savedUser.id, // null.id
 			},
 		};
 
@@ -81,16 +82,6 @@ exports.registerUser = async (req, res) => {
 				res.json({ token });
 			}
 		);
-
-		// 		jwt.sign(
-		// 			payload,
-		// 			process.env.JWT_SECRET,
-		// 			{ expiresIn: '5 days' },
-		// 			(err, token) => {
-		// 				if (err) throw err;
-		// 				res.json({ token });
-		// 			},
-		// 		);
 	} catch (err) {
 		console.error(err.message);
 		console.log("ERROR WHILE RESGISTERING__>", err);
