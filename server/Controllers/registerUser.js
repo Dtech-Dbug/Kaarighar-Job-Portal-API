@@ -1,17 +1,18 @@
-const UserModel = require("../Model/user");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const UserModel = require('../Model/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.dummy = async (req, res) => {
-	console.log("Dummy woute getting request");
+	console.log('Dummy woute getting request');
 };
 
 exports.registerUser = async (req, res) => {
-	console.log("Hello, RegisterApi ");
+	console.log('Hello, RegisterApi ');
 	console.log(req.body);
 
 	//doactions here , move the call back function to a seperate controller folder for better structure
-	console.log("req.body: ", req.body);
+	console.log('req.body: ', req.body);
+
 	const {
 		firstName,
 		lastName,
@@ -59,7 +60,7 @@ exports.registerUser = async (req, res) => {
 		// Saving the user
 		// const savedUser = await user.save();
 
-		console.log("USER SAVED --->", savedUser);
+		console.log('USER SAVED --->', savedUser);
 
 		// const payload = {
 		// 	user: {
@@ -91,7 +92,7 @@ exports.registerUser = async (req, res) => {
 		// >>>>>>> f4d7968f2fc6a290f173971cecbbafa0e0bb2e92
 	} catch (err) {
 		console.error(err.message);
-		console.log("ERROR WHILE RESGISTERING__>", err);
-		res.status(500).send("Server error");
+		console.log('ERROR WHILE RESGISTERING__>', err);
+		res.status(500).send('Server error');
 	}
 };
