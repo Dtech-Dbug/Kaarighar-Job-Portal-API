@@ -8,6 +8,8 @@ exports.dummy = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
 	console.log("Hello, RegisterApi ");
+	console.log(req.body);
+
 	//doactions here , move the call back function to a seperate controller folder for better structure
 
 	const {
@@ -21,7 +23,7 @@ exports.registerUser = async (req, res) => {
 		address,
 		pincode,
 		hometown,
-	} = req.body;
+	} = req.body.values;
 
 	//@desc: Creating user using register route
 	//@input: Registet from data
@@ -52,30 +54,32 @@ exports.registerUser = async (req, res) => {
 		});
 
 		// Creating the secret key for the JWT
-		const salt = await bcrypt.genSalt(10);
+		// const salt = await bcrypt.genSalt(10);
 
 		// Hashing the password
-		user.password = await bcrypt.hash(password, salt);
+		// user.password = await bcrypt.hash(password, salt);
 
 		// Saving the user
-		await user.save();
+		const savedUser = await user.save();
 
-		const payload = {
-			user: {
-				id: user.id,
-			},
-		};
+		console.log(saveduser);
+
+		// const payload = {
+		// 	user: {
+		// 		id: user.id,
+		// 	},
+		// };
 
 		// Creating the JWT token
-		jwt.sign(
-			payload,
-			process.env.JWT_SECRET,
-			{ expiresIn: "5 days" },
-			(err, token) => {
-				if (err) throw err;
-				res.json({ token });
-			}
-		);
+		// jwt.sign(
+		// 	payload,
+		// 	process.env.JWT_SECRET,
+		// 	{ expiresIn: "5 days" },
+		// 	(err, token) => {
+		// 		if (err) throw err;
+		// 		res.json({ token });
+		// 	}
+		// );
 	} catch (err) {
 		console.error(err.message);
 		console.log("ERROR WHILE RESGISTERING__>", err);
