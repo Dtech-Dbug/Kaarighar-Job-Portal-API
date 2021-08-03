@@ -21,8 +21,8 @@ exports.registerUser = async (req, res) => {
 		aadharCard,
 		panCard,
 		address,
-		pincode,
-		hometown,
+		pinCode,
+		city,
 	} = req.body.values;
 
 	//@desc: Creating user using register route
@@ -33,14 +33,11 @@ exports.registerUser = async (req, res) => {
 		let user = await UserModel.findOne({ mobileNumber });
 
 		if (user) {
-			return res
-				.status(400)
-				.status(400)
-				.json({ errros: [{ msg: "User already exits" }] });
+			return res.json({ ok: true });
 		}
 
-		// Creating user object
-		user = await UserModel({
+		// Creating user object and save
+		const savedUser = await new UserModel({
 			firstName,
 			lastName,
 			email,
@@ -49,9 +46,9 @@ exports.registerUser = async (req, res) => {
 			aadharCard,
 			panCard,
 			address,
-			pincode,
-			hometown,
-		});
+			pinCode,
+			city,
+		}).save();
 
 		// Creating the secret key for the JWT
 		// const salt = await bcrypt.genSalt(10);
@@ -60,9 +57,9 @@ exports.registerUser = async (req, res) => {
 		// user.password = await bcrypt.hash(password, salt);
 
 		// Saving the user
-		const savedUser = await user.save();
+		// const savedUser = await user.save();
 
-		console.log(saveduser);
+		console.log("USER SAVED --->", savedUser);
 
 		// const payload = {
 		// 	user: {
