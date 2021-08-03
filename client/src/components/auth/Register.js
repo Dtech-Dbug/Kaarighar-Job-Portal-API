@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 
+//importinf functions to make reqs to backend
+import { registerUser } from "../../functions/registerUser";
+
 const Register = () => {
-	const handleClick = () => {
+	const handleClick = (e) => {
+		e.preventDefault();
 		console.log("handleClick");
 		console.table(formValue);
+
+		registerUser(formValue)
+			.then((res) => alert("User Saved"))
+			.catch((err) => alert(err));
 	};
 
 	const [formValue, setFormValue] = useState({
