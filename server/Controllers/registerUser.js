@@ -17,7 +17,6 @@ exports.registerUser = async (req, res) => {
 		firstName,
 		lastName,
 		email,
-
 		mobileNumber,
 		aadharCard,
 		panCard,
@@ -43,7 +42,7 @@ exports.registerUser = async (req, res) => {
 		}
 
 		// Creating user object and save
-		const savedUser = await new UserModel({
+		user = new UserModel({
 			firstName,
 			lastName,
 			email,
@@ -55,19 +54,22 @@ exports.registerUser = async (req, res) => {
 			pinCode,
 			city,
 			role,
-		}).save();
+		});
 
-		console.log("USER SAVED --->", savedUser);
 		// Creating the secret key for the JWT
 		const salt = await bcrypt.genSalt(10);
 
 		// Hashing the password
-		savedUser.password = await bcrypt.hash(password, salt);
+		user.password = await bcrypt.hash(password, salt);
+		console.log("PASSWORD HASHED--->", user.password);
 
-		//
+		//save user
+		const userSaved = await user.save();
+		console.log("USER ____>", userSaved);
+
 		const payload = {
 			user: {
-				id: savedUser.id, // null.id
+				id: user.id, // null.id
 			},
 		};
 
