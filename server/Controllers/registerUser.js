@@ -95,19 +95,10 @@ exports.loginUser = async (req, res) => {
 	//step 1
 	//get the logIn details from frontend
 	console.log(req.body);
-	return;
-	// const { mobileNumber, password } = req.body.values;
 
-	const mobileNumber = 8758549166;
-	const password = "qwerty123";
+	const { mobileNumber, password } = req.body.values;
 
-	console.log("mobileNumber: ", mobileNumber);
-	console.log("password: ", password);
-
-	//destructure mobile and password from user database
-	// const { mobileNumber, password } = user;
-	//step3
-	//compare the req.body.password with the password in the database
+	const user = await UserModel.findOne({ mobileNumber }).exec();
 
 	// step 3
 	// checking if user exists or not
@@ -130,6 +121,10 @@ exports.loginUser = async (req, res) => {
 
 	// step 6
 	//if password matched then create the token
+	else if (user) {
+		console.log("USER MATCHED");
+		res.json({ login: true });
+	}
 
 	// creating payload for the JWT
 	const payload = {
