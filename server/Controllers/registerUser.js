@@ -90,3 +90,15 @@ exports.registerUser = async (req, res) => {
 		res.status(500).send("Server error");
 	}
 };
+
+exports.loginUser = async (req, res) => {
+	//step 1
+	//get the logIn details from frontend
+	//step2
+	//query the databse using the mobileNo to find the user
+	//step3
+	//compare the req.body.password with the password in the database
+	//step4
+	//send ok response and login user if the comparison matches
+	//else , show error
+};
