@@ -5,7 +5,11 @@ const router = express.Router();
 //middlewares
 
 //controllers
-const { dummy, registerUser } = require("../Controllers/registerUser");
+const {
+	dummy,
+	registerUser,
+	loginUser,
+} = require("../Controllers/registerUser");
 
 router.get("/", (req, res) => {
 	console.log("get /");
@@ -13,5 +17,6 @@ router.get("/", (req, res) => {
 
 //routes
 router.post("/register", registerUser);
+router.post("/login", loginUser);
 
 module.exports = router;
