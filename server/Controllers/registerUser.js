@@ -1,3 +1,7 @@
+const UserModel = require("../Model/user");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 exports.dummy = async (req, res) => {
 	console.log("Dummy woute getting request");
 };
@@ -74,6 +78,7 @@ exports.registerUser = async (req, res) => {
 		);
 	} catch (err) {
 		console.error(err.message);
+		console.log("ERROR WHILE RESGISTERING__>", err);
 		res.status(500).send("Server error");
 	}
 };
