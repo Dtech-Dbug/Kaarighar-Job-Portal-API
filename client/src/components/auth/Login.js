@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
+import { loginUser } from '../../functions/userAuth';
 
 const Login = () => {
 	const handleClick = (e) => {
 		e.preventDefault();
 		console.log('handleClick');
 		console.table(formValue);
+
+		loginUser(formValue)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => alert(err));
 	};
 
 	const [formValue, setFormValue] = useState({
