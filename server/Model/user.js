@@ -17,6 +17,7 @@ const userSchema = new Schema(
 			type: String,
 			required: "Name is Required",
 		},
+		password: String,
 		aadharCard: {
 			type: String,
 		},
