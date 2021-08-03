@@ -2,17 +2,17 @@ const UserModel = require('../Model/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-exports.dummy = async (req, res) => {
-	console.log('Dummy woute getting request');
+exports.getUserByID = async (req, res) => {
+	try {
+		const user = await UserModel.findById(req.user.id).select('-password');
+		res.json(user);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
 };
 
 exports.registerUser = async (req, res) => {
-	console.log('Hello, RegisterApi ');
-	console.log(req.body);
-
-	//doactions here , move the call back function to a seperate controller folder for better structure
-	console.log('req.body: ', req.body);
-
 	const {
 		firstName,
 		lastName,
@@ -61,11 +61,9 @@ exports.registerUser = async (req, res) => {
 
 		// Hashing the password
 		user.password = await bcrypt.hash(password, salt);
-		console.log('PASSWORD HASHED--->', user.password);
 
 		//save user
 		const userSaved = await user.save();
-		console.log('USER --->', userSaved);
 
 		const payload = {
 			user: {
@@ -74,7 +72,6 @@ exports.registerUser = async (req, res) => {
 		};
 
 		// Creating the JWT token
-
 		jwt.sign(
 			payload,
 			process.env.JWT_SECRET,
@@ -86,58 +83,43 @@ exports.registerUser = async (req, res) => {
 		);
 	} catch (err) {
 		console.error(err.message);
-		console.log('ERROR WHILE RESGISTERING__>', err);
+		console.log('ERROR WHILE RESGISTERING-->', err);
 		res.status(500).send('Server error');
 	}
 };
 
 exports.loginUser = async (req, res) => {
 	try {
-		console.log('req -> body --->', req.body);
-		//step 1
 		//get the logIn details from frontend
-		// let { mobileNumber, password } = req.body.values;
+		const { mobileNumber, password } = req.body.values;
 
-		const mobileNumber = 8758549166;
-		const password = 'qwerty123';
-
-		console.log('mobileNumber: ', mobileNumber);
-		console.log('password: ', password);
-
-		//step2
 		//query the databse using the mobileNo to find the user
 		let user = await UserModel.findOne({ mobileNumber });
 
-		// step 3
 		// checking if user exists or not
 		if (!user) {
-			// return res
-			// 	.status(400)
-			// 	.json({ errors: [{ msg: 'Invalid Credentials' }] });
-			console.log('Inavalid Credentials');
+			return res
+				.status(400)
+				.json({ errors: [{ msg: 'Invalid Credentials' }] });
 		}
 
-		//step 4
 		//compare the req.body.password with the password in the database
 		const isMatch = await bcrypt.compare(password, user.password);
 
-		//step 5
 		//if password not matched then return error
 		if (!isMatch) {
 			return res.status(400).json('Mobile No. or Password is incorrect');
 		}
 
-		// step 6
 		//if password matched then create the token
 
-		// creating payload for the JWT
+		// passing payload for the JWT
 		const payload = {
 			user: {
 				id: user.id,
 			},
 		};
 
-		// step 7
 		// Creating the JWT token
 		const token = jwt.sign(
 			payload,
@@ -146,7 +128,6 @@ exports.loginUser = async (req, res) => {
 			(err, token) => {
 				if (err) throw err;
 				res.json({ token });
-				console.log('TOKEN: ', res.json({ token }));
 			},
 		);
 	} catch (err) {
