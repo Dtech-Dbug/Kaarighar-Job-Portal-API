@@ -12,6 +12,17 @@ exports.getUserByID = async (req, res) => {
 	}
 };
 
+exports.getAdmin = async (req, res) => {
+	try {
+		const admin = await UserModel.findOne({ role: 'Admin' });
+		res.json(admin);
+		console.log(admin);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+};
+
 exports.registerUser = async (req, res) => {
 	const {
 		firstName,
@@ -65,12 +76,10 @@ exports.registerUser = async (req, res) => {
 		//save user
 		const userSaved = await user.save();
 
-		//save user
-		const userSaved = await user.save();
-
 		const payload = {
 			user: {
-				id: user.id, // null.id
+				id: user.id, 
+				role: user.role
 			},
 		};
 
@@ -121,6 +130,7 @@ exports.loginUser = async (req, res) => {
 		const payload = {
 			user: {
 				id: user.id,
+				role: user.role,
 			},
 		};
 
