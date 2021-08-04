@@ -28,6 +28,6 @@ router.get("/admin", auth, userRole, getAdmin);
 
 //verifying users(recruiters)
 //only performed by admin so we pass both auth and userRole middleware
-router.get("/admin/verifyuser", auth, userRole, verifyUsers);
+router.post("/admin/verifyuser", auth, userRole, verifyUsers);
 
 module.exports = router;
