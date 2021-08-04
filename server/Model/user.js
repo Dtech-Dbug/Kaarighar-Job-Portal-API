@@ -38,7 +38,7 @@ const userSchema = new Schema(
 			enum: ["Admin", "Job Seeker", "Recruiter"],
 		},
 
-		approved: { type: Boolean, default: false },
+		verified: { type: Boolean, default: false },
 	},
 	{ timestamps: true }
 );
