@@ -78,8 +78,8 @@ exports.registerUser = async (req, res) => {
 
 		const payload = {
 			user: {
-				id: user.id, 
-				role: user.role
+				id: user.id,
+				role: user.role,
 			},
 		};
 
@@ -201,5 +201,6 @@ exports.loginUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
 	const allUsers = await UserModel.find().exec();
-	res.json(allUsers);
+	const users = allUsers.filter((user) => user.role !== 'Admin');
+	res.json(users);
 };
