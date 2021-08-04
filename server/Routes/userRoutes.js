@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 
 //middlewares
-const { auth, userRole } = require('../Middleware/auth');
+const { auth, userRole } = require("../Middleware/auth");
 
 const router = express.Router();
 
@@ -12,17 +12,22 @@ const {
 	getUserByID,
 	getUsers,
 	getAdmin,
-} = require('../Controllers/user');
+	verifyUsers,
+} = require("../Controllers/user");
 
 //routes
-router.post('/register', registerUser);
-router.post('/login', loginUser);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
 
 //get users
-router.get('/user', auth, getUserByID);
-router.get('/users', auth, getUsers);
+router.get("/user", auth, getUserByID);
+router.get("/users", auth, getUsers);
 
 //admin
-router.get('/admin', auth, userRole, getAdmin);
+router.get("/admin", auth, userRole, getAdmin);
+
+//verifying users(recruiters)
+//only performed by admin so we pass both auth and userRole middleware
+router.get("/admin/verifyuser", auth, userRole, verifyUsers);
 
 module.exports = router;
