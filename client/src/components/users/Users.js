@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { verifyUser, getAllUsers } from '../../functions/users';
+import React, { useState, useEffect } from "react";
+import { verifyUser, getAllUsers } from "../../functions/users";
 
 const Users = () => {
 	const [usersList, setUsersList] = useState([]);
@@ -9,15 +9,11 @@ const Users = () => {
 	useEffect(() => {
 		getAllUsers().then((res) => setUsersList(res.data));
 
-		console.log(usersList);t
+		console.log(usersList);
 		if (usersList.length) {
-			const jobSeekers = usersList.filter(
-				(user) => user.role === 'Job Seeker',
-			);
+			const jobSeekers = usersList.filter((user) => user.role === "Job Seeker");
 
-			const recruiters = usersList.filter(
-				(user) => user.role === 'Recruiter',
-			);
+			const recruiters = usersList.filter((user) => user.role === "Recruiter");
 			setJobSeekerList(jobSeekers);
 			setRecruiterList(recruiters);
 		}
@@ -27,13 +23,13 @@ const Users = () => {
 			<h1 className="text-xl">Users</h1>
 			<div>
 				{jobSeekerList.length
-					? console.log('Job Skeers =>', jobSeekerList)
-					: 'null'}
+					? console.log("Job Skeers =>", jobSeekerList)
+					: "null"}
 			</div>
 			<div>
 				{recruiterList.length
-					? console.log('Recruiters =>', recruiterList)
-					: 'null'}
+					? console.log("Recruiters =>", recruiterList)
+					: "null"}
 			</div>
 		</div>
 	);
