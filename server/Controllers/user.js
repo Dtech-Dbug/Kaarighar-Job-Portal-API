@@ -174,27 +174,25 @@ exports.loginUser = async (req, res) => {
 	//if password matched then create the token
 	else if (user) {
 		console.log("USER MATCHED");
-		res.json({ login: true });
+		// creating payload for the JWT
+		const payload = {
+			user: {
+				id: user.id,
+			},
+		};
+
+		// Creating the JWT token
+		const token = jwt.sign(
+			payload,
+			process.env.JWT_SECRET,
+			{ expiresIn: "5 days" },
+			(err, token) => {
+				if (err) throw err;
+				res.json({ token, login: true });
+				console.log("TOKEN: ", res.json({ token }));
+			}
+		);
 	}
-
-	// creating payload for the JWT
-	const payload = {
-		user: {
-			id: user.id,
-		},
-	};
-
-	// Creating the JWT token
-	const token = jwt.sign(
-		payload,
-		process.env.JWT_SECRET,
-		{ expiresIn: "5 days" },
-		(err, token) => {
-			if (err) throw err;
-			res.json({ token });
-			console.log("TOKEN: ", res.json({ token }));
-		}
-	);
 };
 
 exports.getUsers = async (req, res) => {
