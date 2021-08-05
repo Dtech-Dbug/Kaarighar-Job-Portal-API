@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../../functions/userAuth";
 
-const Login = () => {
+const Login = ({ history }) => {
 	const handleClick = (e) => {
 		e.preventDefault();
 		console.log("handleClick");
@@ -10,8 +10,8 @@ const Login = () => {
 		loginUser(formValue)
 			.then((res) => {
 				console.log("RESPONSE FROM LOGIN-->", res);
-				if (res.data.login) {
-					alert("Begin Your Session.You are logged In");
+				if (res.data.login && res.data.token) {
+					history.push("/users");
 				}
 			})
 			.catch((err) => alert(err));
