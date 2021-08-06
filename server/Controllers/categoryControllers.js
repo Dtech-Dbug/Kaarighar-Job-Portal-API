@@ -5,16 +5,19 @@ const CATEGORIES = require("../Model/jobCategories");
 
 exports.createCategory = async (req, res) => {
 	try {
-		const { title } = req.body;
+		console.log("REQ FOR CREATING CATEGORY", req.body);
+		console.log("TITLe->", req.body.values);
+
+		const { values } = req.body;
 
 		const category = await new CATEGORIES({
-			title,
-			slug: slugify(title),
+			title: values,
+			slug: slugify(values),
 		}).save();
 		console.log("Category created w/ title :", category);
 		res.json(category);
 	} catch (err) {
-		console.log("ERROR WHILE CREATING CATEGORY", err);
+		console.log("ERROR WHILE CREATING CATEGORY", err.message);
 		res.status(400).send("OOPS! Something went wrong.Check the console.");
 	}
 };
