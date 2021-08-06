@@ -7,17 +7,27 @@ const Users = () => {
 	const [recruiterList, setRecruiterList] = useState([]);
 
 	useEffect(() => {
-		getAllUsers().then((res) => setUsersList(res.data));
+		const test = () => {
+			getAllUsers(localStorage.getItem("token")).then((res) =>
+				setUsersList(res.data)
+			);
 
-		console.log(usersList);
-		if (usersList.length) {
-			const jobSeekers = usersList.filter((user) => user.role === "Job Seeker");
+			console.log(usersList);
+			if (usersList.length) {
+				const jobSeekers = usersList.filter(
+					(user) => user.role === "Job Seeker"
+				);
 
-			const recruiters = usersList.filter((user) => user.role === "Recruiter");
-			setJobSeekerList(jobSeekers);
-			setRecruiterList(recruiters);
-		}
-	}, []);
+				const recruiters = usersList.filter(
+					(user) => user.role === "Recruiter"
+				);
+				setJobSeekerList(jobSeekers);
+				setRecruiterList(recruiters);
+			}
+		};
+
+		return () => test();
+	}, [usersList]);
 	return (
 		<div className="text-left">
 			<h1 className="text-xl">Users</h1>
