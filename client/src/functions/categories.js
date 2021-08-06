@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 //CRUD
-const url = 'http://localhost:8000/api/admin';
+const url = "http://localhost:8000/api/admin";
 
 export const createCategory = async (values) => {
 	return await axios.post(
@@ -9,16 +9,25 @@ export const createCategory = async (values) => {
 		{ values },
 		{
 			headers: {
-				'auth-token': localStorage.getItem('token'),
+				"auth-token": localStorage.getItem("token"),
 			},
-		},
+		}
 	);
 };
 
 export const getAllCategories = async () => {
 	return await axios.get(`${url}/categories`, {
 		headers: {
-			'auth-token': localStorage.getItem('token'),
+			"auth-token": localStorage.getItem("token"),
+		},
+	});
+};
+
+//read a single category
+export const readCategory = async (slug) => {
+	return await axios.get(`${url}/category/${slug}`, {
+		headers: {
+			"auth-token": localStorage.getItem("token"),
 		},
 	});
 };
