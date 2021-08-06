@@ -32,7 +32,16 @@ exports.listAllCategories = async (req, res) => {
 	}
 };
 
-exports.readCategory = async (req, res) => {};
+exports.readCategory = async (req, res) => {
+	try {
+		const category = await CATEGORIES.findOne({ slug: req.params.slug }).exec();
+
+		res.json(category);
+	} catch (err) {
+		console.log("ERROR WHILE LISTING A SINGLE CATEGORY-->", err);
+		res.sedn("OOPS! Somehing went wrong while reading a single categiry");
+	}
+};
 
 exports.removeCategory = async (req, res) => {};
 
