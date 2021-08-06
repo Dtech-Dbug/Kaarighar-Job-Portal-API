@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CategoryForm = () => {
+const CategoryForm = ({ handleCategoryChange }) => {
 	return (
 		<div className="max-w-md w-full space-y-8">
 			<div>
@@ -21,8 +21,9 @@ const CategoryForm = () => {
 						<input
 							className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
 							required
-							name="mobileNumber"
-							type="tel"
+							name="category-name"
+							type="text"
+							onChange={handleCategoryChange}
 							placeholder="Enter Category Name."
 						/>
 					</div>
