@@ -11,6 +11,7 @@ const Login = ({ history }) => {
 			.then((res) => {
 				console.log("RESPONSE FROM LOGIN-->", res);
 				if (res.data.login && res.data.token) {
+					window.localStorage.setItem("token", res.data.token);
 					history.push("/users");
 				}
 			})
