@@ -19,7 +19,18 @@ exports.createCategory = async (req, res) => {
 	}
 };
 
-exports.listAllCategories = async (req, res) => {};
+exports.listAllCategories = async (req, res) => {
+	try {
+		const allCategories = await CATEGORIES.find({})
+			.sort({ createdAt: -1 })
+			.exec();
+
+		res.json(allCategories);
+	} catch (err) {
+		console.log(err);
+		res.send("OOPS SOMETHINF WENT WRONG. Check the console.");
+	}
+};
 
 exports.readCategory = async (req, res) => {};
 
