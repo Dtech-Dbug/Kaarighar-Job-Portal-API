@@ -20,9 +20,10 @@ const EditCategory = ({ match }) => {
 			setFormValue(res.data.title);
 		});
 
-	const handleEditFormSubmit = (e, values) => {
+	const handleEditFormSubmit = (e) => {
 		e.preventDefault();
-		editCategory(formValue)
+		console.log("Form value", formValue);
+		editCategory(match.params.slug, formValue)
 			.then((res) => alert("Edit"))
 			.catch((err) => console.log(err.message));
 	};
@@ -35,7 +36,7 @@ const EditCategory = ({ match }) => {
 				value={formValue}
 				onChange={(e) => setFormValue(e.target.value)}
 			/>
-			<button onSubmit={handleEditFormSubmit}>Submit</button>
+			<button onClick={handleEditFormSubmit}>Submit</button>
 		</form>
 	);
 
