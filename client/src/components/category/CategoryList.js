@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const CategoryList = ({ categoryList }) => {
 	return (
@@ -12,22 +13,26 @@ const CategoryList = ({ categoryList }) => {
 									<tr>
 										<th
 											scope="col"
-											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+										>
 											Sr No.
 										</th>
 										<th
 											scope="col"
-											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+										>
 											Name
 										</th>
 										<th
 											scope="col"
-											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+										>
 											Date
 										</th>
 										<th
 											scope="col"
-											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+											className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+										>
 											Edit
 										</th>
 									</tr>
@@ -36,7 +41,8 @@ const CategoryList = ({ categoryList }) => {
 									return (
 										<tbody
 											key={category._id}
-											className="bg-white divide-y divide-gray-200">
+											className="bg-white divide-y divide-gray-200"
+										>
 											<tr>
 												<td className="px-6 py-4 whitespace-nowrap">
 													<div className="text-sm text-gray-900">
@@ -63,16 +69,13 @@ const CategoryList = ({ categoryList }) => {
 													<div className="text-sm text-gray-900">
 														{
 															// formate the date in a better way
-															category.createdAt.substring(
-																0,
-																10,
-															)
+															category.createdAt.substring(0, 10)
 														}
 													</div>
 												</td>
 												<td className="px-6 py-4 whitespace-nowrap">
 													<button className="rounded-full border-2 border-purple-600 bg-purple-300 text-purple-900 py-1 px-6 uppercase">
-														Edit
+														<Link to={`/category/${category.slug}`}>Edit</Link>
 													</button>
 												</td>
 											</tr>
