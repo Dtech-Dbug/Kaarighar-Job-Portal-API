@@ -19,10 +19,61 @@ exports.createCategory = async (req, res) => {
 	}
 };
 
-exports.listAllCategories = async (req, res) => {};
+exports.listAllCategories = async (req, res) => {
+	try {
+		const allCategories = await CATEGORIES.find({})
+			.sort({ createdAt: -1 })
+			.exec();
 
-exports.readCategory = async (req, res) => {};
+		res.json(allCategories);
+	} catch (err) {
+		console.log(err);
+		res.send("OOPS SOMETHINF WENT WRONG. Check the console.");
+	}
+};
 
-exports.removeCategory = async (req, res) => {};
+exports.readCategory = async (req, res) => {
+	try {
+		const category = await CATEGORIES.findOne({ slug: req.params.slug }).exec();
 
-exports.updateCategory = async (req, res) => {};
+		res.json(category);
+	} catch (err) {
+		console.log("ERROR WHILE LISTING A SINGLE CATEGORY-->", err);
+		res.sedn("OOPS! Somehing went wrong while reading a single categiry");
+	}
+};
+
+exports.removeCategory = async (req, res) => {
+	try {
+		const deletedCategory = await CATEGORIES.findOneAndDelete({
+			slug: req.params.slug,
+		}).exec();
+		res.json(deletedCategory);
+	} catch (err) {
+		console.log("ERROR WHILE deleting A SINGLE CATEGORY-->", err);
+		res.sedn("OOPS! Somehing went wrong while deleting a single categiry");
+	}
+};
+
+exports.updateCategory = async (req, res) => {
+	try {
+		const { title } = req.body;
+
+		const updatedcategory = await CATEGORIES.findOneAndUpdate(
+			{
+				slug: req.params.slug,
+			},
+			{
+				title,
+				slug: slugify(title),
+			},
+			{ new: true }
+		);
+
+		console.log("UPDATED-->", updatedcategory);
+		res.json(updatedcategory);
+	} catch (err) {
+		console.log("ERROR WHILE updating A SINGLE CATEGORY-->", err);
+		res.sedn("OOPS! Somehing went wrong while updating a single categiry");
+	}
+};
