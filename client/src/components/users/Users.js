@@ -7,7 +7,9 @@ const Users = () => {
 	const [recruiterList, setRecruiterList] = useState([]);
 
 	useEffect(() => {
-		getAllUsers().then((res) => setUsersList(res.data));
+		getAllUsers(localStorage.getItem('token')).then((res) =>
+			setUsersList(res.data),
+		);
 
 		console.log(usersList);
 
