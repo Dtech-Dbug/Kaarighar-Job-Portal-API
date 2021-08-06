@@ -3,7 +3,7 @@ import { readCategory, editCategory } from "../../functions/categories";
 
 //function to fetch data of a sinle category
 
-const EditCategory = ({ match }) => {
+const EditCategory = ({ match, history }) => {
 	const [category, setCategory] = useState();
 	const [formValue, setFormValue] = useState("");
 
@@ -24,7 +24,7 @@ const EditCategory = ({ match }) => {
 		e.preventDefault();
 		console.log("Form value", formValue);
 		editCategory(match.params.slug, formValue)
-			.then((res) => alert("Edit"))
+			.then((res) => history.push("/category"))
 			.catch((err) => console.log(err.message));
 	};
 
