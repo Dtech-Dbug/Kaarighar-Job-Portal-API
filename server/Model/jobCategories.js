@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
+//text field to be able to search the categories by text in the future
+
 const categoriesSchema = new Schema(
 	{
 		title: {
@@ -15,6 +17,11 @@ const categoriesSchema = new Schema(
 			trim: true,
 			lowercase: true,
 			index: true,
+			text: true,
+		},
+
+		images: {
+			type: String,
 		},
 	},
 	{ timestamps: true }
