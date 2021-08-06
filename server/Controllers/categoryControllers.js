@@ -43,6 +43,16 @@ exports.readCategory = async (req, res) => {
 	}
 };
 
-exports.removeCategory = async (req, res) => {};
+exports.removeCategory = async (req, res) => {
+	try {
+		const deletedCategory = await CATEGORIES.findOneAndDelete({
+			slug: req.params.slug,
+		}).exec();
+		res.json(deletedCategory);
+	} catch (err) {
+		console.log("ERROR WHILE deleting A SINGLE CATEGORY-->", err);
+		res.sedn("OOPS! Somehing went wrong while deleting a single categiry");
+	}
+};
 
 exports.updateCategory = async (req, res) => {};
