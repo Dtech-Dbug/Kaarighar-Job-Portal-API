@@ -31,3 +31,15 @@ export const readCategory = async (slug) => {
 		},
 	});
 };
+
+export const editCategory = async (slug, values) => {
+	return await axios.put(
+		`${url}/category${slug}`,
+		{ values },
+		{
+			headers: {
+				"auth-token": localStorage.getItem("token"),
+			},
+		}
+	);
+};
