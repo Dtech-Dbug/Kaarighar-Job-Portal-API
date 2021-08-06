@@ -60,15 +60,16 @@ exports.removeCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
 	try {
-		const { title } = req.body;
+		console.log("EDIT CAT VALUE->", req.body.values);
+		const { values } = req.body;
 
 		const updatedcategory = await CATEGORIES.findOneAndUpdate(
 			{
 				slug: req.params.slug,
 			},
 			{
-				title,
-				slug: slugify(title),
+				title: values,
+				slug: slugify(values),
 			},
 			{ new: true }
 		);
