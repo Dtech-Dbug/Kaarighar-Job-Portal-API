@@ -30,8 +30,8 @@ const Category = () => {
 		//making req to BE to create category
 		createCategory(formData)
 			.then((res) => {
-				alert("CATEGORY CREATED");
-				// window.location.reload();
+				// alert("CATEGORY CREATED");
+				window.location.reload();
 			})
 			.catch((err) => console.log(err.message));
 	};
