@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { readCategory } from "../../functions/categories";
+import { readCategory, editCategory } from "../../functions/categories";
 
 //function to fetch data of a sinle category
 
@@ -20,6 +20,13 @@ const EditCategory = ({ match }) => {
 			setFormValue(res.data.title);
 		});
 
+	const handleEditFormSubmit = (e, values) => {
+		e.preventDefault();
+		editCategory(formValue)
+			.then((res) => alert("Edit"))
+			.catch((err) => console.log(err.message));
+	};
+
 	const editCategoryForm = () => (
 		<form>
 			<input
@@ -28,7 +35,7 @@ const EditCategory = ({ match }) => {
 				value={formValue}
 				onChange={(e) => setFormValue(e.target.value)}
 			/>
-			<button>Submit</button>
+			<button onSubmit={handleEditFormSubmit}>Submit</button>
 		</form>
 	);
 
