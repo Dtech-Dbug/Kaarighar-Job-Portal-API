@@ -55,4 +55,25 @@ exports.removeCategory = async (req, res) => {
 	}
 };
 
-exports.updateCategory = async (req, res) => {};
+exports.updateCategory = async (req, res) => {
+	try {
+		const { title } = req.body;
+
+		const updatedcategory = await CATEGORIES.findOneAndUpdate(
+			{
+				slug: req.params.slug,
+			},
+			{
+				title,
+				slug: slugify(title),
+			},
+			{ new: true }
+		);
+
+		console.log("UPDATED-->", updatedcategory);
+		res.json(updatedcategory);
+	} catch (err) {
+		console.log("ERROR WHILE updating A SINGLE CATEGORY-->", err);
+		res.sedn("OOPS! Somehing went wrong while updating a single categiry");
+	}
+};
