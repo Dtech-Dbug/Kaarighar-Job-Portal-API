@@ -5,23 +5,29 @@ import { readCategory } from "../../functions/categories";
 
 const EditCategory = ({ match }) => {
 	const [category, setCategory] = useState();
-	const [formValue, setFormValue] = useState("check");
-
-	const { title } = category;
+	const [formValue, setFormValue] = useState("");
 
 	useEffect(() => {
 		fetchData();
 	}, []);
 
+	// const { title } = category;
+
 	const fetchData = () =>
 		readCategory(match.params.slug).then((res) => {
 			console.log("Categoty:", res);
 			setCategory(res.data);
+			setFormValue(res.data.title);
 		});
 
 	const editCategoryForm = () => (
 		<form>
-			<input type="text" placeholder={title} />
+			<input
+				type="text"
+				// value={category.title}
+				value={formValue}
+				onChange={(e) => setFormValue(e.target.value)}
+			/>
 			<button>Submit</button>
 		</form>
 	);
