@@ -36,13 +36,20 @@ const Category = () => {
 			.catch((err) => console.log(err.message));
 	};
 
+	const handleCategoryDelete = (slug) => {
+		console.log("SLug to delete", slug);
+	};
+
 	return (
 		<div className="w-full flex flex-col items-center bg-gray-50  lg:px-8">
 			<CategoryForm
 				handleCategoryChange={handleCategoryChange}
 				handleCategoryFormSubmit={handleCategoryFormSubmit}
 			/>
-			<CategoryList categoryList={categoryList} />
+			<CategoryList
+				categoryList={categoryList}
+				handleCategoryDelete={handleCategoryDelete}
+			/>
 		</div>
 	);
 };
