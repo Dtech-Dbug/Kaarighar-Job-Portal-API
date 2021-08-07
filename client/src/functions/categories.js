@@ -43,3 +43,11 @@ export const editCategory = async (slug, values) => {
 		}
 	);
 };
+
+export const deleteCategory = async (slug, values) => {
+	return await axios.delete(`${url}/category/${slug}`, {
+		headers: {
+			"auth-token": localStorage.getItem("token"),
+		},
+	});
+};
