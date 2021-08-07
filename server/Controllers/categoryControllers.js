@@ -42,7 +42,7 @@ exports.readCategory = async (req, res) => {
 		res.json(category);
 	} catch (err) {
 		console.log("ERROR WHILE LISTING A SINGLE CATEGORY-->", err);
-		res.sedn("OOPS! Somehing went wrong while reading a single categiry");
+		res.send("OOPS! Somehing went wrong while reading a single categiry");
 	}
 };
 
@@ -54,7 +54,7 @@ exports.removeCategory = async (req, res) => {
 		res.json(deletedCategory);
 	} catch (err) {
 		console.log("ERROR WHILE deleting A SINGLE CATEGORY-->", err);
-		res.sedn("OOPS! Somehing went wrong while deleting a single categiry");
+		res.send("OOPS! Somehing went wrong while deleting a single categiry");
 	}
 };
 
@@ -78,6 +78,6 @@ exports.updateCategory = async (req, res) => {
 		res.json(updatedcategory);
 	} catch (err) {
 		console.log("ERROR WHILE updating A SINGLE CATEGORY-->", err);
-		res.sedn("OOPS! Somehing went wrong while updating a single categiry");
+		res.send("OOPS! Somehing went wrong while updating a single categiry");
 	}
 };
