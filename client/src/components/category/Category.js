@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import CategoryForm from "./CategoryForm";
 import CategoryList from "./CategoryList";
-import { createCategory, getAllCategories } from "../../functions/categories";
+import {
+	createCategory,
+	getAllCategories,
+	deleteCategory,
+} from "../../functions/categories";
 
 const Category = () => {
 	const [formData, setFormData] = useState("");
 	const [categoryList, setCategoryList] = useState([]);
 
 	useEffect(() => {
+		fetchCategories();
+	}, []);
+
+	const fetchCategories = () =>
 		getAllCategories()
 			.then((categories) => {
 				setCategoryList(categories.data);
 			})
 			.catch((err) => alert(err.message));
-	}, []);
 
 	console.log(categoryList);
 	const handleCategoryChange = (e) => {
@@ -38,6 +45,14 @@ const Category = () => {
 
 	const handleCategoryDelete = (slug) => {
 		console.log("SLug to delete", slug);
+		let confirm = window.confirm("Are you sure , you want to delete?");
+		if (confirm) {
+			deleteCategory(slug)
+				.then((res) => {
+					fetchCategories();
+				})
+				.catch((err) => alert("Error while deleting in frontend", err.message));
+		}
 	};
 
 	return (
