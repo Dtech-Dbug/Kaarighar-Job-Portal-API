@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CategoryList = ({ categoryList }) => {
+const CategoryList = ({ categoryList, handleCategoryDelete }) => {
 	return (
 		<div className="w-full p-4 ">
 			<div className="flex flex-col">
@@ -76,6 +76,13 @@ const CategoryList = ({ categoryList }) => {
 												<td className="px-6 py-4 whitespace-nowrap">
 													<button className="rounded-full border-2 border-purple-600 bg-purple-300 text-purple-900 py-1 px-6 uppercase">
 														<Link to={`/category/${category.slug}`}>Edit</Link>
+													</button>
+
+													<button
+														onClick={() => handleCategoryDelete(category.slug)}
+														className="rounded-full border-2 border-purple-600 bg-purple-300 text-purple-900 py-1 px-6 uppercase"
+													>
+														Delete
 													</button>
 												</td>
 											</tr>
