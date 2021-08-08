@@ -37,7 +37,7 @@ const isAdmin = (req, res, next) => {
 };
 
 const isRecruiter = (req, res, next) => {
-	console.log(req.user);
+	console.log("USER REQUEST->", req.user);
 	// Check if user is recruiter
 	if (req.user.role === "Recruiter") {
 		next();

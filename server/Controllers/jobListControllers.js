@@ -8,11 +8,13 @@ const USER = require("../Model/user");
 exports.createJob = async (req, res) => {
 	try {
 		const { name, parent, recruiter } = req.body;
+		const { id } = req.user._id;
 
 		const job = await new JOBS({
 			name,
 			parent,
 			slug: slugify(name),
+			recruiter: id,
 		}).save();
 
 		console.log("JOB CREATED--->", job);
