@@ -19,12 +19,14 @@ const userSchema = new Schema(
 			type: String,
 			required: 'Name is Required',
 		},
+		
 		email: String,
 
-		aadharCard: {
-			type: String,
-		},
+		aadharCard: Number,
+
 		panCard: String,
+
+		companyName: String,
 
 		companyRegNo: String,
 
@@ -33,8 +35,7 @@ const userSchema = new Schema(
 		pinCode: Number,
 
 		city: String,
-		// workExperience: String,
-
+		
 		role: {
 			type: String,
 			enum: ['Admin', 'Job Seeker', 'Recruiter'],
