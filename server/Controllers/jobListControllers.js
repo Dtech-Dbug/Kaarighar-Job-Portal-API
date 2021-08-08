@@ -31,3 +31,9 @@ exports.listAllJobs = async (req, res) => {
 		console.log("ERROR WHIILE LISING JOBS-->", err.message);
 	}
 };
+
+exports.readJob = async (req, res) => {};
+
+exports.updateJob = async (req, res) => {};
+
+exports.deleteJob = async (req, res) => {};
