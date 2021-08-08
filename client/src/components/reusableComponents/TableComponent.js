@@ -3,7 +3,6 @@ import { Table, Space } from "antd";
 import "antd/dist/antd.css";
 const { Column } = Table;
 const TableComponent = ({ data }) => {
-	const { role } = data;
 	return (
 		<Table dataSource={data}>
 			<Column title="First Name" dataIndex="firstName" key="firstName" />
