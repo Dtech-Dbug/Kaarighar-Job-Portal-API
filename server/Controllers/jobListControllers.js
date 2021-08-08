@@ -1,14 +1,14 @@
-const slugify = require("slugify");
-const CATEGORIES = require("../Model/jobCategories");
-const JOBS = require("../Model/jobListings");
-const USER = require("../Model/user");
+const slugify = require('slugify');
+const CATEGORIES = require('../Model/jobCategories');
+const JOBS = require('../Model/jobListings');
+const USER = require('../Model/user');
 
 //createJob , listAllJobs, readJob , udpdateJob , deleteJob
 
 exports.createJob = async (req, res) => {
 	try {
-		const { name, parent, recruiter } = req.body;
-		const { id } = req.user._id;
+		const { name, parent } = req.body;
+		const { id } = req.user;
 
 		const job = await new JOBS({
 			name,
@@ -17,22 +17,22 @@ exports.createJob = async (req, res) => {
 			recruiter: id,
 		}).save();
 
-		console.log("JOB CREATED--->", job);
+		console.log('JOB CREATED--->', job);
 		res.json(job);
 	} catch (err) {
-		console.log("ERROR WHILE CREATING JOB-->", err.message);
+		console.log('ERROR WHILE CREATING JOB-->', err.message);
 	}
 };
 
 exports.listAllJobs = async (req, res) => {
 	try {
-		const jobs = await JOBS.find({}).exec();
+		const jobs = await JOBS.find({}).populate('recruiter', 'firstName lastName').exec();
 
-		console.log("JOBS-->", jobs);
+		console.log('JOBS-->', jobs);
 
 		res.json(jobs);
 	} catch (err) {
-		console.log("ERROR WHIILE LISING JOBS-->", err.message);
+		console.log('ERROR WHIILE LISING JOBS-->', err.message);
 	}
 };
 
