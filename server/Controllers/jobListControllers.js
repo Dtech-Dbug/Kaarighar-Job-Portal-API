@@ -1,7 +1,7 @@
-const slugify = require("slugify");
-const CATEGORIES = require("../Model/jobCategories");
-const JOBS = require("../Model/jobListings");
-const USER = require("../Model/user");
+const slugify = require('slugify');
+const CATEGORIES = require('../Model/jobCategories');
+const JOBS = require('../Model/jobListings');
+const USER = require('../Model/user');
 
 //createJob , listAllJobs, readJob , udpdateJob , deleteJob
 
@@ -13,22 +13,22 @@ exports.createJob = async (req, res) => {
 			name,
 			parent,
 			slug: slugify(name),
-		});
+		}).save();
 
-		console.log("JOB CREATED--->", job);
+		console.log('JOB CREATED--->', job);
 		res.json(job);
 	} catch (err) {
-		console.log("ERROR WHILE CREATING JOB-->", err.message);
+		console.log('ERROR WHILE CREATING JOB-->', err.message);
 	}
 };
 
 exports.listAllJobs = async (req, res) => {
 	try {
-		const jobs = await JOBS.find({}).exec();
-
+		const jobs = await JOBS.find().exec();
+		console.log('JOBS-->', jobs);
 		res.json(jobs);
 	} catch (err) {
-		console.log("ERROR WHIILE LISING JOBS-->", err.message);
+		console.log('ERROR WHIILE LISING JOBS-->', err.message);
 	}
 };
 
