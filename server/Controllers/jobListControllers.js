@@ -13,7 +13,7 @@ exports.createJob = async (req, res) => {
 			name,
 			parent,
 			slug: slugify(name),
-		});
+		}).save();
 
 		console.log("JOB CREATED--->", job);
 		res.json(job);
