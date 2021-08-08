@@ -35,7 +35,7 @@ exports.registerUser = async (req, res) => {
 		pinCode,
 		city,
 		role,
-		companyNo,
+		companyName,
 		comoanyRegNo,
 	} = req.body.values;
 
