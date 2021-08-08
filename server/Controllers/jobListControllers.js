@@ -16,7 +16,7 @@ exports.createJob = async (req, res) => {
 		});
 
 		console.log("JOB CREATED--->", job);
-		res.json(json);
+		res.json(job);
 	} catch (err) {
 		console.log("ERROR WHILE CREATING JOB-->", err.message);
 	}
