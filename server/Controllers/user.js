@@ -35,6 +35,8 @@ exports.registerUser = async (req, res) => {
 		pinCode,
 		city,
 		role,
+		companyNo,
+		comoanyRegNo,
 	} = req.body.values;
 
 	var { password } = req.body.values;
@@ -61,7 +63,7 @@ exports.registerUser = async (req, res) => {
 		// Creating user object and save
 
 		if (req.body.values.role === "Job Seeker") {
-			user = new UserModel({
+			user = await new UserModel({
 				firstName,
 				lastName,
 				email,
@@ -77,7 +79,7 @@ exports.registerUser = async (req, res) => {
 		}
 
 		if (req.body.values.role === "Recruiter") {
-			user = new UserModel({
+			user = await new UserModel({
 				firstName,
 				lastName,
 				email,
@@ -92,7 +94,7 @@ exports.registerUser = async (req, res) => {
 			}).save();
 		}
 
-		console.log("User saved->", user);
+		const savedUser = await console.log("User saved->", user);
 
 		const payload = {
 			user: {
