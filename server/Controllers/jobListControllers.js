@@ -21,3 +21,13 @@ exports.createJob = async (req, res) => {
 		console.log("ERROR WHILE CREATING JOB-->", err.message);
 	}
 };
+
+exports.listAllJobs = async (req, res) => {
+	try {
+		const jobs = await JOBS.find({}).exec();
+
+		res.json(jobs);
+	} catch (err) {
+		console.log("ERROR WHIILE LISING JOBS-->", err.message);
+	}
+};
