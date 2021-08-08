@@ -9,7 +9,7 @@ import Category from "./components/category/Category";
 import EditCategory from "./components/category/editCategory";
 function App() {
 	return (
-		<div className="h-screen w-sreen flex overflow-hidden">
+		<div>
 			<Router>
 				<Route path="/" exact component={Dashboard} />
 				<Route path="/register" exact component={Register} />
