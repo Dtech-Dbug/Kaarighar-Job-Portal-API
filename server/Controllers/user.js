@@ -52,29 +52,47 @@ exports.registerUser = async (req, res) => {
 			return res.json({ ok: true });
 		}
 
-		// Creating user object and save
-		user = new UserModel({
-			firstName,
-			lastName,
-			email,
-			password,
-			mobileNumber,
-			aadharCard,
-			panCard,
-			address,
-			pinCode,
-			city,
-			role,
-		});
-
-		// Creating the secret key for the JWT
+		//generation
 		const salt = await bcrypt.genSalt(10);
 
-		// Hashing the password
-		user.password = await bcrypt.hash(password, salt);
+		//password
+		hashedPassword = await bcrypt.hash(password, salt);
 
-		//save user
-		const userSaved = await user.save();
+		// Creating user object and save
+
+		if (req.body.values.role === "Job Seeker") {
+			user = new UserModel({
+				firstName,
+				lastName,
+				email,
+				password: hashedPassword,
+				mobileNumber,
+				aadharCard,
+				panCard,
+				address,
+				pinCode,
+				city,
+				role,
+			}).save();
+		}
+
+		if (req.body.values.role === "Recruiter") {
+			user = new UserModel({
+				firstName,
+				lastName,
+				email,
+				password: hashedPassword,
+				mobileNumber,
+				address,
+				pinCode,
+				city,
+				role,
+				companyRegNo,
+				companyName,
+			}).save();
+		}
+
+		console.log("User saved->", user);
 
 		const payload = {
 			user: {
