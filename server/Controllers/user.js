@@ -1,29 +1,31 @@
-const UserModel = require("../Model/user");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const UserModel = require('../Model/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.getUserByID = async (req, res) => {
 	try {
-		const user = await UserModel.findById(req.user.id).select("-password");
+		const user = await UserModel.findById(req.user.id).select('-password');
 		res.json(user);
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).send("Server Error");
+		res.status(500).send('Server Error');
 	}
 };
 
 exports.getAdmin = async (req, res) => {
 	try {
-		const admin = await UserModel.findOne({ role: "Admin" });
+		const admin = await UserModel.findOne({ role: 'Admin' });
 		res.json(admin);
 		console.log(admin);
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).send("Server Error");
+		res.status(500).send('Server Error');
 	}
 };
 
 exports.registerUser = async (req, res) => {
+	console.log('REQ BODY =>', req.body);
+
 	const {
 		firstName,
 		lastName,
@@ -35,11 +37,11 @@ exports.registerUser = async (req, res) => {
 		pinCode,
 		city,
 		role,
-		companyNo,
-		comoanyRegNo,
-	} = req.body.values;
+		companyName,
+		companyRegNo,
+	} = req.body;
 
-	var { password } = req.body.values;
+	var { password } = req.body;
 
 	//@desc: Creating user using register route
 	//@input: Registet from data
@@ -48,7 +50,7 @@ exports.registerUser = async (req, res) => {
 	try {
 		let user = await UserModel.findOne({ mobileNumber });
 
-		console.log("USER--->", user);
+		console.log('USER--->', user);
 
 		if (user) {
 			return res.json({ ok: true });
@@ -62,7 +64,7 @@ exports.registerUser = async (req, res) => {
 
 		// Creating user object and save
 
-		if (req.body.values.role === "Job Seeker") {
+		if (req.body.role === 'Job Seeker') {
 			user = await new UserModel({
 				firstName,
 				lastName,
@@ -78,7 +80,7 @@ exports.registerUser = async (req, res) => {
 			}).save();
 		}
 
-		if (req.body.values.role === "Recruiter") {
+		if (req.body.role === 'Recruiter') {
 			user = await new UserModel({
 				firstName,
 				lastName,
@@ -94,7 +96,7 @@ exports.registerUser = async (req, res) => {
 			}).save();
 		}
 
-		const savedUser = await console.log("User saved->", user);
+		const savedUser = await console.log('User saved->', user);
 
 		const payload = {
 			user: {
@@ -107,31 +109,33 @@ exports.registerUser = async (req, res) => {
 		jwt.sign(
 			payload,
 			process.env.JWT_SECRET,
-			{ expiresIn: "5 days" },
+			{ expiresIn: '5 days' },
 			(err, token) => {
 				if (err) throw err;
 				res.json({ token });
-			}
+			},
 		);
 	} catch (err) {
 		console.error(err.message);
 
-		console.log("ERROR WHILE RESGISTERING-->", err);
-		res.status(500).send("Server error");
+		console.log('ERROR WHILE RESGISTERING-->', err);
+		res.status(500).send('Server error');
 	}
 };
 
 exports.loginUser = async (req, res) => {
 	try {
 		//get the logIn details from frontend
-		const { mobileNumber, password } = req.body.values;
+		const { mobileNumber, password } = req.body;
 
 		//query the databse using the mobileNo to find the user
 		let user = await UserModel.findOne({ mobileNumber });
 
 		// checking if user exists or not
 		if (!user) {
-			return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+			return res
+				.status(400)
+				.json({ errors: [{ msg: 'Invalid Credentials' }] });
 		}
 
 		//compare the req.body.password with the password in the database
@@ -139,7 +143,7 @@ exports.loginUser = async (req, res) => {
 
 		//if password not matched then return error
 		if (!isMatch) {
-			return res.status(400).json("Mobile No. or Password is incorrect");
+			return res.status(400).json('Mobile No. or Password is incorrect');
 		}
 
 		//if password matched then create the token
@@ -156,22 +160,22 @@ exports.loginUser = async (req, res) => {
 		const token = jwt.sign(
 			payload,
 			process.env.JWT_SECRET,
-			{ expiresIn: "5 days" },
+			{ expiresIn: '5 days' },
 			(err, token) => {
 				if (err) throw err;
 				res.json({ token, login: true });
-			}
+			},
 		);
 	} catch (err) {
 		console.error(err.message);
-		console.log("ERROR WHILE LOGGING IN-->", err);
-		res.status(500).send("Server error");
+		console.log('ERROR WHILE LOGGING IN-->', err);
+		res.status(500).send('Server error');
 	}
 };
 
 exports.getUsers = async (req, res) => {
 	const allUsers = await UserModel.find().exec();
-	const users = allUsers.filter((user) => user.role !== "Admin");
+	const users = allUsers.filter((user) => user.role !== 'Admin');
 	res.json(users);
 };
 
@@ -186,11 +190,11 @@ exports.verifyUsers = async (req, res) => {
 		const findUserAndUpdate = await UserModel.findByIdAndUpdate(
 			{ id: userId },
 			{ verified: verifiedState },
-			{ new: true }
+			{ new: true },
 		).exec();
 
 		res.json(findUserAndUpdate);
 	} catch (err) {
-		console.log("ERROR WHILE UDATING", err);
+		console.log('ERROR WHILE UDATING', err);
 	}
 };
