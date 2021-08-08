@@ -26,6 +26,8 @@ exports.listAllJobs = async (req, res) => {
 	try {
 		const jobs = await JOBS.find({}).exec();
 
+		console.log("JOBS-->", jobs);
+
 		res.json(jobs);
 	} catch (err) {
 		console.log("ERROR WHIILE LISING JOBS-->", err.message);
