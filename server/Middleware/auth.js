@@ -26,7 +26,7 @@ const auth = (req, res, next) => {
 	}
 };
 
-const userRole = (req, res, next) => {
+const isAdmin = (req, res, next) => {
 	console.log(req.user);
 	// Check if user is admin
 	if (req.user.role === "Admin") {
@@ -48,6 +48,6 @@ const isRecruiter = (req, res, next) => {
 
 module.exports = {
 	auth,
-	userRole,
+	isAdmin,
 	isRecruiter,
 };
