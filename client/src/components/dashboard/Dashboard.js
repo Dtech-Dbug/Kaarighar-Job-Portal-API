@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { UserOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import TableComponent from '../reusableComponents/TableComponent';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -42,9 +41,7 @@ const Dashboard = () => {
 					className="site-layout-background"
 					style={{ padding: 0, background: '#fff' }}
 				/>
-				<Content style={{ margin: '0 16px' }}>
-					<TableComponent />
-				</Content>
+				<Content style={{ margin: '0 16px' }}></Content>
 				<Footer style={{ textAlign: 'center' }}>
 					Ant Design ©2018 Created by Ant UED
 				</Footer>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../../functions/users';
-import TableComponent from '../reusableComponents/TableComponent';
+import TableJobSeeker from '../reusableComponents/TableJobSeeker';
+import TableRecruiter from '../reusableComponents/TableRecruiter';
 
 const Users = () => {
 	const [usersList, setUsersList] = useState([]);
@@ -30,10 +31,10 @@ const Users = () => {
 			<h1 className="text-5xl text-center font-bold">Users</h1>
 
 			<h2 className="text-2xl">Recruiters</h2>
-			<TableComponent data={recruiterList} />
+			<TableRecruiter data={recruiterList} />
 
 			<h2 className="text-2xl">Job Seeker</h2>
-			<TableComponent data={jobSeekerList} />
+			<TableJobSeeker data={jobSeekerList} />
 		</div>
 	);
 };
