@@ -22,6 +22,11 @@ const jobListingSchema = new Schema(
 			ref: "CATEGORIES",
 			required: true,
 		},
+
+		recruiter: {
+			type: ObjectId,
+			ref: "USER",
+		},
 	},
 	{ timestamps: true }
 );
