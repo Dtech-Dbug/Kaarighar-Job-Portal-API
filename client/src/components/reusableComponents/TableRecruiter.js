@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, Button } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
 const TableComponent = ({ data, handleVerify }) => {
@@ -34,17 +34,18 @@ const TableComponent = ({ data, handleVerify }) => {
 			<Column
 				title="Action"
 				render={(record) => (
-					<Space size="middle">
-						<span onClick={(e) => handleVerify(e, record)}>
-							Verify
-						</span>
-						{/* {record.verified ? (
-							<a href="/" onClick={() => handleVerify(record)}>
-								Verify
-							</a>
+					<Space size="middle" className="text-center">
+						{record.verified ? (
+							<Button type="primary" disabled>
+								Verified
+							</Button>
 						) : (
-							<a href="/">Veiw</a>
-						)} */}
+							<Button
+								type="primary"
+								onClick={() => handleVerify(record)}>
+								&nbsp;Verify&nbsp;
+							</Button>
+						)}
 					</Space>
 				)}
 			/>
