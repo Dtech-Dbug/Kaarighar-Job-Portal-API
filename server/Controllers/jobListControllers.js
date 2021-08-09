@@ -36,7 +36,10 @@ exports.listAllJobs = async (req, res) => {
 		const jobs = await JOBS.find({})
 			.sort({ createdAt: -1 })
 			.populate('parent', 'title')
-			.populate('recruiter', 'firstName lastName')
+			.populate(
+				'recruiter',
+				'firstName lastName companyName companyRegNo location',
+			)
 			.exec();
 
 		console.log('JOBS-->', jobs);
