@@ -38,7 +38,7 @@ const Users = () => {
 		verifyUser(values).then((res) => {
 			console.log(res.data);
 			if (res.data.verified === true) {
-				alert(res.data.message);
+				alert('Recruiter Verified');
 			} else {
 				alert(res.data.message);
 			}

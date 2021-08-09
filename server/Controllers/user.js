@@ -187,8 +187,10 @@ exports.verifyUsers = async (req, res) => {
 		console.log('\nUSER from Frontend\n', req.body);
 		const { userId, verifiedState } = req.body;
 
+		// find user by id and update verified state
+
 		const findUserAndUpdate = await UserModel.findByIdAndUpdate(
-			{ id: userId },
+			{ _id: userId },
 			{ verified: verifiedState },
 			{ new: true },
 		).exec();
