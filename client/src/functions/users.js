@@ -3,9 +3,7 @@ import axios from 'axios';
 export const verifyUser = async (values) => {
 	return await axios.post(
 		'http://localhost:8000/api/admin/verifyuser',
-		{
-			values,
-		},
+		values,
 		{
 			headers: {
 				'Content-Type': 'application/json',

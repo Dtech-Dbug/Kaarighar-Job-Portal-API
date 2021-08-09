@@ -184,7 +184,7 @@ exports.verifyUsers = async (req, res) => {
 	try {
 		//we send userId and boolean value from frontEnd
 		//userId of user(recruiter) we want to verify
-
+		console.log('\nUSER from Frontend\n', req.body);
 		const { userId, verifiedState } = req.body;
 
 		const findUserAndUpdate = await UserModel.findByIdAndUpdate(
@@ -192,9 +192,9 @@ exports.verifyUsers = async (req, res) => {
 			{ verified: verifiedState },
 			{ new: true },
 		).exec();
-
+		console.log('Recruiter Verified');
 		res.json(findUserAndUpdate);
 	} catch (err) {
-		console.log('ERROR WHILE UDATING', err);
+		console.log('ERROR WHILE UDATING', err.message);
 	}
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllUsers } from '../../functions/users';
+import { getAllUsers, verifyUser } from '../../functions/users';
 import TableJobSeeker from '../reusableComponents/TableJobSeeker';
 import TableRecruiter from '../reusableComponents/TableRecruiter';
 
@@ -13,8 +13,6 @@ const Users = () => {
 			setUsersList(res.data),
 		);
 
-		console.log(usersList);
-
 		const jobSeekers = usersList.filter(
 			(user) => user.role === 'Job Seeker',
 		);
@@ -26,12 +24,32 @@ const Users = () => {
 		setRecruiterList(recruiters);
 	}, [usersList.length]);
 
+	const handleVerify = (e, user) => {
+		e.preventDefault();
+		console.log('Verifing recruiter');
+		console.log('USER -> ', user);
+		const verifiedState = true;
+
+		const values = {
+			userId: user._id,
+			verifiedState,
+		};
+
+		verifyUser(values).then((res) => {
+			console.log(res.data);
+			if (res.data.verified === true) {
+				alert(res.data.message);
+			} else {
+				alert(res.data.message);
+			}
+		});
+	};
 	return (
 		<div>
 			<h1 className="text-5xl text-center font-bold">Users</h1>
 
 			<h2 className="text-2xl">Recruiters</h2>
-			<TableRecruiter data={recruiterList} />
+			<TableRecruiter data={recruiterList} handleVerify={handleVerify} />
 
 			<h2 className="text-2xl">Job Seeker</h2>
 			<TableJobSeeker data={jobSeekerList} />

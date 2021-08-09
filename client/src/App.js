@@ -1,12 +1,12 @@
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Dashboard from "./components/dashboard/Dashboard";
-import Users from "./components/users/Users";
-import Home from "./components/Home";
-import Category from "./components/category/Category";
-import EditCategory from "./components/category/editCategory";
+import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Dashboard from './components/dashboard/Dashboard';
+import Users from './components/users/Users';
+import Home from './components/Home';
+import Category from './components/category/Category';
+import EditCategory from './components/category/editCategory';
 function App() {
 	return (
 		<div>
