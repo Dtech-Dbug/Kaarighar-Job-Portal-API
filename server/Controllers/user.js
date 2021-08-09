@@ -39,6 +39,7 @@ exports.registerUser = async (req, res) => {
 		role,
 		companyName,
 		companyRegNo,
+		location,
 	} = req.body;
 
 	var { password } = req.body;
@@ -93,10 +94,14 @@ exports.registerUser = async (req, res) => {
 				role,
 				companyRegNo,
 				companyName,
+				location: {
+					latitude: location.latitude,
+					longitude: location.longitude,
+				},
 			}).save();
 		}
 
-		const savedUser = await console.log('User saved->', user);
+		await console.log('User saved->', user);
 
 		const payload = {
 			user: {

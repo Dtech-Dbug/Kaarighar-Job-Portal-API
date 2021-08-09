@@ -36,12 +36,18 @@ const userSchema = new Schema(
 
 		city: String,
 		
+		location:{
+			latitude: Number,
+			longitude: Number,
+		},
+		
+		verified: { type: Boolean, default: false },
+		
 		role: {
 			type: String,
 			enum: ['Admin', 'Job Seeker', 'Recruiter'],
 		},
-
-		verified: { type: Boolean, default: false },
+		
 	},
 	{ timestamps: true },
 );
