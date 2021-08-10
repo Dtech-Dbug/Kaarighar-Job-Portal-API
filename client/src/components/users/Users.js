@@ -46,12 +46,12 @@ const Users = () => {
 	};
 	return (
 		<div>
-			<h1 className="text-5xl text-center font-bold">Users</h1>
-
-			<h2 className="text-2xl">Recruiters</h2>
+			<h1 className="text-2xl">Users</h1>
+			<br />
+			<h2>Recruiters</h2>
 			<TableRecruiter data={recruiterList} handleVerify={handleVerify} />
 
-			<h2 className="text-2xl">Job Seeker</h2>
+			<h2>Job Seeker</h2>
 			<TableJobSeeker data={jobSeekerList} />
 		</div>
 	);

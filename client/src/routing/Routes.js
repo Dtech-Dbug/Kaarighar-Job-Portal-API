@@ -1,6 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import Login from '../components/auth/Login';
 import Dashboard from '../components/dashboard/Dashboard';
 import Users from '../components/users/Users';
 import Home from '../components/Home';
@@ -11,7 +10,6 @@ const Routes = (props) => {
 	return (
 		<Switch>
 			<Route path="/" exact component={Home} />
-			<Route path="/login" exact component={Login} />
 			<PrivateRoute exact path="/dashboard" component={Dashboard} />
 			<PrivateRoute exact path="/users" component={Users} />
 			<PrivateRoute exact path="/category" component={Category} />
