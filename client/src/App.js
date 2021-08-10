@@ -93,7 +93,10 @@ function App() {
 									<Route component={Routes} />
 								</Content>
 								<Footer style={{ textAlign: 'center' }}>
-									Ant Design ©2018 Created by Ant UED
+									©2021 Created by{' '}
+									<a href="/" target="_blank">
+										Team DAA
+									</a>
 								</Footer>
 							</Layout>
 						</Layout>

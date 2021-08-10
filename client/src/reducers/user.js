@@ -3,6 +3,7 @@ import {
 	GET_USERS,
 	USERS_ERROR,
 	CLEAR_USERS,
+	VERIFY_USER,
 } from '../actions/types';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
 	user: null,
 	loading: false,
 	error: {},
+	verified: false,
 };
 
 function userReducer(state = initialState, action) {
@@ -23,6 +25,12 @@ function userReducer(state = initialState, action) {
 				loading: false,
 			};
 		case GET_USERS:
+			return {
+				...state,
+				users: payload,
+				loading: false,
+			};
+		case VERIFY_USER:
 			return {
 				...state,
 				users: payload,

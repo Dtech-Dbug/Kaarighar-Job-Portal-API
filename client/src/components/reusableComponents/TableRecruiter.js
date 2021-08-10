@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Space, Button } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
-const TableComponent = ({ data, handleVerify }) => {
+const TableComponent = ({ data, handleRecruiterVerification }) => {
 	return (
 		<Table dataSource={data}>
 			<Column title="First Name" dataIndex="firstName" key="firstName" />
@@ -28,9 +28,6 @@ const TableComponent = ({ data, handleVerify }) => {
 					);
 				}}
 			/>
-			{}
-
-			{}
 			<Column
 				title="Action"
 				render={(record) => (
@@ -42,7 +39,9 @@ const TableComponent = ({ data, handleVerify }) => {
 						) : (
 							<Button
 								type="primary"
-								onClick={() => handleVerify(record)}>
+								onClick={(e) =>
+									handleRecruiterVerification(e, record)
+								}>
 								&nbsp;Verify&nbsp;
 							</Button>
 						)}

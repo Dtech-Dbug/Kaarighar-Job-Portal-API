@@ -178,16 +178,11 @@ exports.loginUser = async (req, res) => {
 	}
 };
 
-// exports.getUsers = async (req, res) => {
-// 	const allUsers = await UserModel.find().exec();
-// 	const users = allUsers.filter((user) => user.role !== 'Admin');
-// 	res.json(users);
-// };
-
 // getAlluser except admin role
 exports.getUsers = async (req, res) => {
 	const allUsers = await UserModel.find().exec();
-	res.json(allUsers);
+	const users = allUsers.filter((user) => user.role !== 'Admin');
+	res.json(users);
 };
 
 //controller function to verify users by admin
@@ -195,11 +190,9 @@ exports.verifyUsers = async (req, res) => {
 	try {
 		//we send userId and boolean value from frontEnd
 		//userId of user(recruiter) we want to verify
-		console.log('\nUSER from Frontend\n', req.body);
 		const { userId, verifiedState } = req.body;
-
+		console.log(req.body);
 		// find user by id and update verified state
-
 		const findUserAndUpdate = await UserModel.findByIdAndUpdate(
 			{ _id: userId },
 			{ verified: verifiedState },
