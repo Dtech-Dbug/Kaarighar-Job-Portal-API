@@ -1,39 +1,27 @@
-import React, { useState } from "react";
-import { loginUser } from "../../functions/userAuth";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
-const Login = ({ history }) => {
-	const handleClick = (e) => {
-		e.preventDefault();
-		console.log("handleClick");
-		console.table(formValue);
-
-		loginUser(formValue)
-			.then((res) => {
-				console.log("RESPONSE FROM LOGIN-->", res);
-				if (res.data.login && res.data.token) {
-					window.localStorage.setItem("token", res.data.token);
-					history.push("/users");
-				}
-			})
-			.catch((err) => alert(err));
-	};
-
+const Login = ({ login, isAuthenticated }) => {
 	const [formValue, setFormValue] = useState({
-		mobileNumber: "1234567890",
-		password: "pass1234",
+		mobileNumber: '1234567890',
+		password: 'pass1234',
 	});
 
-	const handleChange = (event) => {
-		setFormValue((prevState) => ({
-			...prevState,
-			[event.target.name]: event.target.value,
-		}));
-
-		console.table({
-			Target: event.target.name,
-			Value: event.target.value,
-		});
+	const handleClick = (e) => {
+		e.preventDefault();
+		login(formValue);
 	};
+
+	const handleChange = (e) => {
+		setFormValue({ ...formValue, [e.target.name]: e.target.value });
+	};
+
+	if (isAuthenticated) {
+		return <Redirect to="/dashboard" />;
+	}
 	return (
 		<div className="w-full flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-md w-full space-y-8">
@@ -47,11 +35,10 @@ const Login = ({ history }) => {
 						Sign in to your account
 					</h2>
 					<p className="mt-2 text-center text-sm text-gray-600">
-						Or{" "}
+						Or{' '}
 						<a
 							href="/register"
-							className="font-medium text-indigo-600 hover:text-indigo-500"
-						>
+							className="font-medium text-indigo-600 hover:text-indigo-500">
 							Create an new account
 						</a>
 					</p>
@@ -62,9 +49,9 @@ const Login = ({ history }) => {
 						<div className="mb-4 mr-1">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="mobile-number"
-							>
-								Mobile No. <span className="text-red-900">*</span>
+								htmlFor="mobile-number">
+								Mobile No.{' '}
+								<span className="text-red-900">*</span>
 							</label>
 							<input
 								className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -72,7 +59,7 @@ const Login = ({ history }) => {
 								name="mobileNumber"
 								type="tel"
 								placeholder="Your mobile no."
-								value={formValue.mobileNumber || ""}
+								value={formValue.mobileNumber || ''}
 								onChange={handleChange}
 							/>
 						</div>
@@ -80,8 +67,7 @@ const Login = ({ history }) => {
 						<div className="mb-4">
 							<label
 								className="block text-grey-darker text-sm font-bold mb-2"
-								htmlFor="password"
-							>
+								htmlFor="password">
 								Password <span className="text-red-900">*</span>
 							</label>
 							<input
@@ -90,7 +76,7 @@ const Login = ({ history }) => {
 								type="password"
 								required
 								placeholder="Password"
-								value={formValue.password || ""}
+								value={formValue.password || ''}
 								onChange={handleChange}
 							/>
 						</div>
@@ -100,8 +86,7 @@ const Login = ({ history }) => {
 						<button
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-							onClick={handleClick}
-						>
+							onClick={handleClick}>
 							<span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
 							Sign in
 						</button>
@@ -112,4 +97,13 @@ const Login = ({ history }) => {
 	);
 };
 
-export default Login;
+Login.propTypes = {
+	login: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
