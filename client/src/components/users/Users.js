@@ -1,60 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { getAllUsers, verifyUser } from '../../functions/users';
+import { getUsers } from '../../actions/users';
+import PropTypes from 'prop-types';
 import TableJobSeeker from '../reusableComponents/TableJobSeeker';
 import TableRecruiter from '../reusableComponents/TableRecruiter';
+import { connect } from 'react-redux';
 
-const Users = () => {
-	const [usersList, setUsersList] = useState([]);
+const Users = ({ getUsers, user: { users, loading } }) => {
 	const [jobSeekerList, setJobSeekerList] = useState([]);
 	const [recruiterList, setRecruiterList] = useState([]);
 
 	useEffect(() => {
-		getAllUsers(localStorage.getItem('token')).then((res) =>
-			setUsersList(res.data),
-		);
+		getUsers();
+		setJobSeekerList(users.filter((user) => user.role === 'Job Seeker'));
+		setRecruiterList(users.filter((user) => user.role === 'Recruiter'));
+	}, [getUsers]);
 
-		const jobSeekers = usersList.filter(
-			(user) => user.role === 'Job Seeker',
-		);
-
-		const recruiters = usersList.filter(
-			(user) => user.role === 'Recruiter',
-		);
-		setJobSeekerList(jobSeekers);
-		setRecruiterList(recruiters);
-	}, [usersList.length]);
-
-	const handleVerify = (e, user) => {
-		e.preventDefault();
-		console.log('Verifing recruiter');
-		console.log('USER -> ', user);
-		const verifiedState = true;
-
-		const values = {
-			userId: user._id,
-			verifiedState,
-		};
-
-		verifyUser(values).then((res) => {
-			console.log(res.data);
-			if (res.data.verified === true) {
-				alert('Recruiter Verified');
-			} else {
-				alert(res.data.message);
-			}
-		});
-	};
 	return (
 		<div>
 			<h1 className="text-2xl">Users</h1>
 			<br />
-			<h2>Recruiters</h2>
-			<TableRecruiter data={recruiterList} handleVerify={handleVerify} />
+			<div className="text-center">
+				<i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+			</div>
+			{loading ? (
+				<div className="text-center">
+					<h1>Loading...</h1>
+				</div>
+			) : (
+				<div>
+					<h2>Recruiters</h2>
+					<TableRecruiter data={recruiterList} />
 
-			<h2>Job Seeker</h2>
-			<TableJobSeeker data={jobSeekerList} />
+					<h2>Job Seeker</h2>
+					<TableJobSeeker data={jobSeekerList} />
+				</div>
+			)}
 		</div>
 	);
 };
 
-export default Users;
+Users.propTypes = {
+	getUsers: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	user: state.user,
+});
+
+export default connect(mapStateToProps, { getUsers })(Users);

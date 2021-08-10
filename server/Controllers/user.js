@@ -178,10 +178,16 @@ exports.loginUser = async (req, res) => {
 	}
 };
 
+// exports.getUsers = async (req, res) => {
+// 	const allUsers = await UserModel.find().exec();
+// 	const users = allUsers.filter((user) => user.role !== 'Admin');
+// 	res.json(users);
+// };
+
+// getAlluser except admin role
 exports.getUsers = async (req, res) => {
 	const allUsers = await UserModel.find().exec();
-	const users = allUsers.filter((user) => user.role !== 'Admin');
-	res.json(users);
+	res.json(allUsers);
 };
 
 //controller function to verify users by admin
