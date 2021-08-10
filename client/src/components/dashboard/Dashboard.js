@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { FiUser, FiList, FiBriefcase } from 'react-icons/fi';
 import 'antd/dist/antd.css';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -19,19 +19,13 @@ const Dashboard = () => {
 					<span className="text-lg text-white font-bold">JOBS</span>
 				</div>
 				<Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-					<Menu.Item key="1" icon={<UserOutlined />} title="User">
+					<Menu.Item key="1" icon={<FiUser />} title="User">
 						<Link to="/users">User</Link>
 					</Menu.Item>
-					<Menu.Item
-						key="2"
-						icon={<UnorderedListOutlined />}
-						title="category">
+					<Menu.Item key="2" icon={<FiList />} title="category">
 						<Link to="/category">Category</Link>
 					</Menu.Item>
-					<Menu.Item
-						key="3"
-						icon={<UnorderedListOutlined />}
-						title="Jobs">
+					<Menu.Item key="3" icon={<FiBriefcase />} title="Jobs">
 						<Link to="/jobs">Jobs</Link>
 					</Menu.Item>
 				</Menu>
