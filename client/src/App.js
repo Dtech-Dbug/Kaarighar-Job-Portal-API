@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './components/auth/Login';
-import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Users from './components/users/Users';
 import Home from './components/Home';
@@ -12,7 +11,7 @@ function App() {
 		<div>
 			<Router>
 				<Route path="/" exact component={Dashboard} />
-				<Route path="/register" exact component={Register} />
+				
 				<Route path="/login" exact component={Login} />
 				<Route path="/users" exact component={Users} />
 				<Route path="/home" exact component={Home} />
