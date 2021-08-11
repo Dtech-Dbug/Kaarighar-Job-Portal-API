@@ -11,8 +11,9 @@ import Card from '../reusableComponents/Card';
 const Dashboard = () => {
 	return (
 		<>
-			<h1 className="flex items-center text-lg py-1.5">
-				<RiDashboardLine /> Dashboard
+			<h1 className="flex items-center font-bold text-lg py-1.5">
+				<RiDashboardLine />
+				&nbsp;Dashboard
 			</h1>
 			<div className="grid md:grid-flow-col gap-4">
 				<div>
