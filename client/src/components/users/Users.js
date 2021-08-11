@@ -9,7 +9,7 @@ const Users = ({
 	getUsers,
 	verifyRecruiter,
 	user: { users, verified, loading },
-}) => {
+	}) => {
 	const [jobSeekerList, setJobSeekerList] = useState([]);
 	const [recruiterList, setRecruiterList] = useState([]);
 
@@ -32,7 +32,7 @@ const Users = ({
 
 	return (
 		<>
-			<h1 className="flex items-center text-lg py-1.5">
+			<h1 className="flex items-center font-bold text-lg py-1.5">
 				<RiUser3Line /> Users
 			</h1>
 			<br />
@@ -42,7 +42,7 @@ const Users = ({
 				</div>
 			) : (
 				<div>
-					<h2>Recruiters</h2>
+					<h2 className="font-bold py-1.5">Recruiters</h2>
 					<TableRecruiter
 						data={recruiterList}
 						handleRecruiterVerification={
@@ -50,7 +50,7 @@ const Users = ({
 						}
 					/>
 
-					<h2>Job Seeker</h2>
+					<h2 className="font-bold py-1.5">Job Seeker</h2>
 					<TableJobSeeker data={jobSeekerList} />
 				</div>
 			)}

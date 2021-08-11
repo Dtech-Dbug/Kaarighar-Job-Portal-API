@@ -1,12 +1,30 @@
-import React from 'react';
-import { Table, Space } from 'antd';
+import React, { useState } from 'react';
+import { Table, Space, Button } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
 const TableJobSeeker = ({ data }) => {
+	const [page, setPage] = useState(1);
 	return (
-		<Table dataSource={data} >
-			<Column title="First Name" dataIndex="firstName" key="firstName" />
-			<Column title="Last Name" dataIndex="lastName" key="mobileNumber" />
+		<Table
+			dataSource={data}
+			pagination={{
+				onChange(current) {
+					setPage(current);
+				},
+			}}>
+			<Column
+				title="No"
+				key="no"
+				render={(value, item, index) => (page - 1) * 10 + index}
+			/>
+			<Column
+				title="Name"
+				render={(record) => (
+					<Space size="middle">
+						{`${record.firstName} ${record.lastName}`}
+					</Space>
+				)}
+			/>
 
 			<Column
 				title="Mobile No."
@@ -35,11 +53,13 @@ const TableJobSeeker = ({ data }) => {
 				title="Action"
 				render={(record) => (
 					<Space size="middle">
-						{record.role === 'Recruiter' ? (
-							<a href="/">Verify</a>
-						) : (
-							<a href="/">Veiw</a>
-						)}
+						<Button
+							type="dashed"
+							onClick={() => {
+								console.log('View User');
+							}}>
+							View
+						</Button>
 					</Space>
 				)}
 			/>
