@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
-import CategoryForm from "./CategoryForm";
-import CategoryList from "./CategoryList";
+import React, { useState, useEffect } from 'react';
+import CategoryForm from './CategoryForm';
+import CategoryList from './CategoryList';
 import {
 	createCategory,
 	getAllCategories,
 	deleteCategory,
-} from "../../functions/categories";
+} from '../../functions/categories';
+
+import { RiLayout2Line } from 'react-icons/ri';
 
 const Category = () => {
-	const [formData, setFormData] = useState("");
+	const [formData, setFormData] = useState('');
 	const [categoryList, setCategoryList] = useState([]);
 
 	useEffect(() => {
@@ -22,17 +24,12 @@ const Category = () => {
 			})
 			.catch((err) => alert(err.message));
 
-	console.log(categoryList);
 	const handleCategoryChange = (e) => {
-		// console.log(e.target.value);
 		setFormData(e.target.value);
-		console.log("Form data", formData);
 	};
 
 	const handleCategoryFormSubmit = (e, values) => {
 		e.preventDefault();
-		console.log("HELLOW WORLD");
-		console.log(formData);
 
 		//making req to BE to create category
 		createCategory(formData)
@@ -44,19 +41,24 @@ const Category = () => {
 	};
 
 	const handleCategoryDelete = (slug) => {
-		console.log("SLug to delete", slug);
-		let confirm = window.confirm("Are you sure , you want to delete?");
+		let confirm = window.confirm('Are you sure , you want to delete?');
 		if (confirm) {
 			deleteCategory(slug)
 				.then((res) => {
 					fetchCategories();
 				})
-				.catch((err) => alert("Error while deleting in frontend", err.message));
+				.catch((err) =>
+					alert('Error while deleting in frontend', err.message),
+				);
 		}
 	};
 
 	return (
-		<div className="w-full flex flex-col items-center bg-gray-50  lg:px-8">
+		<>
+			<h1 className="flex items-center font-bold text-lg py-1.5">
+				<RiLayout2Line />
+				&nbsp;Category
+			</h1>
 			<CategoryForm
 				handleCategoryChange={handleCategoryChange}
 				handleCategoryFormSubmit={handleCategoryFormSubmit}
@@ -65,7 +67,7 @@ const Category = () => {
 				categoryList={categoryList}
 				handleCategoryDelete={handleCategoryDelete}
 			/>
-		</div>
+		</>
 	);
 };
 
