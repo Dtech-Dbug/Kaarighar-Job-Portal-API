@@ -20,7 +20,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 //get users
-router.get('/user', auth, getUserByID);
+router.get('/user/:id', auth, getUserByID);
 router.get('/users', auth, getUsers);
 
 //admin
