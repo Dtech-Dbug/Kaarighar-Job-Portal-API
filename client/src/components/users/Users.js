@@ -12,18 +12,20 @@ const Users = () => {
 		getAllUsers(localStorage.getItem('token')).then((res) => {
 			console.log('Res Data ->', res.data);
 			setUsersList(res.data);
-		});
-
-		console.log('Users Data ->', usersList);
-		const jobSeekers = usersList.filter(
+			console.log('Users Data ->', usersList);
+					
+		const jobSeekers = res.data.filter(
 			(user) => user.role === 'Job Seeker',
 		);
 
-		const recruiters = usersList.filter(
+		const recruiters = res.data.filter(
 			(user) => user.role === 'Recruiter',
 		);
 		setJobSeekerList(jobSeekers);
 		setRecruiterList(recruiters);
+		});
+
+
 	}, []);
 
 	const handleVerify = (e, user) => {
