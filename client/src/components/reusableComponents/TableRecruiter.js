@@ -6,7 +6,6 @@ const { Column } = Table;
 const TableComponent = ({
 	data,
 	handleRecruiterVerification,
-	handleViewProfile,
 }) => {
 	const [page, setPage] = useState(1);
 	return (
@@ -64,11 +63,7 @@ const TableComponent = ({
 								Verify
 							</Button>
 						)}
-						<Button
-							type="dashed"
-							onClick={(e) => {
-								handleViewProfile(e, record);
-							}}>
+						<Button type="dashed">
 							<Link to={`/user/${record._id}`}> View</Link>
 						</Button>
 					</Space>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Table, Space, Button } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
-const TableJobSeeker = ({ data, handleViewProfile }) => {
+const TableJobSeeker = ({ data }) => {
 	const [page, setPage] = useState(1);
 	return (
 		<Table
@@ -54,11 +54,7 @@ const TableJobSeeker = ({ data, handleViewProfile }) => {
 				title="Action"
 				render={(record) => (
 					<Space size="middle">
-						<Button
-							type="dashed"
-							onClick={(e) => {
-								handleViewProfile(e, record);
-							}}>
+						<Button type="dashed">
 							<Link to={`/user/${record._id}`}> View</Link>
 						</Button>
 					</Space>
