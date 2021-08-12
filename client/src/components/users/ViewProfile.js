@@ -15,7 +15,7 @@ const ViewProfile = ({ match }) => {
 				)}
 			</p>
 			{content ? (
-				<span>{content}:</span>
+				<span>{content}</span>
 			) : (
 				<span className="text-red-500"> No Data</span>
 			)}
