@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Table, Space, Button, Tooltip } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
-const TableComponent = ({ data, handleRecruiterVerification }) => {
+const TableComponent = ({
+	data,
+	handleRecruiterVerification,
+	handleViewProfile,
+}) => {
 	const [page, setPage] = useState(1);
 	return (
 		<Table
@@ -61,10 +66,10 @@ const TableComponent = ({ data, handleRecruiterVerification }) => {
 						)}
 						<Button
 							type="dashed"
-							onClick={() => {
-								console.log('View User');
+							onClick={(e) => {
+								handleViewProfile(e, record);
 							}}>
-							View
+							<Link to={`/user/${record._id}`}> View</Link>
 						</Button>
 					</Space>
 				)}
