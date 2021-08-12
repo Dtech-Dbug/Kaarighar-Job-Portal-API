@@ -20,3 +20,11 @@ export const getAllUsers = async () => {
 		},
 	});
 };
+
+export const getUserById = async(id) =>{
+	return await axios.get(`http://localhost:8000/api/user/${id}`, {
+		headers: {
+			'auth-token': localStorage.getItem('token'),
+		},
+	});
+}
