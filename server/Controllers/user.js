@@ -2,11 +2,21 @@ const UserModel = require('../Model/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+exports.getCurrentUser = async (req, res) => {
+	try {
+		const user = await UserModel.findById(req.user.id).select('-password');
+		res.json(user);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+};
 exports.getUserByID = async (req, res) => {
 	try {
-
-		console.log('PARAMS-->' , req.params.id)
-		const user = await UserModel.findById(req.params.id).select('-password');
+		console.log('PARAMS-->', req.params.id);
+		const user = await UserModel.findById(req.params.id).select(
+			'-password',
+		);
 		res.json(user);
 	} catch (err) {
 		console.error(err.message);
