@@ -16,6 +16,7 @@ import {
 import Login from './components/auth/Login';
 import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
+import NavHeader from './components/reusableComponents/NavHeader';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -85,10 +86,7 @@ function App() {
 								</Menu>
 							</Sider>
 							<Layout className="site-layout">
-								<Header
-									className="site-layout-background"
-									style={{ padding: 0, background: '#fff' }}
-								/>
+								<NavHeader />
 								<Content style={{ margin: '0 16px' }}>
 									<Route component={Routes} />
 								</Content>
