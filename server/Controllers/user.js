@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 
 exports.getUserByID = async (req, res) => {
 	try {
-		const user = await UserModel.findById(req.user.id).select('-password');
+
+		console.log('PARAMS-->' , req.params.id)
+		const user = await UserModel.findById(req.params.id).select('-password');
 		res.json(user);
 	} catch (err) {
 		console.error(err.message);
