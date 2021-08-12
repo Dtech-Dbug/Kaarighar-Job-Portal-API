@@ -37,10 +37,10 @@ export const login = (values) => async (dispatch) => {
 
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response.data.errors;
+		// const errors = err.response.data.errors;
 
-		if (errors) {
-			console.log('errors');
+		if (err) {
+			console.log('errors->' , err.message);
 		}
 
 		dispatch({
