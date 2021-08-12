@@ -1,34 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, verifyRecruiter } from '../../actions/users';
-import PropTypes from 'prop-types';
+import { getAllUsers, verifyUser } from '../../functions/users';
 import TableJobSeeker from '../reusableComponents/TableJobSeeker';
 import TableRecruiter from '../reusableComponents/TableRecruiter';
-import { connect } from 'react-redux';
 import { RiUser3Line } from 'react-icons/ri';
-const Users = ({
-	getUsers,
-	verifyRecruiter,
-	user: { users, verified, loading },
-	}) => {
+const Users = () => {
 	const [jobSeekerList, setJobSeekerList] = useState([]);
 	const [recruiterList, setRecruiterList] = useState([]);
 
-	const handleRecruiterVerification = (e, recruiter) => {
+	let [usersList, setUsersList] = useState([]);
+	useEffect(() => {
+		getAllUsers(localStorage.getItem('token')).then((res) => {
+			console.log('Res Data ->', res.data);
+			setUsersList(res.data);
+		});
+
+		console.log('Users Data ->', usersList);
+		const jobSeekers = usersList.filter(
+			(user) => user.role === 'Job Seeker',
+		);
+
+		const recruiters = usersList.filter(
+			(user) => user.role === 'Recruiter',
+		);
+		setJobSeekerList(jobSeekers);
+		setRecruiterList(recruiters);
+	}, []);
+
+	const handleVerify = (e, user) => {
 		e.preventDefault();
 		const verifiedState = true;
-		verifyRecruiter(recruiter._id, verifiedState);
-		console.log('Verified', verified);
-	};
 
-	useEffect(() => {
-		getUsers();
-		if (users) {
-			setJobSeekerList(
-				users.filter((user) => user.role === 'Job Seeker'),
-			);
-			setRecruiterList(users.filter((user) => user.role === 'Recruiter'));
-		}
-	}, [getUsers]);
+		const values = {
+			userId: user._id,
+			verifiedState,
+		};
+
+		verifyUser(values).then((res) => {
+			console.log(res.data);
+			if (res.data.verified === true) {
+				alert('Recruiter Verified');
+			} else {
+				alert(res.data.message);
+			}
+		});
+	};
 
 	return (
 		<>
@@ -36,36 +51,18 @@ const Users = ({
 				<RiUser3Line /> Users
 			</h1>
 			<br />
-			{loading ? (
-				<div className="text-center">
-					<h1>Loading...</h1>
-				</div>
-			) : (
-				<div>
-					<h2 className="font-bold py-1.5">Recruiters</h2>
-					<TableRecruiter
-						data={recruiterList}
-						handleRecruiterVerification={
-							handleRecruiterVerification
-						}
-					/>
+			<div>
+				<h2 className="font-bold py-1.5">Recruiters</h2>
+				<TableRecruiter
+					data={recruiterList}
+					handleRecruiterVerification={handleVerify}
+				/>
 
-					<h2 className="font-bold py-1.5">Job Seeker</h2>
-					<TableJobSeeker data={jobSeekerList} />
-				</div>
-			)}
+				<h2 className="font-bold py-1.5">Job Seeker</h2>
+				<TableJobSeeker data={jobSeekerList} />
+			</div>
 		</>
 	);
 };
 
-Users.propTypes = {
-	getUsers: PropTypes.func.isRequired,
-	verifyRecruiter: PropTypes.func.isRequired,
-	user: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	user: state.user,
-});
-
-export default connect(mapStateToProps, { getUsers, verifyRecruiter })(Users);
+export default Users;
