@@ -9,6 +9,7 @@ const router = express.Router();
 const {
 	registerUser,
 	loginUser,
+	getCurrentUser,
 	getUserByID,
 	getUsers,
 	getAdmin,
@@ -20,7 +21,8 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 //get users
-router.get('/user/:id', auth,isAdmin ,  getUserByID);
+router.get('/me', auth, getCurrentUser);
+router.get('/user/:id', auth, isAdmin, getUserByID);
 router.get('/users', auth, getUsers);
 
 //admin
@@ -31,4 +33,3 @@ router.get('/admin', auth, isAdmin, getAdmin);
 router.post('/admin/verifyuser', auth, isAdmin, verifyUsers);
 
 module.exports = router;
-		
