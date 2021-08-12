@@ -10,7 +10,7 @@ import {
 // Load User
 export const loadUser = () => async (dispatch) => {
 	try {
-		const res = await API.get('/user');
+		const res = await API.get('/me');
 
 		dispatch({
 			type: USER_LOADED,
@@ -40,7 +40,7 @@ export const login = (values) => async (dispatch) => {
 		// const errors = err.response.data.errors;
 
 		if (err) {
-			console.log('errors->' , err.message);
+			console.log('errors->', err.message);
 		}
 
 		dispatch({
