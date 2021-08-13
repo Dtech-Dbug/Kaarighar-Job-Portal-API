@@ -12,6 +12,7 @@ const {
 	readJob,
 	updateJob,
 	deleteJob,
+	readJobsBasedOnCategories
 } = require("../Controllers/jobListControllers");
 
 //routes
@@ -29,5 +30,9 @@ router.put("/job/:slug", auth, isRecruiter, updateJob);
 
 //delete
 router.delete("/job/:slug", auth, isRecruiter, deleteJob);
+
+//get jobs based on categories
+
+router.get('/jobs/:category' , readJobsBasedOnCategories)
 
 module.exports = router;
