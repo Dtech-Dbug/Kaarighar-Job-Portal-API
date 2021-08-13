@@ -17,8 +17,9 @@ import Login from './components/auth/Login';
 import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import NavHeader from './components/reusableComponents/NavHeader';
+import ForgotPassword from './components/auth/ForgotPassword';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 function App() {
 	const [collapsed, setCollapsed] = useState(false);
@@ -44,6 +45,11 @@ function App() {
 			<Router>
 				<Switch>
 					<Route path="/login" exact component={Login} />
+					<Route
+						path="/forgot-password"
+						exact
+						component={ForgotPassword}
+					/>
 					<Fragment>
 						<Layout style={{ minHeight: '100vh' }}>
 							<Sider
