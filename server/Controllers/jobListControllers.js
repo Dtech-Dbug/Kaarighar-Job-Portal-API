@@ -102,7 +102,7 @@ exports.deleteJob = async (req, res) => {
 
 exports.readJobsBasedOnCategories = async(req, res) =>{
 try {
-	const category =  req.params.category;
+	const category =  req.params.categoryId;
 	console.log(typeof(category))
 
 	const jobs = await JOBS.find({parent : category}).exec()
