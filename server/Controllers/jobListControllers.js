@@ -100,16 +100,23 @@ exports.deleteJob = async (req, res) => {
 	}
 };
 
-exports.readJobsBasedOnCategories = async(req, res) =>{
-try {
-	const category =  req.params.categoryId;
-	console.log(typeof(category))
+exports.readJobsBasedOnCategories = async (req, res) => {
+	try {
+		const category = req.params.categoryId;
+		console.log(category);
 
-	const jobs = await JOBS.find({parent : category}).exec()
+		const jobs = await JOBS.find({ parent: category })
+			.populate('parent', 'title')
+			.populate(
+				'recruiter',
+				'firstName lastName companyName companyRegNo location',
+			)
+			.exec();
 
-	res.json(jobs)
-}
-catch(err){
-	console.log('Error message->', err.message)
-}
-}
+		res.json(jobs);
+
+		console.log('Recruiter-->', jobs[0].recruiter);
+	} catch (err) {
+		console.log('Error message->', err.message);
+	}
+};
