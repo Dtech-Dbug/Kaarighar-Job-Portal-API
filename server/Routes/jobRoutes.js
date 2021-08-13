@@ -33,6 +33,6 @@ router.delete("/job/:slug", auth, isRecruiter, deleteJob);
 
 //get jobs based on categories
 
-router.get('/jobs/:category' , readJobsBasedOnCategories)
+router.get('/jobs/:categoryId' , readJobsBasedOnCategories)
 
 module.exports = router;
