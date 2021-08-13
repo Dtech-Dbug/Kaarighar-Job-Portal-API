@@ -218,17 +218,17 @@ exports.verifyUsers = async (req, res) => {
 };
 
 exports.resetPassword = async (req, res) => {
-	const id = req.params.userId;
 	console.log('REQ BODY FOR PW-->', req.body);
-	const password = req.body.password;
+	const { password, mobileNumber } = req.body;
 	//generation
 	const salt = await bcrypt.genSalt(10);
 
 	//password
 	hashedPassword = await bcrypt.hash(password, salt);
 
-	const updatePassword = await UserModel.findByIdAndUpdate(
-		{ _id: id },
+	// findoneandupdate by mobileNumber
+	const updatePassword = await UserModel.findOneAndUpdate(
+		{ mobileNumber: mobileNumber },
 		{ password: hashedPassword },
 		{ new: true },
 	).exec();
