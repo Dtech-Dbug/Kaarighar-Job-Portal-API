@@ -3,13 +3,22 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import { Link } from 'react-router-dom';
+import { Form, Input, Button } from 'antd';
+import 'antd/dist/antd.css';
 
 const Login = ({ login, isAuthenticated }) => {
 	const [formValue, setFormValue] = useState({
 		mobileNumber: '1234567890',
 		password: 'pass1234',
 	});
+	const onFinish = (values) => {
+		console.log('Success:', values);
+	};
 
+	const onFinishFailed = (errorInfo) => {
+		console.log('Failed:', errorInfo);
+	};
 	const handleClick = (e) => {
 		e.preventDefault();
 		login(formValue);
@@ -34,16 +43,8 @@ const Login = ({ login, isAuthenticated }) => {
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
 						Sign in to your account
 					</h2>
-					<p className="mt-2 text-center text-sm text-gray-600">
-						Or{' '}
-						<a
-							href="/register"
-							className="font-medium text-indigo-600 hover:text-indigo-500">
-							Create an new account
-						</a>
-					</p>
 				</div>
-				<form className="mt-8 space-y-6" action="#" method="POST">
+				{/* <form className="mt-8 space-y-6" action="#" method="POST">
 					<input type="hidden" name="remember" defaultValue="true" />
 					<div className="rounded-md shadow-sm text-left -space-y-px">
 						<div className="mb-4 mr-1">
@@ -91,7 +92,61 @@ const Login = ({ login, isAuthenticated }) => {
 							Sign in
 						</button>
 					</div>
-				</form>
+				</form> */}
+				<Form
+					initialValues={{
+						remember: true,
+					}}
+					layout="vertical"
+					onFinish={onFinish}
+					onFinishFailed={onFinishFailed}>
+					<Form.Item
+						label="Mobile Number"
+						required
+						tooltip="Mobile Number is a required field">
+						<Input
+							name="mobileNumber"
+							value={formValue.mobileNumber || ''}
+							onChange={handleChange}
+							rules={[
+								{
+									required: true,
+									message: 'Please enter your mobile number!',
+								},
+							]}
+						/>
+					</Form.Item>
+
+					<Form.Item
+						label="Password"
+						required
+						tooltip="Password is a required field">
+						<Input.Password
+							name="password"
+							value={formValue.password || ''}
+							onChange={handleChange}
+							rules={[
+								{
+									required: true,
+									message: 'Please enter your password!',
+								},
+							]}
+						/>
+					</Form.Item>
+
+					<Form.Item>
+						<Button
+							className="w-full"
+							type="primary"
+							htmlType="submit"
+							onClick={handleClick}>
+							Login
+						</Button>
+					</Form.Item>
+					<Form.Item className="text-center text-blue-700 font-medium	">
+						<Link to="/forgot-password">Forgot Password?</Link>
+					</Form.Item>
+				</Form>
 			</div>
 		</div>
 	);
