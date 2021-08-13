@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-
-import { Link } from 'react-router-dom';
+import { forgotPassword } from '../../functions/userAuth';
+import { Link, Redirect } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
-const ForgotPassword = () => {
-	const [formValue, setFormValue] = useState({
-		userID: '',
-		password: '',
-		confirmPassword: '',
-	});
 
+const ForgotPassword = () => {
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [formValue, setFormValue] = useState({
+		mobileNumber: '',
+		password: '',
+	});
 	const handleClick = (e) => {
 		e.preventDefault();
-		if (formValue.password !== formValue.confirmPassword) {
-			alert('Password does not mactch try again');
-			return;
+		if (formValue.password === confirmPassword) {
+			forgotPassword(formValue).then(() => {
+				alert('Password has been reset');
+				<Redirect to="/login" />;
+			});
 		} else {
-			alert('Password changed successfully');
+			alert('Password does not mactch try again');
 		}
 	};
 
@@ -41,17 +43,18 @@ const ForgotPassword = () => {
 				</div>
 				<Form layout="vertical">
 					<Form.Item
-						label="User ID"
+						label="Mobile Number"
 						required
-						tooltip="User ID is a required field">
+						tooltip="Mobile Number is a required field">
 						<Input
-							name="userID"
-							value={formValue.userID}
+							name="mobileNumber"
+							value={formValue.mobileNumber || ''}
 							onChange={handleChange}
+							placeholder="Enter Mobile Number"
 							rules={[
 								{
 									required: true,
-									message: 'Please enter your user id!',
+									message: 'Please enter your mobile number!',
 								},
 							]}
 						/>
@@ -65,6 +68,7 @@ const ForgotPassword = () => {
 							name="password"
 							value={formValue.password || ''}
 							onChange={handleChange}
+							placeholder="Enter password"
 							rules={[
 								{
 									required: true,
@@ -79,8 +83,9 @@ const ForgotPassword = () => {
 						tooltip="Confirm Password is a required field">
 						<Input.Password
 							name="confirmPassword"
-							value={formValue.confirmPassword || ''}
-							onChange={handleChange}
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							placeholder="Enter confirm password"
 							rules={[
 								{
 									required: true,

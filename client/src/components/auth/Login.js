@@ -10,7 +10,7 @@ import 'antd/dist/antd.css';
 const Login = ({ login, isAuthenticated }) => {
 	const [formValue, setFormValue] = useState({
 		mobileNumber: '1234567890',
-		password: 'pass1234',
+		password: 'qwerty123',
 	});
 	const onFinish = (values) => {
 		console.log('Success:', values);

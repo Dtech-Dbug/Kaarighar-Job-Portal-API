@@ -219,7 +219,8 @@ exports.verifyUsers = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
 	console.log('REQ BODY FOR PW-->', req.body);
-	const { password, mobileNumber } = req.body;
+	const { mobileNumber, password } = req.body.values;
+	console.log(typeof mobileNumber, typeof password);
 	//generation
 	const salt = await bcrypt.genSalt(10);
 
