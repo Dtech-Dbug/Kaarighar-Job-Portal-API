@@ -99,3 +99,17 @@ exports.deleteJob = async (req, res) => {
 		console.log('ERROR WHILE DELETING JOB-->', err.message);
 	}
 };
+
+exports.readJobsBasedOnCategories = async(req, res) =>{
+try {
+	const category =  req.params.category;
+	console.log(typeof(category))
+
+	const jobs = await JOBS.find({parent : category}).exec()
+
+	res.json(jobs)
+}
+catch(err){
+	console.log('Error message->', err.message)
+}
+}
