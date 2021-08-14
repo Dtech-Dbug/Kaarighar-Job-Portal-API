@@ -8,8 +8,8 @@ export const getAllJobs = async () => {
 	});
 };
 
-export const getJob = async (slug) => {
-	return await axios.get(`http://localhost:8000/api/job/${slug}`, {
+export const getJobInfo = async (id) => {
+	return await axios.get(`http://localhost:8000/api/job/${id}`, {
 		headers: {
 			'auth-token': localStorage.getItem('token'),
 		},
