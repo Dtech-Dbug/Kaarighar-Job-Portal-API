@@ -233,12 +233,12 @@ exports.resetPassword = async (req, res) => {
 exports.setUpUserProfile = async (req, res) => {
   try {
     console.log(req.body);
-    const { skills, about, exprience, education } = req.body;
+    const { skills, about, experience, education } = req.body;
 
     console.log("Skills ->", skills);
     console.log("about ->", about);
     console.log("education ->", education);
-    console.log("exprience ->", exprience);
+    console.log("exprience ->", experience.title);
     const { id } = req.user;
 
     const updateUser = await UserModel.findOneAndUpdate(
@@ -247,8 +247,22 @@ exports.setUpUserProfile = async (req, res) => {
         profile: {
           skills,
           about,
-          experience,
-          education,
+          experience: [
+            {
+              title: experience.title,
+              company: experience.company,
+              location: experience.location,
+              current: experience.current,
+              description: experience.description,
+            },
+          ],
+          education: {
+            school: education.school,
+            fieldofstudy: education.fieldofstudy,
+            degree: education.degree,
+            current: education.current,
+            description: education.description,
+          },
         },
       },
       { new: true }
