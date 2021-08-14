@@ -38,7 +38,7 @@ exports.listAllJobs = async (req, res) => {
 			.populate('parent', 'title')
 			.populate(
 				'recruiter',
-				'firstName lastName companyName companyRegNo location',
+				'_id firstName lastName email mobileNumber companyName companyRegNo location',
 			)
 			.exec();
 
@@ -53,7 +53,13 @@ exports.listAllJobs = async (req, res) => {
 exports.readJob = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const job = await JOBS.findOne({ _id: id }).exec();
+		const job = await JOBS.findOne({ _id: id })
+			.populate('parent', 'title')
+			.populate(
+				'recruiter',
+				'_id firstName lastName email mobileNumber companyName companyRegNo location',
+			)
+			.exec();
 		console.log('JOB-->', job);
 		res.json(job);
 	} catch (err) {
@@ -109,7 +115,7 @@ exports.readJobsBasedOnCategories = async (req, res) => {
 			.populate('parent', 'title')
 			.populate(
 				'recruiter',
-				'firstName lastName companyName companyRegNo location',
+				'_id firstName lastName email mobileNumber companyName companyRegNo location',
 			)
 			.exec();
 
