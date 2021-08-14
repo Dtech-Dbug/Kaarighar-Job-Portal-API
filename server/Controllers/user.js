@@ -232,7 +232,10 @@ exports.resetPassword = async (req, res) => {
 //controller for editign profile
 exports.setUpUserProfile = async (req, res) => {
   try {
+    console.log("GEET");
+    return;
     console.log(req.body);
+
     const { skills, about, experience, education } = req.body;
 
     console.log("Skills ->", skills);
@@ -247,21 +250,13 @@ exports.setUpUserProfile = async (req, res) => {
         profile: {
           skills,
           about,
-          experience: [
-            {
+          $push: {
+            experience: {
               title: experience.title,
               company: experience.company,
               location: experience.location,
-              current: experience.current,
               description: experience.description,
             },
-          ],
-          education: {
-            school: education.school,
-            fieldofstudy: education.fieldofstudy,
-            degree: education.degree,
-            current: education.current,
-            description: education.description,
           },
         },
       },
