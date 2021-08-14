@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Table } from 'antd';
+import { Table, Space, Button } from 'antd';
 import 'antd/dist/antd.css';
 
 const TableJob = ({ data }) => {
@@ -47,6 +47,16 @@ const TableJob = ({ data }) => {
 							'NA'
 						);
 					}}
+				/>
+				<Column
+					title="Action"
+					render={(record) => (
+						<Space size="middle">
+							<Button type="dashed">
+								<Link to={`/job/${record._id}`}> View</Link>
+							</Button>
+						</Space>
+					)}
 				/>
 			</Table>
 		</div>
