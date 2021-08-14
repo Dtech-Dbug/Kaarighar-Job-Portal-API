@@ -52,8 +52,8 @@ exports.listAllJobs = async (req, res) => {
 
 exports.readJob = async (req, res) => {
 	try {
-		const { slug } = req.params;
-		const job = await JOBS.findOne({ slug }).exec();
+		const { id } = req.params;
+		const job = await JOBS.findOne({ _id: id }).exec();
 		console.log('JOB-->', job);
 		res.json(job);
 	} catch (err) {
@@ -69,7 +69,7 @@ exports.updateJob = async (req, res) => {
 		const { id } = req.user;
 
 		const job = await JOBS.findOneAndUpdate(
-			{ slug: req.params.slug },
+			{ _id: req.params.id },
 			{
 				name,
 				parent,
@@ -91,8 +91,8 @@ exports.updateJob = async (req, res) => {
 
 exports.deleteJob = async (req, res) => {
 	try {
-		const { slug } = req.params;
-		const job = await JOBS.findOneAndRemove({ slug }).exec();
+		const { id } = req.params;
+		const job = await JOBS.findOneAndRemove({ _id: id }).exec();
 		console.log('JOB DELETED-->', job);
 		res.json(job);
 	} catch (err) {
