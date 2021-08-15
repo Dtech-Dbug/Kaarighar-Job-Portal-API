@@ -4,16 +4,16 @@ import { Avatar, Badge, Divider, Col, Row } from 'antd';
 import { HiBadgeCheck } from 'react-icons/hi';
 const ViewProfile = ({ match }) => {
 	const [userProfile, setUserProfile] = useState(null);
-
+	const [profileInfo, setProfileInfo] = useState(null);
 	const DescriptionItem = ({ title, content }) => (
 		<div className="flex items-center">
-			<p className="font-bold py-2 pr-1">
+			<h2 className="font-bold py-2 pr-1">
 				{title ? (
 					<span>{title}:</span>
 				) : (
 					<span className="text-red-500"> No Data</span>
 				)}
-			</p>
+			</h2>
 			{content ? (
 				<span>{content}</span>
 			) : (
@@ -124,16 +124,50 @@ const ViewProfile = ({ match }) => {
 							/>
 						</Col>
 						<Col span={12}>
-							<DescriptionItem
-								title="Website"
-								content="www.ashishxcode.com"
-							/>
+							<a href="/" target="_blank">
+								<DescriptionItem
+									title="Website"
+									content="www.ashishxcode.com"
+								/>
+							</a>
 						</Col>
 					</Row>
-					<div>
-						<h2 className="font-bold py-2">Bio</h2>
-						<p>Make things as simple as possible but no simpler.</p>
-					</div>
+					{/* <DescriptionItem title="About" content={about} />
+					<Row>
+						<Col span={12}>
+							<h2 className="font-bold py-2 pr-1">Education</h2>
+							{education.map(({ school, _id, degree }) => (
+								<div key={_id}>
+									<Row>
+										<Col span={12}>
+											<h3>School</h3>
+										</Col>
+
+										<Col span={12}>
+											<h3>{school}</h3>
+										</Col>
+									</Row>
+									<Row>
+										<Col span={12}>
+											<h3>Degree</h3>
+										</Col>
+
+										<Col span={12}>
+											<h3>{degree}</h3>
+										</Col>
+									</Row>
+								</div>
+							))}
+						</Col>
+						<Col span={12}>
+							<a href="/" target="_blank">
+								<DescriptionItem
+									title="Website"
+									content="www.ashishxcode.com"
+								/>
+							</a>
+						</Col>
+					</Row> */}
 					<Divider />
 					{userProfile.role === 'Recruiter' ? (
 						<>
@@ -142,32 +176,35 @@ const ViewProfile = ({ match }) => {
 								<Col span={12}>
 									<DescriptionItem
 										title="Name"
-										content={userProfile.companyName}
+										content={
+											userProfile.company.companyName
+										}
 									/>
 								</Col>
 								<Col span={12}>
 									<DescriptionItem
 										title="Regestration No."
-										content={userProfile.companyRegNo}
+										content={
+											userProfile.company.companyRegNo
+										}
 									/>
 								</Col>
 							</Row>
-
-							<div>
-								<h2 className="font-bold py-2">Address</h2>
-								<p>{userProfile.address}</p>
-							</div>
 							<Row>
 								<Col span={12}>
 									<DescriptionItem
-										title="City"
-										content={userProfile.city}
+										title="Address"
+										content={
+											userProfile.company.companyAddress
+										}
 									/>
 								</Col>
 								<Col span={12}>
 									<DescriptionItem
-										title="Pincode"
-										content={userProfile.pinCode}
+										title="Contact"
+										content={
+											userProfile.company.companyContact
+										}
 									/>
 								</Col>
 							</Row>
@@ -182,13 +219,15 @@ const ViewProfile = ({ match }) => {
 								<Col span={12}>
 									<DescriptionItem
 										title="Aadhar Card"
-										content={userProfile.aadharCard}
+										content={
+											userProfile.aadharCard.aadharNumber
+										}
 									/>
 								</Col>
 								<Col span={12}>
 									<DescriptionItem
 										title="Pan Card"
-										content={userProfile.panCard}
+										content={userProfile.panCard.panNumber}
 									/>
 								</Col>
 							</Row>
@@ -211,21 +250,39 @@ const ViewProfile = ({ match }) => {
 							/>
 						</Col>
 					</Row>
-					<div>
-						<h2 className="font-bold py-2">Address:</h2>
-						<p>{userProfile.address}</p>
-					</div>
+					<Row>
+						<Col span={24}>
+							<DescriptionItem
+								title="Address"
+								content={`${userProfile.address.addressLine1} ${userProfile.address.addressLine1}`}
+							/>
+						</Col>
+					</Row>
 					<Row>
 						<Col span={12}>
 							<DescriptionItem
 								title="City"
-								content={userProfile.city}
+								content={userProfile.address.city}
 							/>
 						</Col>
 						<Col span={12}>
 							<DescriptionItem
-								title="Pincode"
-								content={userProfile.pinCode}
+								title="Zipcode"
+								content={userProfile.address.zipCode}
+							/>
+						</Col>
+					</Row>
+					<Row>
+						<Col span={12}>
+							<DescriptionItem
+								title="State"
+								content={userProfile.address.state}
+							/>
+						</Col>
+						<Col span={12}>
+							<DescriptionItem
+								title="Country"
+								content={userProfile.address.country}
 							/>
 						</Col>
 					</Row>
