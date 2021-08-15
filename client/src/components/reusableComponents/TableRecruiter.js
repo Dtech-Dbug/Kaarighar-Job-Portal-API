@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom';
 import { Table, Space, Button, Tooltip } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
-const TableComponent = ({
-	data,
-	handleRecruiterVerification,
-}) => {
+const TableComponent = ({ data, handleRecruiterVerification }) => {
 	const [page, setPage] = useState(1);
 	return (
 		<Table
@@ -40,8 +37,30 @@ const TableComponent = ({
 					<Tooltip
 						ellipsis={false}
 						placement="topLeft"
-						title={record.address}>
-						{record.address}
+						title={`${record.address.addressLine1} ${record.address.addressLine2}`}>
+						{record.address.addressLine1}
+					</Tooltip>
+				)}
+			/>
+			<Column
+				title="City"
+				render={(record) => (
+					<Tooltip
+						ellipsis={false}
+						placement="topLeft"
+						title={record.address.city}>
+						{record.address.city}
+					</Tooltip>
+				)}
+			/>
+			<Column
+				title="State"
+				render={(record) => (
+					<Tooltip
+						ellipsis={false}
+						placement="topLeft"
+						title={record.address.state}>
+						{record.address.state}
 					</Tooltip>
 				)}
 			/>

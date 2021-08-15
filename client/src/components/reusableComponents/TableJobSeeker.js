@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Space, Button } from 'antd';
+import { Table, Space, Button, Tooltip } from 'antd';
 import 'antd/dist/antd.css';
 const { Column } = Table;
 const TableJobSeeker = ({ data }) => {
@@ -32,24 +32,40 @@ const TableJobSeeker = ({ data }) => {
 				dataIndex="mobileNumber"
 				key="mobileNumber"
 			/>
-			<Column title="Address" dataIndex="address" key="address" />
-
 			<Column
-				render={(record) => {
-					record.role === 'Recruiter' ? (
-						<Column
-							title="verfied"
-							dataIndex="address"
-							key="address"
-						/>
-					) : (
-						<Column title="hmm" dataIndex="address" key="address" />
-					);
-				}}
+				title="Address"
+				render={(record) => (
+					<Tooltip
+						ellipsis={false}
+						placement="topLeft"
+						title={`${record.address.addressLine1} ${record.address.addressLine2}`}>
+						{record.address.addressLine1}
+					</Tooltip>
+				)}
 			/>
-			{}
+			<Column
+				title="City"
+				render={(record) => (
+					<Tooltip
+						ellipsis={false}
+						placement="topLeft"
+						title={record.address.city}>
+						{record.address.city}
+					</Tooltip>
+				)}
+			/>
+			<Column
+				title="State"
+				render={(record) => (
+					<Tooltip
+						ellipsis={false}
+						placement="topLeft"
+						title={record.address.state}>
+						{record.address.state}
+					</Tooltip>
+				)}
+			/>
 
-			{}
 			<Column
 				title="Action"
 				render={(record) => (
