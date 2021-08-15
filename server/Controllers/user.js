@@ -80,12 +80,25 @@ exports.registerUser = async (req, res) => {
 				email,
 				password: hashedPassword,
 				mobileNumber,
-				aadharCard,
-				panCard,
-				address,
-				pinCode,
-				city,
 				role,
+				aadharCard: {
+					aadharNumber: aadharCard.aadharNumber,
+					aadharImage: aadharCard.aadharImage,
+				},
+				panCard: {
+					panNumber: panCard.panNumber,
+					panImage: panCard.panImage,
+				},
+				address: {
+					addressLine1: address.addressLine1,
+					addressLine2: address.addressLine2,
+					city: address.city,
+					state: address.state,
+					country: address.country,
+					zipCode: address.zipCode,
+					latitude: address.latitude,
+					longitude: address.longitude,
+				},
 			}).save();
 		}
 
@@ -96,15 +109,22 @@ exports.registerUser = async (req, res) => {
 				email,
 				password: hashedPassword,
 				mobileNumber,
-				address,
-				pinCode,
-				city,
 				role,
-				companyRegNo,
-				companyName,
-				location: {
-					latitude: location.latitude,
-					longitude: location.longitude,
+				address: {
+					addressLine1: address.addressLine1,
+					addressLine2: address.addressLine2,
+					city: address.city,
+					state: address.state,
+					country: address.country,
+					zipCode: address.zipCode,
+					latitude: address.latitude,
+					longitude: address.longitude,
+				},
+				company: {
+					companyName: company.companyName,
+					companyRegNo: company.companyRegNo,
+					companyAddress: company.companyAddress,
+					companyContact: company.companyContact,
 				},
 			}).save();
 		}
@@ -236,12 +256,8 @@ exports.resetPassword = async (req, res) => {
 //controller for editign profile
 exports.setUpUserProfile = async (req, res) => {
 	try {
-		console.log(req.body);
 		const { skills, about, experience, education } = req.body;
 
-		console.log('Skills ->', skills);
-		console.log('about ->', about);
-		console.log('education ->', education);
 		const { id } = req.user;
 
 		const updateUser = await UserModel.findOneAndUpdate(
