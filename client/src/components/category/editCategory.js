@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { readCategory, editCategory } from "../../functions/categories";
+import React, { useState, useEffect } from 'react';
+import { readCategory, editCategory } from '../../functions/categories';
+import CategoryForm from './CategoryForm';
 
 //function to fetch data of a sinle category
 
 const EditCategory = ({ match, history }) => {
 	const [category, setCategory] = useState();
-	const [formValue, setFormValue] = useState("");
+	const [formValue, setFormValue] = useState('');
 
 	useEffect(() => {
 		fetchData();
@@ -15,16 +16,16 @@ const EditCategory = ({ match, history }) => {
 
 	const fetchData = () =>
 		readCategory(match.params.slug).then((res) => {
-			console.log("Categoty:", res);
+			console.log('Categoty:', res);
 			setCategory(res.data);
 			setFormValue(res.data.title);
 		});
 
 	const handleEditFormSubmit = (e) => {
 		e.preventDefault();
-		console.log("Form value", formValue);
+		console.log('Form value', formValue);
 		editCategory(match.params.slug, formValue)
-			.then((res) => history.push("/category"))
+			.then((res) => history.push('/category'))
 			.catch((err) => console.log(err.message));
 	};
 
@@ -40,12 +41,13 @@ const EditCategory = ({ match, history }) => {
 		</form>
 	);
 
-	console.log("Match", match);
+	console.log('Match', match);
 	return (
 		<>
 			{/* <h1>Edit category : {match.params.slug} </h1> */}
 			<br />
 			<div>{editCategoryForm()}</div>
+			{/* <CategoryForm /> */}
 		</>
 	);
 };
