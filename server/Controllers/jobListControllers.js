@@ -38,7 +38,7 @@ exports.listAllJobs = async (req, res) => {
 			.populate('parent', 'title')
 			.populate(
 				'recruiter',
-				'_id firstName lastName email mobileNumber companyName companyRegNo location',
+				'_id firstName lastName email mobileNumber company address',
 			)
 			.exec();
 
@@ -57,7 +57,7 @@ exports.readJob = async (req, res) => {
 			.populate('parent', 'title')
 			.populate(
 				'recruiter',
-				'_id firstName lastName email mobileNumber companyName companyRegNo location',
+				'_id firstName lastName email mobileNumber company address',
 			)
 			.exec();
 		console.log('JOB-->', job);
@@ -115,7 +115,7 @@ exports.readJobsBasedOnCategories = async (req, res) => {
 			.populate('parent', 'title')
 			.populate(
 				'recruiter',
-				'_id firstName lastName email mobileNumber companyName companyRegNo location',
+				'_id firstName lastName email mobileNumber company address',
 			)
 			.exec();
 
