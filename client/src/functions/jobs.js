@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+const url = '/api/';
 export const getAllJobs = async () => {
-	return await axios.get('http://localhost:8000/api/jobs', {
+	return await axios.get(`${url}jobs`, {
 		headers: {
 			'auth-token': localStorage.getItem('token'),
 		},
@@ -9,7 +10,7 @@ export const getAllJobs = async () => {
 };
 
 export const getJobInfo = async (id) => {
-	return await axios.get(`http://localhost:8000/api/job/${id}`, {
+	return await axios.get(`${url}/job/${id}`, {
 		headers: {
 			'auth-token': localStorage.getItem('token'),
 		},
