@@ -7,7 +7,6 @@ import Category from "../components/category/Category";
 import ViewProfile from "../components/users/ViewProfile";
 import Jobs from "../components/job/jobs";
 import ViewJob from "../components/job/ViewJob";
-
 import EditCategory from "../components/category/editCategory";
 
 const Routes = (props) => {
