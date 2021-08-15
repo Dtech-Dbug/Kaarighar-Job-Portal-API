@@ -4,7 +4,7 @@ import { Avatar, Badge, Divider, Col, Row } from "antd";
 import { HiBadgeCheck } from "react-icons/hi";
 const ViewProfile = ({ match }) => {
   const [userProfile, setUserProfile] = useState(null);
-  const [profileInfo, setProfileInfo] = useState(null);
+  // const [profileInfo, setProfileInfo] = useState(null);
   const DescriptionItem = ({ title, content }) => (
     <div className="flex items-center">
       <h2 className="font-bold py-2 pr-1">
@@ -31,11 +31,12 @@ const ViewProfile = ({ match }) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [match.params.id]);
+  }, [getUserById, match.params.id]);
 
   return (
     <div>
-      {userProfile && JSON.stringify(userProfile)}
+      {userProfile && JSON.stringify(userProfile.profile.education)}
+
       {userProfile ? (
         <div>
           <h1 className="flex items-center  justify-center font-bold text-2xl m-6">
@@ -130,42 +131,42 @@ const ViewProfile = ({ match }) => {
               </a>
             </Col>
           </Row>
-          {/* <DescriptionItem title="About" content={about} />
-					<Row>
-						<Col span={12}>
-							<h2 className="font-bold py-2 pr-1">Education</h2>
-							{education.map(({ school, _id, degree }) => (
-								<div key={_id}>
-									<Row>
-										<Col span={12}>
-											<h3>School</h3>
-										</Col>
+          {/* <DescriptionItem title="About" content={about} /> */}
+          <Row>
+            <Col span={12}>
+              <h2 className="font-bold py-2 pr-1">Education</h2>
+              {userProfile.profile.education.map(({ school, _id, degree }) => (
+                <div key={_id}>
+                  <Row>
+                    <Col span={12}>
+                      <h3>School</h3>
+                    </Col>
 
-										<Col span={12}>
-											<h3>{school}</h3>
-										</Col>
-									</Row>
-									<Row>
-										<Col span={12}>
-											<h3>Degree</h3>
-										</Col>
+                    <Col span={12}>
+                      <h3>{school}</h3>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={12}>
+                      <h3>Degree</h3>
+                    </Col>
 
-										<Col span={12}>
-											<h3>{degree}</h3>
-										</Col>
-									</Row>
-								</div>
-							))}
-						</Col>
-						<Col span={12}>
-							<a href="/" target="_blank">
-								<DescriptionItem
-									title="Website"
-									content="www.ashishxcode.com"
-								/>
-							</a>
-						</Col>
-					</Row> */}
+                    <Col span={12}>
+                      <h3>{degree}</h3>
+                    </Col>
+                  </Row>
+                </div>
+              ))}
+            </Col>
+            <Col span={12}>
+              <a href="/" target="_blank">
+                <DescriptionItem
+                  title="Website"
+                  content="www.ashishxcode.com"
+                />
+              </a>
+            </Col>
+          </Row>
           <Divider />
           {userProfile.role === "Recruiter" ? (
             <>
@@ -217,6 +218,7 @@ const ViewProfile = ({ match }) => {
                   />
                 </Col>
               </Row>
+
               <Divider />
             </>
           ) : null}
