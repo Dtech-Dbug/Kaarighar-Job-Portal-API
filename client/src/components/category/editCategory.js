@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { readCategory, editCategory } from "../../functions/categories";
-import CategoryForm from "./CategoryForm";
-import { Card, Form, Button, Input, Upload, message } from "antd";
+// import CategoryForm from "./CategoryForm";
+import { Card, Form, Button, Input } from /* Upload, message*/ 'antd';
 import "antd/dist/antd.css";
 
 //function to fetch data of a sinle category

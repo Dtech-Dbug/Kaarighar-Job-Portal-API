@@ -5,7 +5,7 @@ import {
   createCategory,
   getAllCategories,
   deleteCategory,
-  editCategory,
+  // editCategory,
 } from "../../functions/categories";
 
 import { RiLayout2Line } from "react-icons/ri";

@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../components/dashboard/Dashboard';
 import Users from '../components/users/Users';
