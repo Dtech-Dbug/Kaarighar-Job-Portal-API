@@ -18,11 +18,12 @@ import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import NavHeader from './components/reusableComponents/NavHeader';
 import ForgotPassword from './components/auth/ForgotPassword';
+import Home from './components/Home';
 
 const { Content, Footer, Sider } = Layout;
 
 function App() {
-	const [collapsed, setCollapsed] = useState(false);
+	const [collapsed, setCollapsed] = useState(true);
 
 	const onCollapsed = (item) => {
 		setCollapsed(item);
@@ -44,6 +45,7 @@ function App() {
 		<Provider store={store}>
 			<Router>
 				<Switch>
+					<Route path="/" exact component={Home} />
 					<Route path="/login" exact component={Login} />
 					<Route
 						path="/forgot-password"

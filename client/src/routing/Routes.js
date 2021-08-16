@@ -2,7 +2,6 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../components/dashboard/Dashboard';
 import Users from '../components/users/Users';
-import Home from '../components/Home';
 import Category from '../components/category/Category';
 import ViewProfile from '../components/users/ViewProfile';
 import Jobs from '../components/job/jobs';
@@ -12,7 +11,6 @@ import EditCategory from '../components/category/editCategory';
 const Routes = (props) => {
 	return (
 		<Switch>
-			<Route path="/" exact component={Home} />
 			<PrivateRoute exact path="/dashboard" component={Dashboard} />
 			<PrivateRoute exact path="/users" component={Users} />
 			<PrivateRoute exact path="/user/:id" component={ViewProfile} />
