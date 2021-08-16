@@ -1,9 +1,11 @@
 import React from 'react';
-import { Layout, Avatar, Input, Menu, Dropdown } from 'antd';
+import { Layout, Avatar, Input, Menu, Dropdown, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { BiSearchAlt } from 'react-icons/bi';
-
-const NavHeader = ({ user }) => {
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
+const NavHeader = ({ user, logout, auth: { isAuthenticated, loading } }) => {
 	const { Header } = Layout;
 	const { Search } = Input;
 
@@ -20,7 +22,9 @@ const NavHeader = ({ user }) => {
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
-				<a href="https://www.antgroup.com">Logout</a>
+				<Button danger type="text" onClick={logout}>
+					Logout
+				</Button>
 			</Menu.Item>
 		</Menu>
 	);
@@ -42,4 +46,13 @@ const NavHeader = ({ user }) => {
 	);
 };
 
-export default NavHeader;
+NavHeader.prototype = {
+	logout: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(NavHeader);
