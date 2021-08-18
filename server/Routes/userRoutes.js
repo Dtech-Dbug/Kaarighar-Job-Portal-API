@@ -18,6 +18,10 @@ const {
   setUpUserProfile,
 } = require("../Controllers/user");
 
+// test route 
+app.get('/test', (req, res) => { res.send('Hello from Express!')
+
+
 //routes
 router.post("/register", registerUser);
 router.post("/login", loginUser);
