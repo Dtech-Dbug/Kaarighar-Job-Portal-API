@@ -1,9 +1,11 @@
 import React from 'react';
-import { Layout, Avatar, Input } from 'antd';
+import { Layout, Avatar, Input, Menu, Dropdown, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { BiSearchAlt } from 'react-icons/bi';
-
-const NavHeader = ({ user }) => {
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
+const NavHeader = ({ user, logout, auth: { isAuthenticated, loading } }) => {
 	const { Header } = Layout;
 	const { Search } = Input;
 
@@ -16,6 +18,16 @@ const NavHeader = ({ user }) => {
 			}}
 		/>
 	);
+
+	const menu = (
+		<Menu>
+			<Menu.Item key="0">
+				<Button danger type="text" onClick={logout}>
+					Logout
+				</Button>
+			</Menu.Item>
+		</Menu>
+	);
 	return (
 		<Header className="flex justify-between items-center p-4 bg-white">
 			<Search
@@ -25,11 +37,22 @@ const NavHeader = ({ user }) => {
 				className="mr-8 max-w-md"
 				suffix={suffix}
 			/>
-			<Avatar gap={1} size="8">
-				A
-			</Avatar>
+			<Dropdown overlay={menu} trigger={['click']}>
+				<Avatar gap={1} size="8" onClick={(e) => e.preventDefault()}>
+					A
+				</Avatar>
+			</Dropdown>
 		</Header>
 	);
 };
 
-export default NavHeader;
+NavHeader.prototype = {
+	logout: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(NavHeader);
