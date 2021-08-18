@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { readCategory, editCategory } from "../../functions/categories";
 // import CategoryForm from "./CategoryForm";
-import { Card, Form, Button, Input } from /* Upload, message*/ 'antd';
+import { Card, Form, Button, Input } from /* Upload, message*/ "antd";
 import "antd/dist/antd.css";
 
 //function to fetch data of a sinle category
@@ -22,6 +22,7 @@ const EditCategory = ({ match, history }) => {
       console.log("RES -->", res.data.title);
 
       setCategory(res.data);
+      setFormValue(res.data.title);
     });
   const handleCategoryChange = (e) => {
     setFormValue(e.target.value);
@@ -34,34 +35,28 @@ const EditCategory = ({ match, history }) => {
       .catch((err) => console.log(err.message));
   };
 
+  //get antd input element
+  const inputAntd = document.querySelector("#Add Category_category-name");
+  console.log("ANTD___", inputAntd);
+
   const editCategoryForm = () => (
     <Card className="w-full">
       <Form name="Add Category" layout="vertical">
-        <Form.Item
-          label="Category Name"
-          name="category-name"
-          rules={[
-            {
-              required: true,
-              message: "Please input category name!",
-            },
-          ]}
-        >
-          <Input
-            // placeholder="Enter Category Name."
-            className="p-2"
-            value={match.params.slug}
-            name={formValue}
-            onChange={handleCategoryChange}
-          />
-        </Form.Item>
+        <input
+          class="ant-input p-2"
+          type="text"
+          id="Add Category_category-name"
+          value={formValue}
+          onChange={handleCategoryChange}
+        />
+
         <Button
           onClick={handleEditFormSubmit}
           type="primary"
           size="large"
           className=" my-4"
         >
-          Add Category
+          Edit Category
         </Button>
       </Form>
     </Card>
