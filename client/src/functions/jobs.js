@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const url = '/api/';
+import API_URL from '../utils/constant/API_URL';
+const url = `${API_URL}/api`;
 export const getAllJobs = async () => {
-	return await axios.get(`${url}jobs`, {
+	return await axios.get(`${url}/jobs`, {
 		headers: {
 			'auth-token': localStorage.getItem('token'),
 		},
