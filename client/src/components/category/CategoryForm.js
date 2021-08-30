@@ -49,40 +49,36 @@ const CategoryForm = ({
     //get response , and set images URL in the images array in the values object
   }
 
-  function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => callback(reader.result));
-    reader.readAsDataURL(img);
-  }
+  // function getBase64(img, callback) {
+  //   const reader = new FileReader();
+  //   reader.addEventListener("load", () => callback(reader.result));
+  //   const url = reader.readAsDataURL(img);
+  //   console.log(url);
+  // }
 
-  function beforeUpload(file) {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
-    }
-    return isJpgOrPng && isLt2M;
-  }
+  // function beforeUpload(file) {
+  //   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  //   if (!isJpgOrPng) {
+  //     message.error("You can only upload JPG/PNG file!");
+  //   }
+  //   const isLt2M = file.size / 1024 / 1024 < 2;
+  //   if (!isLt2M) {
+  //     message.error("Image must smaller than 2MB!");
+  //   }
+  //   return isJpgOrPng && isLt2M;
+  // }
 
-  const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      console.log("Uploading");
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) =>
-        console.log("url->", imageUrl)
-      );
-    }
-  };
-
-  function files(e) {
-    // e.preventDefault();
-    console.log("hi");
-  }
+  // const handleChange = (info) => {
+  //   if (info.file.status === "uploading") {
+  //     console.log("Uploading");
+  //   }
+  //   if (info.file.status === "done") {
+  //     // Get this url from response in real world.
+  //     getBase64(info.file.originFileObj, (imageUrl) =>
+  //       console.log("url->", imageUrl)
+  //     );
+  //   }
+  // };
 
   return (
     <Card className="w-full">
@@ -102,24 +98,8 @@ const CategoryForm = ({
             className="p-2"
             onChange={handleCategoryChange}
           />
+          <input type="file" onChange={fileUploadAndResize}></input>
         </Form.Item>
-        <Dragger
-          {...props}
-          onChange={handleChange}
-          beforeUpload={beforeUpload}
-          action="http://localhost:8000/api/admin/category"
-        >
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
-          <p className="ant-upload-hint px-4">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
-          </p>
-        </Dragger>
 
         <Button
           onClick={handleCategoryFormSubmit}
@@ -135,3 +115,21 @@ const CategoryForm = ({
 };
 
 export default CategoryForm;
+
+/*<Dragger
+          {...props}
+          onChange={handleChange}
+          beforeUpload={beforeUpload}
+          action="http://localhost:8000/api/admin/category"
+        >
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">
+            Click or drag file to this area to upload
+          </p>
+          <p className="ant-upload-hint px-4">
+            Support for a single or bulk upload. Strictly prohibit from
+            uploading company data or other band files
+          </p>
+        </Dragger>*/
