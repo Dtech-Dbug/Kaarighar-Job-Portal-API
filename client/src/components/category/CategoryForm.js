@@ -10,6 +10,7 @@ const CategoryForm = ({
   handleCategoryChange,
   handleCategoryFormSubmit,
   handleCategoryFormEditSubmit,
+  setUrl,
 }) => {
   let props = {
     headers: {
@@ -37,6 +38,7 @@ const CategoryForm = ({
           (uri) => {
             //the calback dunction : most important
             console.log("uri ===> ", uri);
+            setUrl(uri);
 
             //make request to backend with images
           },
