@@ -1,4 +1,5 @@
 import React from "react";
+import Resizer from "react-image-file-resizer";
 
 import { Card, Form, Button, Input, Upload, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
@@ -30,6 +31,38 @@ const CategoryForm = ({
     },
   };
 
+  function fileUploadAndResize(e) {
+    // let filesUploaded = images;
+    //console.log(e.target.files);
+
+    //resize: use resize react file npm : npm i react-image-file-resizer
+    //for a single file : e.target.files[0]
+    //buty for multiple uploads , we need to loop through the arrys of file lists
+    let files = e.target.files;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        Resizer.imageFileResizer(
+          files[i],
+          200,
+          200,
+          "JPEG",
+          100,
+          0,
+          (uri) => {
+            //the calback dunction : most important
+            console.log("uri ===> ", uri);
+
+            //make request to backend with images
+          },
+          "base64"
+        );
+      }
+    }
+    //send to srevr to upload to cloudianry
+
+    //get response , and set images URL in the images array in the values object
+  }
+
   return (
     <Card className="w-full">
       <Form name="Add Category" layout="vertical">
@@ -49,7 +82,7 @@ const CategoryForm = ({
             onChange={handleCategoryChange}
           />
         </Form.Item>
-        <Dragger {...props}>
+        <Dragger {...props} onChange={handle}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
