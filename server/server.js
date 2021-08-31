@@ -24,6 +24,11 @@ const storage = multer.diskStorage({
   },
 });
 
+// TODO : upload function
+const upload = multer({
+  storage: storage,
+}).single("userImageDetails");
+
 //congigure app
 const app = express();
 
