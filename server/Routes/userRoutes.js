@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
 }).single("userImageDetails");
+
 //middlewares
 const { auth, isAdmin } = require("../Middleware/auth");
 
@@ -37,7 +38,7 @@ const {
 } = require("../Controllers/user");
 
 //routes
-router.post("/register", registerUser);
+router.post("/register", upload, registerUser);
 router.post("/login", loginUser);
 
 //get users
