@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 
 //middlewares
 const { auth, isAdmin } = require("../Middleware/auth");
