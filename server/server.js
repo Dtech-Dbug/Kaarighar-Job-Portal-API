@@ -10,6 +10,14 @@ const { readdirSync } = fs;
 //configure  env files
 require("dotenv").config();
 
+const multer = require("multer");
+const path = require("path");
+
+// TODO : init a storage engine for multer
+const storage = multer.diskStorage({
+  destination: "./uploads/Images",
+});
+
 //congigure app
 const app = express();
 
