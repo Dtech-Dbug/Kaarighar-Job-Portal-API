@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = '/api/';
+const url =  "http://localhost:8000/api/";
 export const getAllJobs = async () => {
 	return await axios.get(`${url}jobs`, {
 		headers: {

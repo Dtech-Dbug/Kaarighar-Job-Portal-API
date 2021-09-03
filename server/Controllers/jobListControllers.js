@@ -7,7 +7,7 @@ const USER = require('../Model/user');
 
 exports.createJob = async (req, res) => {
 	try {
-		const { name, parent, image, noRole, description, requirement } =
+		const { name, parent, image,position,location, noRole, description, requirement } =
 			req.body;
 		const { id } = req.user;
 
@@ -15,6 +15,8 @@ exports.createJob = async (req, res) => {
 			name,
 			parent,
 			noRole,
+			position,
+			location,
 			image,
 			requirement,
 			description,
@@ -70,21 +72,23 @@ exports.readJob = async (req, res) => {
 // updateJob
 exports.updateJob = async (req, res) => {
 	try {
-		const { name, parent, image, noRole, description, requirement } =
+		const { name, parent, image, noRole,position, location, description, requirement } =
 			req.body;
 		const { id } = req.user;
 
 		const job = await JOBS.findOneAndUpdate(
 			{ _id: req.params.id },
 			{
-				name,
-				parent,
-				noRole,
-				image,
-				requirement,
-				description,
-				slug: slugify(name),
-				recruiter: id,
+			name,
+			parent,
+			noRole,
+			position,
+			location,
+			image,
+			requirement,
+			description,
+			slug: slugify(name),
+			recruiter: id,
 			},
 		).exec();
 

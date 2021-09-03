@@ -20,6 +20,9 @@ const jobListingSchema = new Schema(
 			index: true,
 			text: true,
 		},
+		position:{
+			type: String
+		},
 		noRole: {
 			type: Number,
 			true: true,
@@ -34,11 +37,13 @@ const jobListingSchema = new Schema(
 			trim: true,
 		},
 		parent: {
-			type: ObjectId,
+			type: ObjectId,	
 			ref: 'CATEGORIES',
 			required: true,
 		},
-
+		location:{
+			type: String
+		},
 		recruiter: {
 			type: ObjectId,
 			ref: 'USER',
