@@ -60,11 +60,14 @@ exports.registerUser = async (req, res) => {
 		let user = await UserModel.findOne({ mobileNumber });
 
 		console.log('USER--->', user);
-
-		if (user) {
-			return res.json({ ok: true });
+		
+		// checking if user exists or not
+		if (!user) {
+			return res
+				.status(400)
+				.json({ errors: [{ msg: 'Invalid Credentials' }] });
 		}
-
+		
 		//generation
 		const salt = await bcrypt.genSalt(10);
 
@@ -208,7 +211,7 @@ exports.loginUser = async (req, res) => {
 
 // getAlluser except admin role
 exports.getUsers = async (req, res) => {
-	const allUsers = await UserModel.find().exec();
+	const allUsers = await UserModel.find().skip(0).limit(5).exec();
 	const users = allUsers.filter((user) => user.role !== 'Admin');
 	res.json(users);
 };
@@ -234,7 +237,6 @@ exports.verifyUsers = async (req, res) => {
 };
 
 exports.resetPassword = async (req, res) => {
-	console.log('REQ BODY FOR PW-->', req.body);
 	const { mobileNumber, password } = req.body.values;
 	console.log(typeof mobileNumber, typeof password);
 	//generation
@@ -249,7 +251,6 @@ exports.resetPassword = async (req, res) => {
 		{ password: hashedPassword },
 		{ new: true },
 	).exec();
-
 	res.json(updatePassword);
 };
 
@@ -272,10 +273,7 @@ exports.setUpUserProfile = async (req, res) => {
 			},
 			{ new: true },
 		);
-
 		res.json(updateUser);
-
-		console.log('UPDATED USER --> ', updateUser);
 	} catch (err) {
 		console.log('ERROR WHILE PROFILING-->', err.message);
 	}
