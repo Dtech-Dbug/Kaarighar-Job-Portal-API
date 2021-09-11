@@ -5,6 +5,12 @@ const CATEGORIES = require("../Model/jobCategories");
 
 exports.createCategory = async (req, res) => {
   try {
+    console.log("request recieved");
+    // console.log(req.file);
+    // console.log("body-->", req.body);
+    console.log(req);
+
+    return;
     console.log("REQ FOR CREATING CATEGORY", req.body);
     console.log("TITLe->", req.body.values);
 
