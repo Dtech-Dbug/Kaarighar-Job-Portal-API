@@ -11,6 +11,8 @@ const CategoryForm = ({
   handleCategoryFormSubmit,
   handleCategoryFormEditSubmit,
   setUrl,
+  setFile,
+  file,
 }) => {
   let props = {
     headers: {
@@ -82,26 +84,28 @@ const CategoryForm = ({
   //   }
   // };
 
+  const handleFile = (e) => {
+    console.log("hello->", e.target.files[0]);
+    setFile(e.target.files[0]);
+
+    console.log("FILE_>", file);
+  };
+
   return (
     <Card className="w-full">
-      <Form name="Add Category" layout="vertical">
-        <Form.Item
-          label="Category Name"
-          name="category-name"
-          rules={[
-            {
-              required: true,
-              message: "Please input category name!",
-            },
-          ]}
-        >
-          <Input
-            placeholder="Enter Category Name."
-            className="p-2"
-            onChange={handleCategoryChange}
-          />
-          <input type="file" onChange={fileUploadAndResize}></input>
-        </Form.Item>
+      <form
+        action="/admin/category"
+        method="POST"
+        name="Category"
+        layout="vertical"
+        enctype="multipart/form-data"
+      >
+        <Input
+          placeholder="Enter Category Name."
+          className="p-2"
+          onChange={handleCategoryChange}
+        />
+        <input name="image" type="file" onChange={handleFile}></input>
 
         <Button
           onClick={handleCategoryFormSubmit}
@@ -111,7 +115,7 @@ const CategoryForm = ({
         >
           Add Category
         </Button>
-      </Form>
+      </form>
     </Card>
   );
 };
