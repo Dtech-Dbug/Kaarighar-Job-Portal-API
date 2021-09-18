@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const fileRoutes = require("./Routes/fileUploadsRoutes");
 const path = require("path");
 
+const fs = require("fs");
+
 //configure  env files
 require("dotenv").config();
 
@@ -28,7 +30,11 @@ app.use(bodyParser.json());
 
 // file uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/api", fileRoutes.routes);
+app.use("/api", fileRoutes);
+
+fs.readdirSync("./Routes").map((route) =>
+  app.use("/api", require("./Routes/" + route))
+);
 
 app.listen(process.env.PORT, () => {
   console.log(`App Running on ${process.env.PORT}`);
