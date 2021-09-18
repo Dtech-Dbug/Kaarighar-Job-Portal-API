@@ -2,11 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const multer = require("multer");
-
-//file system module from node
-const fs = require("fs");
-const { readdirSync } = fs;
+const fileRoutes = require("./Routes/fileUploadsRoutes");
+const path = require("path");
 
 //configure  env files
 require("dotenv").config();
@@ -27,44 +24,11 @@ mongoose
 
 //middlewares
 app.use(cors());
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
-const { auth, isAdmin } = require("./Middleware/auth");
-
-// TODO : init a storage engine for multer
-const storage = new multer.diskStorage({
-  destination: "./Uploads/",
-  filename: function (req, file, callBack) {
-    callBack(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-// TODO : upload function
-const upload = new multer({
-  storage: storage,
-  limits: { fieldSize: 10 * 1024 * 1024 },
-});
-
-//routes
-readdirSync("./Routes").map((route) =>
-  app.use("/api", require("./Routes/" + route))
-);
-
-app.post(
-  "/admin/category",
-
-  upload.single("Image"),
-  auth,
-
-  isAdmin,
-
-  (req, res) => {
-    console.log(req.files);
-  }
-);
+// file uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api", fileRoutes.routes);
 
 app.listen(process.env.PORT, () => {
   console.log(`App Running on ${process.env.PORT}`);
