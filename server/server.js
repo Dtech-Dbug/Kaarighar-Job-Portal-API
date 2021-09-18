@@ -28,10 +28,11 @@ mongoose
 //middlewares
 app.use(cors());
 // app.use(bodyParser.json());
+
 const { auth, isAdmin } = require("./Middleware/auth");
 
 // TODO : init a storage engine for multer
-const storage = multer.diskStorage({
+const storage = new multer.diskStorage({
   destination: "./Uploads/",
   filename: function (req, file, callBack) {
     callBack(
@@ -42,7 +43,7 @@ const storage = multer.diskStorage({
 });
 
 // TODO : upload function
-const upload = multer({
+const upload = new multer({
   storage: storage,
   limits: { fieldSize: 10 * 1024 * 1024 },
 });

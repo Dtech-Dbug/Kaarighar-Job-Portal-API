@@ -19,6 +19,8 @@ const upload = multer({
   limits: { fieldSize: 10 * 1024 * 1024 },
 });
 
+const uploadMulter = upload.single("image");
+
 //middlewares
 const { auth, isAdmin } = require("../Middleware/auth");
 
@@ -37,11 +39,13 @@ const router = express.Router();
 // create category route
 router.post(
   "/admin/category",
-  auth,
-  isAdmin,
-  // upload.single("image"),
-
-  createCategory
+  // auth,
+  // isAdmin,
+  upload.single("image"),
+  (req, res) => {
+    console.log("hmm");
+    console.log(req.file);
+  }
 );
 
 //read categories

@@ -8,7 +8,7 @@ exports.createCategory = async (req, res) => {
     console.log("request recieved");
     // console.log(req.file);
     // console.log("body-->", req.body);
-    console.log(req);
+    console.log(req.files);
 
     return;
     console.log("REQ FOR CREATING CATEGORY", req.body);
