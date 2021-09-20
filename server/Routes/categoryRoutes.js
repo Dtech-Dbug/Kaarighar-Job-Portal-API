@@ -39,13 +39,10 @@ const router = express.Router();
 // create category route
 router.post(
   "/admin/category",
-  // auth,
-  // isAdmin,
-  upload.single("image"),
-  (req, res) => {
-    console.log("hmm");
-    console.log(req.file);
-  }
+  auth,
+  isAdmin,
+  upload.single("file"),
+  createCategory
 );
 
 //read categories
@@ -58,6 +55,6 @@ router.get("/admin/category/:slug", readCategory);
 router.delete("/admin/category/:slug", auth, isAdmin, removeCategory);
 
 //update categories
-router.put("/admin/category/:slug", auth, isAdmin, updateCategory);
+router.put("/admin/category/:slug",auth, isAdmin, upload.single("file"), updateCategory);
 
 module.exports = router;

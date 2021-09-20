@@ -5,28 +5,25 @@ const CATEGORIES = require("../Model/jobCategories");
 
 exports.createCategory = async (req, res) => {
   try {
-    console.log("request recieved");
-    // console.log(req.file);
-    // console.log("body-->", req.body);
-    console.log(req.files);
+    const { title } = req.body;
 
-    return;
-    console.log("REQ FOR CREATING CATEGORY", req.body);
-    console.log("TITLe->", req.body.values);
-
-    const { title } = req.body.values;
-    const { url } = req.body.values;
-
-    const category = await new CATEGORIES({
+    const category = new CATEGORIES({
       title: title,
       slug: slugify(title),
-      images: url,
-    }).save();
-    console.log("Category created w/ title :", category);
+      images: {
+        fileName: req.file.originalname,
+        filePath: req.file.path,
+        fileSize: req.file.size,
+        fileType: req.file.mimetype,
+      },
+    });
+
+    await category.save();
+    console.log(`Category ${category} is created`);
     res.json(category);
   } catch (err) {
-    console.log("ERROR WHILE CREATING CATEGORY", err.message);
-    res.status(400).send("OOPS! Something went wrong.Check the console.");
+    console.log("ERROR while CREATING CATEGORY->", err.message);
+    res.status(400).send("OOPS! Something went wrong.");
   }
 };
 
@@ -38,8 +35,8 @@ exports.listAllCategories = async (req, res) => {
 
     res.json(allCategories);
   } catch (err) {
-    console.log(err);
-    res.send("OOPS SOMETHINF WENT WRONG. Check the console.");
+    console.log("ERROR while LISTING a all CATEGORY-->", err);
+    res.status(400).send("OOPS! Something went wrong.");
   }
 };
 
@@ -49,8 +46,8 @@ exports.readCategory = async (req, res) => {
 
     res.json(category);
   } catch (err) {
-    console.log("ERROR WHILE LISTING A SINGLE CATEGORY-->", err);
-    res.send("OOPS! Somehing went wrong while reading a single categiry");
+    console.log("ERROR while LISTING a single CATEGORY-->", err);
+    res.status(400).send("OOPS! Something went wrong.");
   }
 };
 
@@ -61,31 +58,35 @@ exports.removeCategory = async (req, res) => {
     }).exec();
     res.json(deletedCategory);
   } catch (err) {
-    console.log("ERROR WHILE deleting A SINGLE CATEGORY-->", err);
-    res.send("OOPS! Somehing went wrong while deleting a single categiry");
+    console.log("ERROR while DELETING a single CATEGORY-->", err);
+    res.status(400).send("OOPS! Something went wrong.");
   }
 };
 
 exports.updateCategory = async (req, res) => {
   try {
-    console.log("EDIT CAT VALUE->", req.body.values);
-    const { values } = req.body;
+    console.log("EDIT Category Details->", req.body.values);
+ 
+    const { title } = req.body;
 
     const updatedcategory = await CATEGORIES.findOneAndUpdate(
       {
         slug: req.params.slug,
+      },{
+      title: title,
+      slug: slugify(title),
+      images: {
+        fileName: req.file.originalname,
+        filePath: req.file.path,
+        fileSize: req.file.size,
+        fileType: req.file.mimetype,
       },
-      {
-        title: values,
-        slug: slugify(values),
-      },
-      { new: true }
-    );
+    },{ new: true });
 
     console.log("UPDATED-->", updatedcategory);
     res.json(updatedcategory);
   } catch (err) {
     console.log("ERROR WHILE updating A SINGLE CATEGORY-->", err);
-    res.send("OOPS! Somehing went wrong while updating a single categiry");
+    res.status(400).send("OOPS! Something went wrong.");
   }
 };

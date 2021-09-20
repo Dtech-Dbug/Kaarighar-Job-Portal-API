@@ -21,7 +21,20 @@ const categoriesSchema = new Schema(
 		},
 
 		images: {
-			type: String,
+			fileName: {
+        		type: String,
+        	 	required: true
+    		},
+    		filePath: {
+        		type: String,
+        		required: true
+    		},
+    		fileType: {
+        		type: String,
+    		},
+    		fileSize: {
+        		type: String,
+    		}
 		},
 	},
 	{ timestamps: true }
