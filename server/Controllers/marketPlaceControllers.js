@@ -37,3 +37,20 @@ exports.getAllMarketPlaceItems = async (req, res) => {
     console.log("fetching item ->", err.message);
   }
 };
+
+exports.readMarketPlaceItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const readJob = await Market.findById({ _id: id })
+      .populate(
+        "recruiter",
+        "_id firstName lastName email mobileNumber company address"
+      )
+      .exec();
+
+    res.json(readJob);
+  } catch (err) {
+    console.log("Err while reading a item->", err.message);
+  }
+};
