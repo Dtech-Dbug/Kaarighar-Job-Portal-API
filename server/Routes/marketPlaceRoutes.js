@@ -3,6 +3,7 @@ const router = express.Router();
 
 //middlewares
 const { auth, isRecruiter } = require("../Middleware/auth");
+const { upload } = require("../Helper/fileupload");
 
 //constrollers
 
@@ -16,7 +17,7 @@ const {
 } = require("../Controllers/marketPlaceControllers");
 
 //create marketplace item
-router.post("/marketplace/create", auth, isRecruiter, createMarketPlaceItem);
+router.post("/marketplace/create",  upload.array('files'),createMarketPlaceItem);
 
 //get marketPlace items list
 router.get("/marketplace/items", getAllMarketPlaceItems);
@@ -25,13 +26,11 @@ router.get("/marketplace/items", getAllMarketPlaceItems);
 router.get("/marketplace/:id", readMarketPlaceItem);
 
 //update
-router.put("/marketplace/update/:id", auth, isRecruiter, updateMarketPlaceItem);
+router.put("/marketplace/update/:id",  upload.array('files'),updateMarketPlaceItem);
 
 //delete
 router.delete(
   "/marketplace/delete/:id",
-  auth,
-  isRecruiter,
   deleteMarketPlaceItem
 );
 module.exports = router;

@@ -16,10 +16,7 @@ const marketPlaceSchema = new Schema(
 			minLength: ['3', 'Too Short'],
 			text: true,
 		},
-		images: [{
-			type: String,
-
-		}],
+		images: [Object],
 		recruiter: {
 			type: ObjectId,
 			ref: 'USER',
