@@ -22,3 +22,18 @@ exports.createMarketPlaceItem = async (req, res) => {
     console.log("Err while creating item", err.message);
   }
 };
+
+exports.getAllMarketPlaceItems = async (req, res) => {
+  try {
+    const getAllItems = await Market.find({})
+      .populate(
+        "recruiter",
+        "_id firstName lastName email mobileNumber company address"
+      )
+      .exec();
+
+    res.json(getAllItems);
+  } catch (err) {
+    console.log("fetching item ->", err.message);
+  }
+};
