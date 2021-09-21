@@ -71,3 +71,15 @@ exports.updateMarketPlaceItem = async (req, res) => {
     console.log("err wjile updating item-->", err.message);
   }
 };
+
+exports.deleteMarketPlaceItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedItem = await Market.findOneAndDelete({ _id: id }).exec();
+
+    res.json({ deletedItem, ok: true });
+  } catch (err) {
+    console.log("err while deleting->", err.message);
+  }
+};
