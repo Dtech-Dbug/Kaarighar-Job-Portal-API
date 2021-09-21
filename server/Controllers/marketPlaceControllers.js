@@ -54,3 +54,20 @@ exports.readMarketPlaceItem = async (req, res) => {
     console.log("Err while reading a item->", err.message);
   }
 };
+
+exports.updateMarketPlaceItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description } = req.body;
+
+    const updatedItem = await Market.findOneAndUpdate(
+      { Id: id },
+      { name, description },
+      { new: true }
+    ).exec();
+
+    res.json(updatedItem);
+  } catch (err) {
+    console.log("err wjile updating item-->", err.message);
+  }
+};
