@@ -4,29 +4,29 @@ const Market = require("../Model/maketPlace");
 
 exports.createMarketPlaceItem = async (req, res) => {
   try {
-      let filesArray = [];
-      req.files.forEach(element => {
-            const file = {
-                fileName: element.originalname,
-                filePath: element.path,
-                fileType: element.mimetype,
-                fileSize: element.size
-            }
-            filesArray.push(file);
-        });
-        
+    let filesArray = [];
+    // req.files.forEach((element) => {
+    //   const file = {
+    //     fileName: element.originalname,
+    //     filePath: element.path,
+    //     fileType: element.mimetype,
+    //     fileSize: element.size,
+    //   };
+    //   filesArray.push(file);
+    // });
+
     const { name, description, recruiter } = req.body;
 
-    const createNewItem =  new Market({
+    const createNewItem = new Market({
       name,
       description,
       recruiter,
-      images: filesArray
+      // images: filesArray,
     });
 
-    await createNewItem.save()
-    console.log(createNewItem)
-    res.status(201).send('Item Added Successfully');
+    await createNewItem.save();
+    console.log(createNewItem);
+    res.status(201).send("Item Added Successfully");
   } catch (err) {
     console.log("Err while creating item", err.message);
   }
@@ -69,27 +69,27 @@ exports.updateMarketPlaceItem = async (req, res) => {
     const { id } = req.params;
     const { name, description } = req.body;
     let filesArray = [];
-    
-    req.files.forEach(element => {
-            const file = {
-                fileName: element.originalname,
-                filePath: element.path,
-                fileType: element.mimetype,
-                fileSize: element.size
-            }
-            filesArray.push(file);
+
+    req.files.forEach((element) => {
+      const file = {
+        fileName: element.originalname,
+        filePath: element.path,
+        fileType: element.mimetype,
+        fileSize: element.size,
+      };
+      filesArray.push(file);
     });
-    
+
     const updatedItem = await Market.findOneAndUpdate(
       { _id: id },
-      { 
+      {
         name,
         description,
-        images: filesArray 
+        images: filesArray,
       },
       { new: true }
     ).exec();
-    res.json({updated: true})
+    res.json({ updated: true });
   } catch (err) {
     console.log("err while updating item-->", err.message);
   }
