@@ -1,4 +1,5 @@
 const express = require("express");
+const SUBSCRIPTION = require("../Model/subscriptionModel");
 
 const router = express.Router();
 
@@ -10,6 +11,16 @@ const { auth, isAdmin } = require("../Middleware/auth");
 router.post("/create-plan", auth, isAdmin, async (req, res) => {
   try {
     // do something
+
+    const { name, description, perks, price } = req.body;
+
+    const SaveItem = await new SUBSCRIPTION({
+      planName: name,
+      planPrice: price,
+      perks,
+    }).save();
+
+    res.json(SaveItem);
   } catch (err) {
     res.send("err.message");
   }
