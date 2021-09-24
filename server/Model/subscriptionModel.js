@@ -5,17 +5,36 @@ const Schema = mongoose;
 const { ObjectId } = mongoose;
 
 const subscriptionModel = Schema({
-  name: {
+  planName:{ 
     type: String,
     text: true,
     trim: true,
   },
 
-  plan: String,
-
-  price: {
+  planPrice:{
     type: Number,
   },
+
+  planType:{
+    type: String,
+  },
+
+  purchaseDate:{
+      type: Date,
+  },
+
+  nextPurchaseDate:{
+      type: Date,
+  },
+
+  isPaid:{
+    type: Boolean
+  },
+
+  seller: {
+			type: ObjectId,
+			ref: 'USER',
+	},
 
   perks: {
     type: text,
