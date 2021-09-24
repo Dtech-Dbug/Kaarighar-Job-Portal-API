@@ -15,6 +15,14 @@ router.post("/create-plan", auth, isAdmin, async (req, res) => {
   }
 });
 
+router.post("/edit-plan/:id", auth, isAdmin, async (req, res) => {
+  try {
+    // do something
+  } catch (err) {
+    res.send("err.message");
+  }
+});
+
 router.get("get-plans", async (req, res) => {
   try {
     // do something
@@ -23,7 +31,15 @@ router.get("get-plans", async (req, res) => {
   }
 });
 
-router.get("get-plan/:id", auth, isAdmin, async (req, res) => {
+router.get("get-plan/:id", async (req, res) => {
+  try {
+    // do something
+  } catch (err) {
+    res.send("err.message");
+  }
+});
+
+router.delete("delete-plan/:id", auth, isAdmin, async (req, res) => {
   try {
     // do something
   } catch (err) {
