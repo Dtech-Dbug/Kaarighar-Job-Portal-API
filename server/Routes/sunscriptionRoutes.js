@@ -36,6 +36,21 @@ router.post("/create-plan", auth, isAdmin, async (req, res) => {
 router.post("/edit-plan/:id", auth, isAdmin, async (req, res) => {
   try {
     // do something
+    const id = req.params.id;
+    const { name, description, perks, price } = req.body;
+
+    const updatedPlan = await SUBSCRIPTION.findOneAndUpdate(
+      { _id: id },
+      {
+        planNAme: name,
+        planPrice: price,
+        perks,
+      },
+      { new: true }
+    );
+
+    res.json(updatedItem);
+    res.send(`${id} updated succesfully `);
   } catch (err) {
     res.send("err.message");
   }
