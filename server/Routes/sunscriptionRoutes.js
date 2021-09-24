@@ -80,6 +80,11 @@ router.get("get-plan/:id", async (req, res) => {
 router.delete("delete-plan/:id", auth, isAdmin, async (req, res) => {
   try {
     // do something
+    const deletePlan = await SUBSCRIPTION.findOneAndDelete({
+      _id: req.params.id,
+    }).exec();
+
+    res.send(`${id} deleted succesfully`);
   } catch (err) {
     res.send("err.message");
   }
