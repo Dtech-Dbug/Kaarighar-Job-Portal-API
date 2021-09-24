@@ -10,17 +10,24 @@ const { auth, isAdmin } = require("../Middleware/auth");
 
 router.post("/create-plan", auth, isAdmin, async (req, res) => {
   try {
-    // do something
-
     const { name, description, perks, price } = req.body;
 
-    const SaveItem = await new SUBSCRIPTION({
-      planName: name,
-      planPrice: price,
-      perks,
-    }).save();
+    const checkItemPresence = await SUBSCRIPTION.findOne({
+      planNAme: name,
+    }).exec();
 
-    res.json(SaveItem);
+    //if item present return
+    if (checkItemPresence) return;
+    else {
+      //create plan entry
+      const SaveItem = await new SUBSCRIPTION({
+        planName: name,
+        planPrice: price,
+        perks,
+      }).save();
+
+      res.json(SaveItem);
+    }
   } catch (err) {
     res.send("err.message");
   }
