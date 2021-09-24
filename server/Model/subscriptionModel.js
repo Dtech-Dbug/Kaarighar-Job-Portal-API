@@ -1,43 +1,43 @@
 const { text } = require("body-parser");
 const mongoose = require("mongoose");
-const Schema = mongoose;
+const { Schema } = mongoose;
 
 const { ObjectId } = mongoose;
 
 const subscriptionModel = Schema({
-  planName:{ 
+  planName: {
     type: String,
     text: true,
     trim: true,
   },
 
-  planPrice:{
+  planPrice: {
     type: Number,
   },
 
-  planType:{
+  planType: {
     type: String,
   },
 
-  purchaseDate:{
-      type: Date,
+  purchaseDate: {
+    type: Date,
   },
 
-  nextPurchaseDate:{
-      type: Date,
+  nextPurchaseDate: {
+    type: Date,
   },
 
-  isPaid:{
-    type: Boolean
+  isPaid: {
+    type: Boolean,
   },
 
   seller: {
-			type: ObjectId,
-			ref: 'USER',
-	},
+    type: ObjectId,
+    ref: "USER",
+  },
 
   perks: {
-    type: text,
+    type: String,
     minLength: [5, "Too Short"],
   },
 });
