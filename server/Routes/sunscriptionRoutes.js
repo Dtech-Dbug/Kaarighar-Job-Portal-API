@@ -59,6 +59,8 @@ router.post("/edit-plan/:id", auth, isAdmin, async (req, res) => {
 router.get("get-plans", async (req, res) => {
   try {
     // do something
+    const listAllPlan = await SUBSCRIPTION.find({}).exec();
+    res.json(listAllPlan);
   } catch (err) {
     res.send("err.message");
   }
@@ -67,6 +69,9 @@ router.get("get-plans", async (req, res) => {
 router.get("get-plan/:id", async (req, res) => {
   try {
     // do something
+    const showPlan = await SUBSCRIPTION.findOne({ _id: req.params.id }).exec();
+
+    res.json(showItem);
   } catch (err) {
     res.send("err.message");
   }
