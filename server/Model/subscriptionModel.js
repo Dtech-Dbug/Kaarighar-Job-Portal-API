@@ -23,6 +23,10 @@ const subscriptionModel = Schema({
     type: Date,
   },
 
+  planDuration: {
+    type: Date,
+  },
+
   nextPurchaseDate: {
     type: Date,
   },
