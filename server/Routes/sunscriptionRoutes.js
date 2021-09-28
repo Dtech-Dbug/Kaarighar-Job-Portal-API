@@ -11,6 +11,8 @@ const { auth, isAdmin } = require("../Middleware/auth");
 router.post("/create-plan", auth, isAdmin, async (req, res) => {
   try {
     const { name, description, perks, price } = req.body;
+
+    //for test to see whta is incoming
     console.log("reqfrom plan :", req.body);
 
     const checkItemPresence = await SUBSCRIPTION.findOne({
