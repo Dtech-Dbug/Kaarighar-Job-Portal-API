@@ -15,6 +15,8 @@ router.post("/create-plan", auth, isAdmin, async (req, res) => {
     //for test to see whta is incoming
     console.log("reqfrom plan :", req.body);
 
+    return;
+
     const checkItemPresence = await SUBSCRIPTION.findOne({
       planNAme: name,
     }).exec();
