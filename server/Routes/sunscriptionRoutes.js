@@ -8,37 +8,34 @@ const { auth, isAdmin } = require("../Middleware/auth");
 
 //create SUBMODEL
 
-router.post("/create-plan", auth, isAdmin, async (req, res) => {
+router.post("/plan/create", auth, isAdmin, async (req, res) => {
   try {
     const { name, description, perks, price } = req.body;
 
-    //for test to see whta is incoming
-    console.log("reqfrom plan :", req.body);
 
-    return;
+    // uncomment this with some other logic this is not working 
+    // const checkItemPresence = await SUBSCRIPTION.findOne({
+    //   planName: name,
+    // }).exec();
 
-    const checkItemPresence = await SUBSCRIPTION.findOne({
-      planNAme: name,
-    }).exec();
-
-    //if item present return
-    if (checkItemPresence) return;
-    else {
-      //create plan entry
+    // //if item present return
+    // if (checkItemPresence) return;
+    // else {
+    //   create plan entry
       const SaveItem = await new SUBSCRIPTION({
-        planName: name,
-        planPrice: price,
-        perks,
+          planName: name,
+          planPrice: price,
+          perks,
       }).save();
 
       res.json(SaveItem);
-    }
+    // }
   } catch (err) {
     res.send("err.message");
   }
 });
 
-router.post("/edit-plan/:id", auth, isAdmin, async (req, res) => {
+router.post("/plan/edit/:id", auth, isAdmin, async (req, res) => {
   try {
     // do something
     const id = req.params.id;
@@ -61,17 +58,17 @@ router.post("/edit-plan/:id", auth, isAdmin, async (req, res) => {
   }
 });
 
-router.get("get-plans", async (req, res) => {
+router.get("plan/all", async (req, res) => {
   try {
     // do something
-    const listAllPlan = await SUBSCRIPTION.find({}).exec();
+    const listAllPlan = await SUBSCRIPTION.find().exec();
     res.json(listAllPlan);
   } catch (err) {
     res.send("err.message");
   }
 });
 
-router.get("get-plan/:id", async (req, res) => {
+router.get("plan/:id", async (req, res) => {
   try {
     // do something
     const showPlan = await SUBSCRIPTION.findOne({ _id: req.params.id }).exec();
@@ -82,7 +79,7 @@ router.get("get-plan/:id", async (req, res) => {
   }
 });
 
-router.delete("delete-plan/:id", auth, isAdmin, async (req, res) => {
+router.delete("plan/delete/:id", auth, isAdmin, async (req, res) => {
   try {
     // do something
     const deletePlan = await SUBSCRIPTION.findOneAndDelete({
