@@ -88,7 +88,7 @@ router.delete("/plan/delete/:id", async (req, res) => {
 
     res.send(`${id} deleted succesfully`);
   } catch (err) {
-    res.send("err.message");
+    res.send(err.message);
   }
 });
 
