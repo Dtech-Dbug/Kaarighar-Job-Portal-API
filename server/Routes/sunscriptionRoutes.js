@@ -58,7 +58,7 @@ router.post("/plan/edit/:id", async (req, res) => {
   }
 });
 
-router.get("plan/all", async (req, res) => {
+router.get("/plan/all", async (req, res) => {
   try {
     // do something
     const listAllPlan = await SUBSCRIPTION.find().exec();
@@ -68,7 +68,7 @@ router.get("plan/all", async (req, res) => {
   }
 });
 
-router.get("plan/:id", async (req, res) => {
+router.get("/plan/:id", async (req, res) => {
   try {
     // do something
     const showPlan = await SUBSCRIPTION.findOne({ _id: req.params.id }).exec();
@@ -79,7 +79,7 @@ router.get("plan/:id", async (req, res) => {
   }
 });
 
-router.delete("plan/delete/:id", async (req, res) => {
+router.delete("/plan/delete/:id", async (req, res) => {
   try {
     // do something
     const deletePlan = await SUBSCRIPTION.findOneAndDelete({
