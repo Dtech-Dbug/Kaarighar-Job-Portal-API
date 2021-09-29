@@ -51,10 +51,10 @@ router.post("/plan/edit/:id", async (req, res) => {
       { new: true }
     );
 
-    res.json(updatedItem);
+    res.json(updatedPlan);
     res.send(`${id} updated succesfully `);
   } catch (err) {
-    res.send("err.message");
+    res.send(err.message);
   }
 });
 
@@ -88,6 +88,7 @@ router.delete("/plan/delete/:id", async (req, res) => {
 
     res.send(`${id} deleted succesfully`);
   } catch (err) {
+    console.log(err.message);
     res.send(err.message);
   }
 });
