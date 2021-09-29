@@ -8,12 +8,11 @@ const { auth, isAdmin } = require("../Middleware/auth");
 
 //create SUBMODEL
 
-router.post("/plan/create", auth, isAdmin, async (req, res) => {
+router.post("/plan/create", async (req, res) => {
   try {
     const { name, description, perks, price } = req.body;
 
-
-    // uncomment this with some other logic this is not working 
+    // uncomment this with some other logic this is not working
     // const checkItemPresence = await SUBSCRIPTION.findOne({
     //   planName: name,
     // }).exec();
@@ -22,20 +21,20 @@ router.post("/plan/create", auth, isAdmin, async (req, res) => {
     // if (checkItemPresence) return;
     // else {
     //   create plan entry
-      const SaveItem = await new SUBSCRIPTION({
-          planName: name,
-          planPrice: price,
-          perks,
-      }).save();
+    const SaveItem = await new SUBSCRIPTION({
+      planName: name,
+      planPrice: price,
+      perks,
+    }).save();
 
-      res.json(SaveItem);
+    res.json(SaveItem);
     // }
   } catch (err) {
     res.send("err.message");
   }
 });
 
-router.post("/plan/edit/:id", auth, isAdmin, async (req, res) => {
+router.post("/plan/edit/:id", async (req, res) => {
   try {
     // do something
     const id = req.params.id;
@@ -79,7 +78,7 @@ router.get("plan/:id", async (req, res) => {
   }
 });
 
-router.delete("plan/delete/:id", auth, isAdmin, async (req, res) => {
+router.delete("plan/delete/:id", async (req, res) => {
   try {
     // do something
     const deletePlan = await SUBSCRIPTION.findOneAndDelete({
