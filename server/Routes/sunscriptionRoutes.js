@@ -11,6 +11,7 @@ const { auth, isAdmin } = require("../Middleware/auth");
 router.post("/plan/create", async (req, res) => {
   try {
     const { name, description, perks, price } = req.body;
+    console.log(req.body);
 
     // uncomment this with some other logic this is not working
     // const checkItemPresence = await SUBSCRIPTION.findOne({
@@ -27,10 +28,10 @@ router.post("/plan/create", async (req, res) => {
       perks,
     }).save();
 
-    res.json(SaveItem);
+    res.status(200).json(SaveItem);
     // }
   } catch (err) {
-    res.send("err.message");
+    res.send(err.message);
   }
 });
 
