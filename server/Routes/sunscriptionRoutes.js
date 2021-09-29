@@ -82,11 +82,13 @@ router.get("/plan/:id", async (req, res) => {
 router.delete("/plan/delete/:id", async (req, res) => {
   try {
     // do something
+    console.log(req.params.id);
+
     const deletePlan = await SUBSCRIPTION.findOneAndDelete({
       _id: req.params.id,
     }).exec();
 
-    res.send(`${id} deleted succesfully`);
+    res.send(`${req.params.id} deleted succesfully`);
   } catch (err) {
     console.log(err.message);
     res.send(err.message);
