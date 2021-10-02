@@ -10,7 +10,7 @@ const { auth, isAdmin } = require("../Middleware/auth");
 
 router.post("/plan/create", async (req, res) => {
   try {
-    const { name, description, perks, price } = req.body;
+    const { planName, perks, planPrice } = req.body;
     console.log(req.body);
 
     // uncomment this with some other logic this is not working
@@ -23,9 +23,9 @@ router.post("/plan/create", async (req, res) => {
     // else {
     //   create plan entry
     const SaveItem = await new SUBSCRIPTION({
-      planName: name,
-      planPrice: price,
-      perks,
+        planName,
+        planPrice,
+        perks,
     }).save();
 
     res.status(200).json(SaveItem);
@@ -39,13 +39,14 @@ router.post("/plan/edit/:id", async (req, res) => {
   try {
     // do something
     const id = req.params.id;
-    const { name, description, perks, price } = req.body;
+    const { planName, perks, planPrice } = req.body;
 
+    console.log(req.body);
     const updatedPlan = await SUBSCRIPTION.findOneAndUpdate(
       { _id: id },
       {
-        planNAme: name,
-        planPrice: price,
+        planName,
+        planPrice,
         perks,
       },
       { new: true }
@@ -73,9 +74,9 @@ router.get("/plan/:id", async (req, res) => {
     // do something
     const showPlan = await SUBSCRIPTION.findOne({ _id: req.params.id }).exec();
 
-    res.json(showItem);
+    res.json(showPlan);
   } catch (err) {
-    res.send("err.message");
+    res.send("err.message",err);
   }
 });
 
