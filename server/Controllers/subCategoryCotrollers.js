@@ -3,7 +3,7 @@ const SUBCATEGORIES = require("../Model/jobSubCategory");
 exports.createSubCategory = async (req, res) => {
   try {
     //get the inputs do something
-  } catch (error) {
+  } catch (err) {
     console.log("Error while creating sub category", err.message);
     res.status(400).send({
       err: error.message,
@@ -14,7 +14,7 @@ exports.createSubCategory = async (req, res) => {
 exports.editSubCategory = async (req, res) => {
   try {
     //get the inputs do something
-  } catch (error) {
+  } catch (err) {
     console.log("Error while editing sub category", err.message);
     res.status(400).send({
       err: error.message,
@@ -25,7 +25,7 @@ exports.editSubCategory = async (req, res) => {
 exports.getSubCategory = async (req, res) => {
   try {
     //get the inputs do something
-  } catch (error) {
+  } catch (err) {
     console.log("Error while getting sub category", err.message);
     res.status(400).send({
       err: error.message,
@@ -36,7 +36,7 @@ exports.getSubCategory = async (req, res) => {
 exports.getAllSubcategories = async (req, res) => {
   try {
     //get the inputs do something
-  } catch (error) {
+  } catch (err) {
     console.log("Error while getting all sub category", err.message);
     res.status(400).send({
       err: error.message,
