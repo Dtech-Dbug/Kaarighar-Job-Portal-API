@@ -15,10 +15,10 @@ const {
 } = require("../Controllers/subCategoryCotrollers");
 
 //routes
-router.post("/create/sub-category", auth, isAdmin, createSubCategory);
-router.get("/get/sub-category", getAllSubcategories);
-router.get("/get/sub-category/:id", getSubCategory);
-router.post("/edit/sub-category/:id", auth, isAdmin, editSubCategory);
-router.delete("/delete/sub-category/:id", auth, isAdmin, deleteSubCategory);
+router.post("/create/subcategory", auth, isAdmin, createSubCategory);
+router.get("/get/subcategory", getAllSubcategories);
+router.get("/get/subcategory/:slug", getSubCategory);
+router.post("/edit/subcategory/:slug", auth, isAdmin, editSubCategory);
+router.delete("/delete/subcategory/:slug", auth, isAdmin, deleteSubCategory);
 
-console.log(router);
+
