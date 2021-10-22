@@ -12,13 +12,13 @@ const {
   getAllSubcategories,
   getSubCategory,
   deleteSubCategory,
-} = require("../Controllers/subCategoryControllers");
+} = require("../Controllers/subCategoryCotrollers");
 
 //routes
-router.post("/createSub", auth, isAdmin, createSubCategory);
-router.get("/getSubs", getAllSubcategories);
-router.get("/sub/:id", getSubCategory);
-router.post("/edit/Sub/:id", auth, isAdmin, editSubCategory);
-router.delete("/delete/Sub/:id", auth, isAdmin, deleteSubCategory);
+router.post("/create/sub-category", auth, isAdmin, createSubCategory);
+router.get("/get/sub-category", getAllSubcategories);
+router.get("/get/sub-category/:id", getSubCategory);
+router.post("/edit/sub-category/:id", auth, isAdmin, editSubCategory);
+router.delete("/delete/sub-category/:id", auth, isAdmin, deleteSubCategory);
 
 console.log(router);
