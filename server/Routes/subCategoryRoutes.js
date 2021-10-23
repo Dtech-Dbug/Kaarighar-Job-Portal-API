@@ -20,3 +20,5 @@ router.get("/getSubs", getAllSubcategories);
 router.get("/sub/:id", getSubCategory);
 router.post("/edit/Sub/:id", auth, isAdmin, editSubCategory);
 router.delete("/delete/Sub/:id", auth, isAdmin, deleteSubCategory);
+
+module.exports = router;
