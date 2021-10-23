@@ -15,7 +15,7 @@ const {
 } = require("../Controllers/subCategoryControllers");
 
 //routes
-router.post("/createSub", auth, isAdmin, createSubCategory);
+router.post("/createSub", createSubCategory);
 router.get("/getSubs", getAllSubcategories);
 router.get("/sub/:id", getSubCategory);
 router.post("/edit/Sub/:id", auth, isAdmin, editSubCategory);
