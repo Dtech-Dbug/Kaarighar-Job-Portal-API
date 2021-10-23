@@ -3,6 +3,7 @@ const SUBCATEGORIES = require("../Model/jobSubCategory");
 exports.createSubCategory = async (req, res) => {
   try {
     //get the inputs do something
+    console.log("getting req->", req.body);
   } catch (err) {
     console.log("Error while creating sub category", err.message);
     res.status(400).send({
@@ -31,7 +32,7 @@ exports.getSubCategory = async (req, res) => {
       err: error.message,
     });
   }
-}; 
+};
 
 exports.getAllSubcategories = async (req, res) => {
   try {
