@@ -1,9 +1,23 @@
+const { default: slugify } = require("slugify");
 const SUBCATEGORIES = require("../Model/jobSubCategory");
 
 exports.createSubCategory = async (req, res) => {
   try {
     //get the inputs do something
     console.log("getting req->", req.body);
+
+    //check if req is empty
+    if (Object.keys(req.body).length == 0) {
+      return;
+    }
+
+    const saveSub = await new SUBCATEGORIES({
+      title,
+      slug: slugify(slug),
+      parent,
+    }).save();
+
+    res.json(saveSub);
   } catch (err) {
     console.log("Error while creating sub category", err.message);
     res.status(400).send({
