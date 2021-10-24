@@ -37,6 +37,7 @@ exports.editSubCategory = async (req, res) => {
       { title, slug: slugify(slug), parent },
       { new: true }
     );
+    console.log("Updated:", editSub);
 
     res.json({ ok: true });
   } catch (err) {
