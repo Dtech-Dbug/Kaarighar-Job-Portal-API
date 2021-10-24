@@ -29,6 +29,16 @@ exports.createSubCategory = async (req, res) => {
 exports.editSubCategory = async (req, res) => {
   try {
     //get the inputs do something
+    const { id } = req.params.id;
+    const { title, slug, parent } = req.body;
+
+    const editSub = await findByIdAndUpdate(
+      id,
+      { title, slug: slugify(slug), parent },
+      { new: true }
+    );
+
+    res.json({ ok: true });
   } catch (err) {
     console.log("Error while editing sub category", err.message);
     res.status(400).send({
