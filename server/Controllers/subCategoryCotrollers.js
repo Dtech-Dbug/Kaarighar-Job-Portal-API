@@ -78,6 +78,11 @@ exports.getAllSubcategories = async (req, res) => {
 exports.deleteSubCategory = async (req, res) => {
   try {
     //get the inputs do something
+    const deletedItem = await SUBCATEGORIES.findByIdAndDelete({
+      _id: req.params.id,
+    }).exec();
+
+    res.json(`Item with ${req.params.id} deleted`);
   } catch (error) {
     console.log("Error while deleting sub category", err.message);
     res.status(400).send({
