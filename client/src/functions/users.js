@@ -1,6 +1,6 @@
 import axios from 'axios';
+const url = 'http://localhost:8000/api/';
 
-const url = '/api/';
 export const verifyUser = async (values) => {
 	return await axios.post(`${url}admin/verifyuser`, values, {
 		headers: {
