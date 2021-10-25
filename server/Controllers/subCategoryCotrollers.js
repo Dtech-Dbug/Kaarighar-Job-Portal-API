@@ -62,7 +62,9 @@ exports.getSubCategory = async (req, res) => {
 exports.getAllSubcategories = async (req, res) => {
   try {
     //get the inputs do something
-    // const getAll = await SUBC;
+    const getAll = await SUBCATEGORIES.find({}).exec();
+
+    res.json(getAll);
   } catch (err) {
     console.log("Error while getting all sub category", err.message);
     res.status(400).send({
