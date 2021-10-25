@@ -32,7 +32,7 @@ exports.editSubCategory = async (req, res) => {
     const { id } = req.params.id;
     const { title, slug, parent } = req.body;
 
-    const editSub = await findByIdAndUpdate(
+    const editSub = await SUBCATEGORIES.findByIdAndUpdate(
       id,
       { title, slug: slugify(slug), parent },
       { new: true }
@@ -62,6 +62,7 @@ exports.getSubCategory = async (req, res) => {
 exports.getAllSubcategories = async (req, res) => {
   try {
     //get the inputs do something
+    // const getAll = await SUBC;
   } catch (err) {
     console.log("Error while getting all sub category", err.message);
     res.status(400).send({
