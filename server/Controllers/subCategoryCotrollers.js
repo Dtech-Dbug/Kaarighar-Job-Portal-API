@@ -62,7 +62,9 @@ exports.getSubCategory = async (req, res) => {
 exports.getAllSubcategories = async (req, res) => {
   try {
     //get the inputs do something
-    const getAll = await SUBCATEGORIES.find({}).exec();
+    const getAll = await SUBCATEGORIES.find({})
+      .populate("parent", "title")
+      .exec();
 
     res.json(getAll);
   } catch (err) {
