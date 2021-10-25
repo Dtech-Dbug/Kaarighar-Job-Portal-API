@@ -56,18 +56,25 @@ exports.registerUser = async (req, res) => {
 	//@input: Registet from data
 	//@output: JWT token for user (with expiry)
 
+	console.log('REQ BODY =>', req.body);
+
+	// generate reference code
+	const referralCode = `${firstName}${lastName}${Math.floor(
+		Math.random() * 100000,
+	)}`;
+
 	try {
 		let user = await UserModel.findOne({ mobileNumber });
 
 		console.log('USER--->', user);
-		
+
 		// checking if user exists or not
 		if (!user) {
 			return res
 				.status(400)
 				.json({ errors: [{ msg: 'Invalid Credentials' }] });
 		}
-		
+
 		//generation
 		const salt = await bcrypt.genSalt(10);
 
@@ -83,6 +90,7 @@ exports.registerUser = async (req, res) => {
 				email,
 				password: hashedPassword,
 				mobileNumber,
+				referralCode,
 				role,
 				aadharCard: {
 					aadharNumber: aadharCard.aadharNumber,
