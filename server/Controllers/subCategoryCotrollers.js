@@ -51,6 +51,11 @@ exports.editSubCategory = async (req, res) => {
 exports.getSubCategory = async (req, res) => {
   try {
     //get the inputs do something
+    const { id } = req.params;
+
+    const getSub = await SUBCATEGORIES.findOne(id).exec();
+
+    res.json(getSub);
   } catch (err) {
     console.log("Error while getting sub category", err.message);
     res.status(400).send({
