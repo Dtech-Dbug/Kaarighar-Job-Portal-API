@@ -1,65 +1,80 @@
 const { default: slugify } = require("slugify");
 const SUBCATEGORIES = require("../Model/jobSubCategory");
+const CATEGORIES = require("../Model/jobCategories");
 
 exports.createSubCategory = async (req, res) => {
   try {
     //get the inputs do something
     console.log("getting req->", req.body);
-
-    //check if req is empty
-    if (Object.keys(req.body).length == 0) {
-      return;
-    }
-
+    const { title, parent } = req.body;
     const saveSub = await new SUBCATEGORIES({
       title,
-      slug: slugify(slug),
+      slug: slugify(title),
       parent,
     }).save();
 
-    res.json(saveSub);
+    res.json({
+      message: "Sub Category Created Successfully",
+      saveSub,
+    });
   } catch (err) {
     console.log("Error while creating sub category", err.message);
     res.status(400).send({
-      err: error.message,
+      err: err.message,
     });
   }
 };
 
+// edit sub category
 exports.editSubCategory = async (req, res) => {
   try {
-    //get the inputs do something
-    const { id } = req.params.id;
-    const { title, slug, parent } = req.body;
-
-    const editSub = await SUBCATEGORIES.findByIdAndUpdate(
+    const { title, parent } = req.body;
+    const { id } = req.params;
+    const updateSub = await SUBCATEGORIES.findByIdAndUpdate(
       id,
-      { title, slug: slugify(slug), parent },
+      {
+        title,
+        slug: slugify(title),
+        parent,
+      },
       { new: true }
     );
-    console.log("Updated:", editSub);
-
-    res.json({ ok: true });
+    res.json({
+      message: "Updated Successfully",
+      updateSub,
+    });
   } catch (err) {
     console.log("Error while editing sub category", err.message);
     res.status(400).send({
-      err: error.message,
+      err: err.message,
     });
   }
 };
 
+// get sub category by id
 exports.getSubCategory = async (req, res) => {
   try {
-    //get the inputs do something
     const { id } = req.params;
+    const subCategory = await SUBCATEGORIES.findById(id);
+    res.json(subCategory);
+  } catch (err) {
+    console.log("Error while getting sub category by id", err.message);
+    res.status(400).send({
+      err: err.message,
+    });
+  }
+};
 
-    const getSub = await SUBCATEGORIES.findOne(id).exec();
 
-    res.json(getSub);
+// get sub categories by parent category using slug
+exports.getSubCategoriesByParent = async (req, res) => {
+  try {
+    //get the inputs do something
+   
   } catch (err) {
     console.log("Error while getting sub category", err.message);
     res.status(400).send({
-      err: error.message,
+      err: err.message,
     });
   }
 };
@@ -75,23 +90,25 @@ exports.getAllSubcategories = async (req, res) => {
   } catch (err) {
     console.log("Error while getting all sub category", err.message);
     res.status(400).send({
-      err: error.message,
+      err: err.message,
     });
   }
 };
 
+
+// delete sub category
 exports.deleteSubCategory = async (req, res) => {
   try {
-    //get the inputs do something
-    const deletedItem = await SUBCATEGORIES.findByIdAndDelete({
-      _id: req.params.id,
-    }).exec();
-
-    res.json(`Item with ${req.params.id} deleted`);
-  } catch (error) {
+    const { id } = req.params;
+    const deleteSub = await SUBCATEGORIES.findByIdAndDelete(id);
+    res.json({
+      message: "Deleted Successfully",
+      deleteSub,
+    });
+    } catch (err) {
     console.log("Error while deleting sub category", err.message);
     res.status(400).send({
-      err: error.message,
+      err: err.message,
     });
   }
-};
+}
