@@ -66,10 +66,10 @@ const ViewJob = ({ match }) => {
 							/>
 						</Col>
 						<Col span={12}>
-							<DescriptionItem
-								title="Category"
-								content={jobInfo.parent.title}
-							/>
+								<DescriptionItem
+									title="Category"
+									content={jobInfo.parent}
+								/>
 						</Col>
 					</Row>
 					<Row>
@@ -93,32 +93,49 @@ const ViewJob = ({ match }) => {
 						<Col span={12}>
 							<DescriptionItem
 								title="Name"
-								content={jobInfo.companyName}
+								content={jobInfo.recruiter.company.companyName}
 							/>
 						</Col>
 						<Col span={12}>
 							<DescriptionItem
 								title="Regestration No"
-								content={jobInfo.companyRegNo}
+								content={jobInfo.recruiter.company.companyRegNo}
 							/>
 						</Col>
 					</Row>
-
-					<DescriptionItem
-						title="Address"
-						content={jobInfo.address}
-					/>
+					<Row>
+						<Col span={24}>
+							<DescriptionItem
+								title="Address"
+								content={`${jobInfo.recruiter.address.addressLine1} ${jobInfo.recruiter.address.addressLine2}`}
+							/>
+						</Col>
+					</Row>
 					<Row>
 						<Col span={12}>
 							<DescriptionItem
 								title="City"
-								content={jobInfo.city}
+								content={jobInfo.recruiter.address.city}
 							/>
 						</Col>
 						<Col span={12}>
 							<DescriptionItem
-								title="Pincode"
-								content={jobInfo.pinCode}
+								title="Zipcode"
+								content={jobInfo.recruiter.address.zipCode}
+							/>
+						</Col>
+					</Row>
+					<Row>
+						<Col span={12}>
+							<DescriptionItem
+								title="State"
+								content={jobInfo.recruiter.address.state}
+							/>
+						</Col>
+						<Col span={12}>
+							<DescriptionItem
+								title="Country"
+								content={jobInfo.recruiter.address.country}
 							/>
 						</Col>
 					</Row>
@@ -136,6 +153,7 @@ const ViewJob = ({ match }) => {
 							</Button>
 						</Col>
 					</Row>
+
 					<Avatar
 						className="bg-blue-900 align-middle mb-4"
 						size={{
@@ -150,6 +168,7 @@ const ViewJob = ({ match }) => {
 						gap={1}>
 						{jobInfo.recruiter.firstName.charAt(0)}
 					</Avatar>
+
 					<Row>
 						<Col span={12}>
 							<DescriptionItem

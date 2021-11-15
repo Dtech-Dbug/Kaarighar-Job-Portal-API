@@ -12,7 +12,7 @@ const Jobs = () => {
 	}, []);
 	return (
 		<div>
-			{jobsList ? <TableJob data={jobsList} /> : <div>Loading...</div>}
+			{jobsList ? <TableJob key={jobsList._id} data={jobsList} /> : <div>Loading...</div>}
 		</div>
 	);
 };
