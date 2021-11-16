@@ -68,7 +68,7 @@ const ViewJob = ({ match }) => {
 						<Col span={12}>
 								<DescriptionItem
 									title="Category"
-									content={jobInfo.parent}
+									content={jobInfo.parent.title}
 								/>
 						</Col>
 					</Row>

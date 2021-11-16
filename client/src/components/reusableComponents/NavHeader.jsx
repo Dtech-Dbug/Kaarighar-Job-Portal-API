@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Avatar, Input, Menu, Dropdown, Button } from 'antd';
 import 'antd/dist/antd.css';
+import { UserOutlined } from '@ant-design/icons';
 import { BiSearchAlt } from 'react-icons/bi';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -38,9 +39,7 @@ const NavHeader = ({ user, logout, auth: { isAuthenticated, loading } }) => {
 				suffix={suffix}
 			/>
 			<Dropdown overlay={menu} trigger={['click']}>
-				<Avatar gap={1} size="8" onClick={(e) => e.preventDefault()}>
-					A
-				</Avatar>
+				<Avatar size="large" icon={<UserOutlined />} />	
 			</Dropdown>
 		</Header>
 	);
