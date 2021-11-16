@@ -59,8 +59,8 @@ function App() {
 								collapsed={collapsed}
 								onCollapse={onCollapsed}>
 								<div className="logo h-8 m-4">
-									<span className="text-lg text-white font-bold">
-										JOBS
+									<span className="text-white font-bold">
+										KJobs
 									</span>
 								</div>
 								<Menu
@@ -101,7 +101,7 @@ function App() {
 								<Footer style={{ textAlign: 'center' }}>
 									©2021 Created by{' '}
 									<a href="/" target="_blank">
-										Team DAA
+										Kaarighar
 									</a>
 								</Footer>
 							</Layout>
