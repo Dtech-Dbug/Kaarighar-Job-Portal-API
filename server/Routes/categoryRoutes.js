@@ -55,6 +55,12 @@ router.get("/admin/category/:slug", readCategory);
 router.delete("/admin/category/:slug", auth, isAdmin, removeCategory);
 
 //update categories
-router.put("/admin/category/:slug",auth, isAdmin, upload.single("file"), updateCategory);
+router.put(
+  "/admin/category/:slug",
+  auth,
+  isAdmin,
+  upload.single("file"),
+  updateCategory
+);
 
 module.exports = router;

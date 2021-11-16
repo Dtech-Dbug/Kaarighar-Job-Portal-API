@@ -66,22 +66,25 @@ exports.removeCategory = async (req, res) => {
 exports.updateCategory = async (req, res) => {
   try {
     console.log("EDIT Category Details->", req.body.values);
- 
+
     const { title } = req.body;
 
     const updatedcategory = await CATEGORIES.findOneAndUpdate(
       {
         slug: req.params.slug,
-      },{
-      title: title,
-      slug: slugify(title),
-      images: {
-        fileName: req.file.originalname,
-        filePath: req.file.path,
-        fileSize: req.file.size,
-        fileType: req.file.mimetype,
       },
-    },{ new: true });
+      {
+        title: title,
+        slug: slugify(title),
+        images: {
+          fileName: req.file.originalname,
+          filePath: req.file.path,
+          fileSize: req.file.size,
+          fileType: req.file.mimetype,
+        },
+      },
+      { new: true }
+    );
 
     console.log("UPDATED-->", updatedcategory);
     res.json(updatedcategory);
