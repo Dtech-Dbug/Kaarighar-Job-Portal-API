@@ -65,12 +65,10 @@ exports.getSubCategory = async (req, res) => {
   }
 };
 
-
 // get sub categories by parent category using slug
 exports.getSubCategoriesByParent = async (req, res) => {
   try {
     //get the inputs do something
-   
   } catch (err) {
     console.log("Error while getting sub category", err.message);
     res.status(400).send({
@@ -95,7 +93,6 @@ exports.getAllSubcategories = async (req, res) => {
   }
 };
 
-
 // delete sub category
 exports.deleteSubCategory = async (req, res) => {
   try {
@@ -105,10 +102,10 @@ exports.deleteSubCategory = async (req, res) => {
       message: "Deleted Successfully",
       deleteSub,
     });
-    } catch (err) {
+  } catch (err) {
     console.log("Error while deleting sub category", err.message);
     res.status(400).send({
       err: err.message,
     });
   }
-}
+};
