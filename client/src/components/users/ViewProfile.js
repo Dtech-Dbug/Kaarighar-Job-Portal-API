@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUserById } from '../../functions/users';
-import { Avatar, Badge, Divider, Col, Row } from 'antd';
+import { Avatar, Badge, Divider, Col, Row ,Image} from 'antd';
 import { HiBadgeCheck } from 'react-icons/hi';
 const ViewProfile = ({ match }) => {
 	const [userProfile, setUserProfile] = useState(null);
@@ -319,12 +319,17 @@ const ViewProfile = ({ match }) => {
 											userProfile.aadharCard.aadharNumber
 										}
 									/>
+								<Image
+      width={300} src={userProfile.aadharCard.aadharImage} alt="aadhar" />
 								</Col>
 								<Col span={12}>
 									<DescriptionItem
 										title="Pan Card"
 										content={userProfile.panCard.panNumber}
 									/>
+
+										<Image
+      width={300} src={userProfile.panCard.panImage} alt="aadhar" />
 								</Col>
 							</Row>
 
