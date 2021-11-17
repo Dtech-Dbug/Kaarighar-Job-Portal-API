@@ -45,16 +45,18 @@ const userSchema = new Schema(
 			companyContact: String,
 		},
 
-		address: {
-			addressLine1: String,
-			addressLine2: String,
-			city: String,
-			state: String,
-			country: String,
-			zipCode: String,
-			latitude: Number,
-			longitude: Number,
-		},
+		address: [
+			{
+				addressName: String,
+				addressLine1: String,
+				addressLine2: String,
+				city: String,
+				state: String,
+				country: String,
+				pincode: String,
+			},
+		],
+
 
 		profile: {
 			skills: {

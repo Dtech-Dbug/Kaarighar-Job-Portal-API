@@ -64,15 +64,11 @@ exports.registerUser = async (req, res) => {
 	)}`;
 
 	try {
+		
+		//check if user already exists
 		let user = await UserModel.findOne({ mobileNumber });
-
-		console.log('USER--->', user);
-
-		// checking if user exists or not
-		if (!user) {
-			return res
-				.status(400)
-				.json({ errors: [{ msg: 'Invalid Credentials' }] });
+		if (user) {
+			return res.status(400).json({ msg: 'User already exists' });
 		}
 
 		//generation
@@ -82,7 +78,6 @@ exports.registerUser = async (req, res) => {
 		hashedPassword = await bcrypt.hash(password, salt);
 
 		// Creating user object and save
-
 		if (req.body.role === 'Job Seeker') {
 			user = await new UserModel({
 				firstName,
@@ -121,7 +116,8 @@ exports.registerUser = async (req, res) => {
 				password: hashedPassword,
 				mobileNumber,
 				role,
-				address: {
+				address: [{
+					addressName:address.addressName,
 					addressLine1: address.addressLine1,
 					addressLine2: address.addressLine2,
 					city: address.city,
@@ -130,7 +126,7 @@ exports.registerUser = async (req, res) => {
 					zipCode: address.zipCode,
 					latitude: address.latitude,
 					longitude: address.longitude,
-				},
+				}],
 				company: {
 					companyName: company.companyName,
 					companyRegNo: company.companyRegNo,
@@ -286,3 +282,6 @@ exports.setUpUserProfile = async (req, res) => {
 		console.log('ERROR WHILE PROFILING-->', err.message);
 	}
 };
+
+
+
