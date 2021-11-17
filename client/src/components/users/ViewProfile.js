@@ -136,6 +136,69 @@ const ViewProfile = ({ match }) => {
 						title="About"
 						content={userProfile.profile.about}
 					/>
+					<p className="font-bold text-lg mb-4">Contact</p>
+					<Row>
+						<Col span={12}>
+							<DescriptionItem
+								title="Email"
+								content={userProfile.email}
+							/>
+						</Col>
+						<Col span={12}>
+							<DescriptionItem
+								title="Mobile Number"
+								content={userProfile.mobileNumber}
+							/>
+						</Col>
+					</Row>
+					<p className="font-bold text-lg mb-4">Address</p>
+					{
+						userProfile.address.map((item, index) => {
+							return (
+								<div>
+									<Row>
+									<Col span={24}>
+										<DescriptionItem
+											title="Address"
+											content={`${item.addressLine1} ${item.addressLine2}`}
+										/>
+									</Col>
+							</Row>
+					<Row>
+						<Col span={12}>
+							<DescriptionItem
+								title="City"
+								content={item.city}
+							/>
+						</Col>
+						<Col span={12}>
+							<DescriptionItem
+								title="Zipcode"
+								content={item.zipCode}
+							/>
+						</Col>
+					</Row>
+					<Row>
+						<Col span={12}>
+							<DescriptionItem
+								title="State"
+								content={item.state}
+							/>
+						</Col>
+						<Col span={12}>
+							<DescriptionItem
+								title="Country"
+								content={item.country}
+							/>
+						</Col>
+					</Row>
+								</div>
+								
+								)}
+							)
+
+					}
+
 					{userProfile.role === 'Job Seeker' && (
 						<Row>
 							<Col span={12}>
@@ -337,57 +400,7 @@ const ViewProfile = ({ match }) => {
 						</>
 					) : null}
 					<Divider />
-					<p className="font-bold text-lg mb-4">Contact</p>
-					<Row>
-						<Col span={12}>
-							<DescriptionItem
-								title="Email"
-								content={userProfile.email}
-							/>
-						</Col>
-						<Col span={12}>
-							<DescriptionItem
-								title="Mobile Number"
-								content={userProfile.mobileNumber}
-							/>
-						</Col>
-					</Row>
-					<Row>
-						<Col span={24}>
-							<DescriptionItem
-								title="Address"
-								content={`${userProfile.address.addressLine1} ${userProfile.address.addressLine1}`}
-							/>
-						</Col>
-					</Row>
-					<Row>
-						<Col span={12}>
-							<DescriptionItem
-								title="City"
-								content={userProfile.address.city}
-							/>
-						</Col>
-						<Col span={12}>
-							<DescriptionItem
-								title="Zipcode"
-								content={userProfile.address.zipCode}
-							/>
-						</Col>
-					</Row>
-					<Row>
-						<Col span={12}>
-							<DescriptionItem
-								title="State"
-								content={userProfile.address.state}
-							/>
-						</Col>
-						<Col span={12}>
-							<DescriptionItem
-								title="Country"
-								content={userProfile.address.country}
-							/>
-						</Col>
-					</Row>
+					
 				</div>
 			) : (
 				<div>Loading...</div>
