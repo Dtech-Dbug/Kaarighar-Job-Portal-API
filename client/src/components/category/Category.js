@@ -47,19 +47,6 @@ const Category = ({ match, history }) => {
       .catch((err) => console.log(err.message));
   };
 
-  //   const handleCategoryFormEditSubmit = (e, values) => {
-  //     e.preventDefault();
-  //     console.log(formData);
-
-  //     //making req to BE to create category
-  //     editCategory(match.params.slug, formData)
-  //       .then((res) => {
-  //         // alert("CATEGORY CREATED");
-  //         history.pushState("/category");
-  //       })
-  //       .catch((err) => console.log(err.message));
-  //   };
-
   const handleCategoryDelete = (slug) => {
     let confirm = window.confirm("Are you sure , you want to delete?");
     if (confirm) {
@@ -71,10 +58,10 @@ const Category = ({ match, history }) => {
     }
   };
 
-const handleFile = (e) => {
+  const handleFile = (e) => {
     console.log("File->", e.target.files[0]);
     setFile(e.target.files[0]);
-};
+  };
 
   return (
     <>
@@ -85,8 +72,7 @@ const handleFile = (e) => {
       <CategoryForm
         handleCategoryChange={handleCategoryChange}
         handleCategoryFormSubmit={handleCategoryFormSubmit}
-        handleFile={handleFile}
-        file={file}
+        setFile={setFile}
       />
       <CategoryList
         categoryList={categoryList}

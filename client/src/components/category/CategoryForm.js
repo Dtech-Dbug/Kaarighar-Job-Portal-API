@@ -10,6 +10,7 @@ const CategoryForm = ({
   handleCategoryChange,
   handleCategoryFormSubmit,
   handleFile,
+  setFile,
 }) => {
   let props = {
     headers: {
@@ -20,7 +21,7 @@ const CategoryForm = ({
   return (
     <Card className="w-full">
       <form
-        action="/admin/category"
+        action="/singleFile"
         method="POST"
         name="Category"
         layout="vertical"
@@ -31,7 +32,11 @@ const CategoryForm = ({
           className="p-2"
           onChange={handleCategoryChange}
         />
-        <input name="image" type="file" onChange={handleFile}></input>
+        <input
+          name="image"
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+        ></input>
         <Button
           onClick={handleCategoryFormSubmit}
           type="primary"
