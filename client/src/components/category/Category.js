@@ -13,7 +13,6 @@ import { RiLayout2Line } from "react-icons/ri";
 const Category = ({ match, history }) => {
   const [formData, setFormData] = useState("");
   const [file, setFile] = useState([]);
-  const [url, setUrl] = useState("");
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
@@ -43,8 +42,7 @@ const Category = ({ match, history }) => {
     //making req to BE to create category
     createCategory(formValues)
       .then((res) => {
-        // alert("CATEGORY CREATED");
-        window.location.reload();
+        alert("CATEGORY CREATED");
       })
       .catch((err) => console.log(err.message));
   };
@@ -73,6 +71,11 @@ const Category = ({ match, history }) => {
     }
   };
 
+const handleFile = (e) => {
+    console.log("File->", e.target.files[0]);
+    setFile(e.target.files[0]);
+};
+
   return (
     <>
       <h1 className="flex items-center font-bold text-lg py-1.5">
@@ -82,10 +85,8 @@ const Category = ({ match, history }) => {
       <CategoryForm
         handleCategoryChange={handleCategoryChange}
         handleCategoryFormSubmit={handleCategoryFormSubmit}
-        setUrl={setUrl}
-        setFile={setFile}
+        handleFile={handleFile}
         file={file}
-        // handleCategoryFormEditSubmit={handleCategoryFormEditSubmit}
       />
       <CategoryList
         categoryList={categoryList}

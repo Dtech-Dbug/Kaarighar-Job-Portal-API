@@ -27,8 +27,11 @@ const TableJob = ({ data }) => {
 					title="Description"
 					dataIndex="description"
 					key="description"
+				
 				/>
+
 				<Column title="No Role." dataIndex="noRole" key="noRole" />
+				
 				<Column
 					title="Category"
 					key="category"

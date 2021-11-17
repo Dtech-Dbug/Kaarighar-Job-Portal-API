@@ -6,7 +6,7 @@ const url = "http://localhost:8000/api/admin";
 export const createCategory = async (values) => {
   return await axios.post(
     `${url}/category`,
-    { values },
+    values,
     {
       headers: {
         "auth-token": localStorage.getItem("token"),

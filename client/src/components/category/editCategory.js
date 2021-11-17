@@ -35,17 +35,12 @@ const EditCategory = ({ match, history }) => {
       .catch((err) => console.log(err.message));
   };
 
-  //get antd input element
-  const inputAntd = document.querySelector("#Add Category_category-name");
-  console.log("ANTD___", inputAntd);
-
   const editCategoryForm = () => (
     <Card className="w-full">
       <Form name="Add Category" layout="vertical">
         <input
           class="ant-input p-2"
           type="text"
-          id="Add Category_category-name"
           value={formValue}
           onChange={handleCategoryChange}
         />

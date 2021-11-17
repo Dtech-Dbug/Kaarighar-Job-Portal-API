@@ -1,13 +1,15 @@
 const slugify = require("slugify");
 const CATEGORIES = require("../Model/jobCategories");
-
 //controller functions for category CRUD
 
 exports.createCategory = async (req, res) => {
   try {
     const { title } = req.body;
-
-    const category = new CATEGORIES({
+    console.log("File ->", req.file);
+    return;
+    if(req.file){
+      
+      const category = new CATEGORIES({
       title: title,
       slug: slugify(title),
       images: {
@@ -17,10 +19,13 @@ exports.createCategory = async (req, res) => {
         fileType: req.file.mimetype,
       },
     });
-
     await category.save();
     console.log(`Category ${category} is created`);
     res.json(category);
+  } else{
+    console.log("No file is uploaded");
+  }
+
   } catch (err) {
     console.log("ERROR while CREATING CATEGORY->", err.message);
     res.status(400).send("OOPS! Something went wrong.");
@@ -75,12 +80,11 @@ exports.updateCategory = async (req, res) => {
       },
       {
         title: title,
-        slug: slugify(title),
         images: {
-          fileName: req.file.originalname,
-          filePath: req.file.path,
-          fileSize: req.file.size,
-          fileType: req.file.mimetype,
+        fileName: req.file.originalname,
+        filePath: req.file.path,
+        fileSize: req.file.size,
+        fileType: req.file.mimetype,
         },
       },
       { new: true }

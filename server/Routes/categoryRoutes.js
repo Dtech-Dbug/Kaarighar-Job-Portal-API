@@ -1,25 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-
-// TODO : init a storage engine for multer
-const storage = multer.diskStorage({
-  destination: "./Uploads/",
-  filename: function (req, file, callBack) {
-    callBack(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-// TODO : upload function
-const upload = multer({
-  storage: storage,
-  limits: { fieldSize: 10 * 1024 * 1024 },
-});
-
-const uploadMulter = upload.single("image");
+const { upload } = require("../Helper/fileupload");
 
 //middlewares
 const { auth, isAdmin } = require("../Middleware/auth");
@@ -33,6 +15,10 @@ const {
   updateCategory,
 } = require("../Controllers/categoryControllers");
 
+const {
+  singleFileUpload,
+} = require("../Controllers/fileUploadControllers");
+
 const router = express.Router();
 
 // CRUD FOR CATEGROIES
@@ -43,7 +29,7 @@ router.post(
   isAdmin,
   upload.single("file"),
   createCategory
-);
+).post("/singlefile", upload.single("file"), singleFileUpload);
 
 //read categories
 router.get("/admin/categories", listAllCategories);
