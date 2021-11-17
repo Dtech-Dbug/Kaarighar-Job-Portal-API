@@ -1,6 +1,7 @@
 const axios = require("axios");
 
-let URL = "http://localhost:8000/api/";
+import API_URL from '../utils/API_URL';
+const url = `${API_URL}/api`;
 
 function getSubs() {
   return axios.get(`${URL}sub-categories`);

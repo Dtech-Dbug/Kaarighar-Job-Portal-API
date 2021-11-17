@@ -1,7 +1,8 @@
 import axios from "axios";
 
 //CRUD
-const url = "http://localhost:8000/api/admin";
+import API_URL from '../utils/API_URL';
+const url = `${API_URL}/api/admin`;
 
 export const createCategory = async (values) => {
   return await axios.post(
