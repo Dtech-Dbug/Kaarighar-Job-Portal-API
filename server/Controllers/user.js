@@ -69,7 +69,7 @@ exports.registerUser = async (req, res) => {
 		let user = await UserModel.findOne({ mobileNumber });
 		if (user) {
 			return res.status(400).json({ msg: 'User already exists' });
-		}
+		} else {
 
 		//generation
 		const salt = await bcrypt.genSalt(10);
@@ -155,6 +155,7 @@ exports.registerUser = async (req, res) => {
 				res.json({ token });
 			},
 		);
+	}		
 	} catch (err) {
 		console.error(err.message);
 
@@ -213,12 +214,20 @@ exports.loginUser = async (req, res) => {
 	}
 };
 
-// getAlluser except admin role
+// getAlluser function
 exports.getUsers = async (req, res) => {
-	const allUsers = await UserModel.find().skip(0).limit(5).exec();
-	const users = allUsers.filter((user) => user.role !== 'Admin');
-	res.json(users);
+	try {
+		//get all the users
+		const allUsers = await UserModel.find();
+		const users = allUsers.filter((user) => user.role !== 'Admin');
+		res.json(users);
+	} catch (err) {
+		console.error(err.message);
+		console.log('ERROR WHILE GETTING ALL USERS-->', err);
+		res.status(500).send('Server error');
+	}
 };
+
 
 //controller function to verify users by admin
 exports.verifyUsers = async (req, res) => {
