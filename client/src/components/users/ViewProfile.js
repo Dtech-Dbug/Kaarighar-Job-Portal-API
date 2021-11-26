@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserById } from '../../functions/users';
 import { Avatar, Badge, Divider, Col, Row ,Image} from 'antd';
-import { HiBadgeCheck } from 'react-icons/hi';
+import { HiBadgeCheck ,HiLocationMarker,HiMail,HiUser,HiOfficeBuilding,HiBriefcase,HiBookOpen,HiDocumentText} from 'react-icons/hi';
 const ViewProfile = ({ match }) => {
 	const [userProfile, setUserProfile] = useState(null);
 	// const [profileInfo, setProfileInfo] = useState(null);
@@ -40,7 +40,14 @@ const ViewProfile = ({ match }) => {
 					<h1 className="flex items-center  justify-center font-bold text-2xl m-6">
 						{`${userProfile.firstName}'s Profile`}
 					</h1>
-					<p className="font-bold text-lg mb-4">Personal</p>
+					
+					<div className="flex my-4">
+						<HiUser 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Personal</p>
+					</div>
 					{userProfile.verified ? (
 						<Badge
 							count={
@@ -136,7 +143,13 @@ const ViewProfile = ({ match }) => {
 						title="About"
 						content={userProfile.profile.about}
 					/>
-					<p className="font-bold text-lg mb-4">Contact</p>
+					<div className="flex my-4">
+						<HiMail 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Contact</p>
+					</div>
 					<Row>
 						<Col span={12}>
 							<DescriptionItem
@@ -151,12 +164,19 @@ const ViewProfile = ({ match }) => {
 							/>
 						</Col>
 					</Row>
-					<p className="font-bold text-lg mb-4">Address</p>
+					<div className="flex my-4">
+						<HiLocationMarker 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Address</p>
+					</div>
 					{
 						userProfile.address.map((item, index) => {
 							return (
 								<div>
 									<Row>
+									<p className="font-bold mt-2">{item.addressType}</p>
 									<Col span={24}>
 										<DescriptionItem
 											title="Address"
@@ -173,8 +193,8 @@ const ViewProfile = ({ match }) => {
 						</Col>
 						<Col span={12}>
 							<DescriptionItem
-								title="Zipcode"
-								content={item.zipCode}
+								title="Pincode"
+								content={item.pincode}
 							/>
 						</Col>
 					</Row>
@@ -192,6 +212,7 @@ const ViewProfile = ({ match }) => {
 							/>
 						</Col>
 					</Row>
+					<hr/>
 								</div>
 								
 								)}
@@ -202,9 +223,13 @@ const ViewProfile = ({ match }) => {
 					{userProfile.role === 'Job Seeker' && (
 						<Row>
 							<Col span={12}>
-								<h2 className="font-bold text-lg py-2 pr-1">
-									Education
-								</h2>
+								<div className="flex my-4">
+						<HiBookOpen 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Eduction</p>
+					</div>
 								{userProfile.profile.education.map(
 									({
 										school,
@@ -264,9 +289,13 @@ const ViewProfile = ({ match }) => {
 								)}
 							</Col>
 							<Col span={12}>
-								<h2 className="font-bold text-lg py-2 pr-1">
-									Experience
-								</h2>
+								<div className="flex my-4">
+						<HiBriefcase 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Experience</p>
+					</div>
 								{userProfile.profile.experience.map(
 									({
 										company,
@@ -330,7 +359,14 @@ const ViewProfile = ({ match }) => {
 					<Divider />
 					{userProfile.role === 'Recruiter' ? (
 						<>
-							<p className="font-bold text-lg mb-4">Company</p>
+							
+					<div className="flex my-4">
+						<HiOfficeBuilding 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Company</p>
+					</div>
 							<Row>
 								<Col span={12}>
 									<DescriptionItem
@@ -371,9 +407,14 @@ const ViewProfile = ({ match }) => {
 					) : null}
 					{userProfile.role === 'Job Seeker' ? (
 						<>
-							<h1 className="font-bold text-lg mb-4">
-								Documents
-							</h1>
+
+							<div className="flex my-4">
+						<HiDocumentText 
+						style={{
+							fontSize: '1.5rem',
+						}}/>
+							<p className="font-bold flex text-lg ml-4">Documents</p>
+					</div>
 							<Row>
 								<Col span={12}>
 									<DescriptionItem
