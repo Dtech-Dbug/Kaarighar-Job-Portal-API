@@ -32,7 +32,7 @@ const isAdmin = (req, res, next) => {
 	if (req.user.role === "Admin") {
 		next();
 	} else {
-		res.status(403).json({ msg: "Forbidden" });
+		res.status(403).json({ msg: "Forbidden for Admin" });
 	}
 };
 
@@ -42,7 +42,7 @@ const isRecruiter = (req, res, next) => {
 	if (req.user.role === "Recruiter") {
 		next();
 	} else {
-		res.status(403).json({ msg: "Forbidden" });
+		res.status(403).json({ msg: "Forbidden for Recruiter" });
 	}
 };
 

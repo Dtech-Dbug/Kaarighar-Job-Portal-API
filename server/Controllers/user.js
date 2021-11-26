@@ -95,16 +95,6 @@ exports.registerUser = async (req, res) => {
 					panNumber: panCard.panNumber,
 					panImage: panCard.panImage,
 				},
-				address: {
-					addressLine1: address.addressLine1,
-					addressLine2: address.addressLine2,
-					city: address.city,
-					state: address.state,
-					country: address.country,
-					zipCode: address.zipCode,
-					latitude: address.latitude,
-					longitude: address.longitude,
-				},
 			}).save();
 		}
 
@@ -116,17 +106,6 @@ exports.registerUser = async (req, res) => {
 				password: hashedPassword,
 				mobileNumber,
 				role,
-				address: [{
-					addressName:address.addressName,
-					addressLine1: address.addressLine1,
-					addressLine2: address.addressLine2,
-					city: address.city,
-					state: address.state,
-					country: address.country,
-					zipCode: address.zipCode,
-					latitude: address.latitude,
-					longitude: address.longitude,
-				}],
 				company: {
 					companyName: company.companyName,
 					companyRegNo: company.companyRegNo,
@@ -292,5 +271,149 @@ exports.setUpUserProfile = async (req, res) => {
 	}
 };
 
+// add address into user.address array
+exports.addUserAddress = async (req, res) => {
+	try {
+		const {
+				addressType,
+				addressLine1,
+				addressLine2,
+				city,
+				state,
+	 			country,
+				pincode,
+				longitude,
+				latitude,
+			} = req.body;
+
+		const { id } = req.user;
+		const updateUser = await UserModel.findOneAndUpdate(
+			{ _id: id },
+			{
+				$push: {
+					address: {
+						addressType,
+						addressLine1,
+						addressLine2,
+						city,
+						state,
+						country,
+						pincode,
+						longitude,
+						latitude,
+					},
+				},
+			},
+			{ new: true },
+		);
+		res.json(updateUser);
+	} catch (err) {
+		console.log('ERROR WHILE ADDING ADDRESS-->', err.message);
+	}
+};
+
+// delete address from user.address array
+exports.deleteUserAddress = async (req, res) => {
+	try {
+		const { addressId } = req.body;
+		const { id } = req.user;
+
+		const updateUser = await UserModel.findOneAndUpdate(
+			{ _id: id },
+			{
+				$pull: {
+					address: { _id: addressId },
+				},
+			},
+			{ new: true },
+		);
+		res.json(updateUser);
+	} catch (err) {
+		console.log('ERROR WHILE DELETING ADDRESS-->', err.message);
+	}
+};
+
+exports.getUsersAllAddress = async (req, res) => {
+	try {
+		const { id } = req.user;
+		const updateUser = await UserModel.findOne({ _id: id });
+		res.json(updateUser.address);
+	} catch (err) {
+		console.log('ERROR WHILE GETTING ADDRESS-->', err.message);
+	}
+};
+
+exports.getUserAddress = async (req, res) => {
+	try {
+		const { addressId } = req.params;
+		const { id } = req.user;
+		const updateUser = await UserModel.findOne({ _id: id });
+		const address = updateUser.address.filter(address => address._id == addressId);
+		res.json(address);
+	} catch (err) {
+		console.log('ERROR WHILE GETTING ADDRESS-->', err.message);
+	}
+}
+
+// delete address from user.address array
+exports.deleteUserAddress = async (req, res) => {
+	try {
+		const { addressId } = req.params;
+		const { id } = req.user;
+
+		const updateUser = await UserModel.findOneAndUpdate(
+			{ _id: id },
+			{
+				$pull: {
+					address: { _id: addressId },
+				},
+			},
+			{ new: true },
+		);
+		res.json(updateUser.address);
+	} catch (err) {
+		console.log('ERROR WHILE DELETING ADDRESS-->', err.message);
+	}
+}
 
 
+// edit address from user.address array
+exports.editUserAddress = async (req, res) => {
+	try {
+		const { addressId } = req.params;
+		const {
+				addressType,
+				addressLine1,
+				addressLine2,
+				city,
+				state,
+	 			country,
+				pincode,
+				longitude,
+				latitude,
+			} = req.body;
+
+		const { id } = req.user;
+		const updateUser = await UserModel.findOneAndUpdate(
+			{ _id: id },
+			{
+				$set: {
+					'address._id': addressId,
+					'address.addressType': addressType,
+					'address.addressLine1': addressLine1,
+					'address.addressLine2': addressLine2,
+					'address.city': city,
+					'address.state': state,
+					'address.country': country,
+					'address.pincode': pincode,
+					'address.longitude': longitude,
+					'address.latitude': latitude,
+				},
+			},
+			{ new: true },
+		);
+		res.json(updateUser.address);
+	} catch (err) {
+		console.log('ERROR WHILE EDITING ADDRESS-->', err.message);
+	}
+}
