@@ -2,11 +2,10 @@ import axios from "axios";
 
 //CRUD
 import API_URL from '../utils/API_URL';
-const url = `${API_URL}/api/admin`;
 
 export const createCategory = async (values) => {
   return await axios.post(
-    `${url}/category`,
+    `${API_URL}/admin/category`,
     values,
     {
       headers: {
@@ -17,7 +16,7 @@ export const createCategory = async (values) => {
 };
 
 export const getAllCategories = async () => {
-  return await axios.get(`${url}/categories`, {
+  return await axios.get(`${API_URL}/admin/categories`, {
     headers: {
       "auth-token": localStorage.getItem("token"),
     },
@@ -26,7 +25,7 @@ export const getAllCategories = async () => {
 
 //read a single category
 export const readCategory = async (slug) => {
-  return await axios.get(`${url}/category/${slug}`, {
+  return await axios.get(`${API_URL}/admin/category/${slug}`, {
     headers: {
       "auth-token": localStorage.getItem("token"),
     },
@@ -35,7 +34,7 @@ export const readCategory = async (slug) => {
 
 export const editCategory = async (slug, values) => {
   return await axios.put(
-    `${url}/category/${slug}`,
+    `${API_URL}/admin/category/${slug}`,
     { values },
     {
       headers: {
@@ -46,7 +45,7 @@ export const editCategory = async (slug, values) => {
 };
 
 export const deleteCategory = async (slug, values) => {
-  return await axios.delete(`${url}/category/${slug}`, {
+  return await axios.delete(`${API_URL}/admin/category/${slug}`, {
     headers: {
       "auth-token": localStorage.getItem("token"),
     },

@@ -1,17 +1,16 @@
 import axios from 'axios';
 
 import API_URL from '../utils/API_URL';
-const url = `${API_URL}/api`;
 export const registerUser = async (values) => {
-	return await axios.post(`${url}/register`, { values });
+	return await axios.post(`${API_URL}/register`, { values });
 };
 
 export const loginUser = async (values) => {
-	return await axios.post(`${url}/login`, { values });
+	return await axios.post(`${API_URL}/login`, { values });
 };
 
 export const forgotPassword = async (values) => {
-	return await axios.post(`${url}/forgot-password`, {
+	return await axios.post(`${API_URL}/forgot-password`, {
 		values,
 	});
 };
