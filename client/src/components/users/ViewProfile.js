@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserById } from '../../functions/users';
 import { Avatar, Badge, Divider, Col, Row ,Image} from 'antd';
+import Loading from '../reusableComponents/Loading';
 import { HiBadgeCheck ,HiLocationMarker,HiMail,HiUser,HiOfficeBuilding,HiBriefcase,HiBookOpen,HiDocumentText} from 'react-icons/hi';
 const ViewProfile = ({ match }) => {
 	const [userProfile, setUserProfile] = useState(null);
@@ -444,7 +445,7 @@ const ViewProfile = ({ match }) => {
 					
 				</div>
 			) : (
-				<div>Loading...</div>
+				<Loading/>
 			)}
 		</div>
 	);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Button, Divider, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import { getJobInfo } from '../../functions/jobs';
+import Loading from '../reusableComponents/Loading';
 const ViewJob = ({ match }) => {
 	const [jobInfo, setJobInfo] = useState(null);
 
@@ -200,7 +201,7 @@ const ViewJob = ({ match }) => {
 					</Row>
 				</div>
 			) : (
-				<div>Loading...</div>
+				<Loading/>
 			)}
 		</div>
 	);

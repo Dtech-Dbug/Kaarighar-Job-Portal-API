@@ -13,6 +13,7 @@ const Routes = (props) => {
 		<Switch>
 			<PrivateRoute exact path="/dashboard" component={Dashboard} />
 			<PrivateRoute exact path="/users" component={Users} />
+			<PrivateRoute exact path="/me" component={ViewProfile}/>
 			<PrivateRoute exact path="/user/:id" component={ViewProfile} />
 			<PrivateRoute exact path="/category" component={Category} />
 			<PrivateRoute exact path="/jobs" component={Jobs} />

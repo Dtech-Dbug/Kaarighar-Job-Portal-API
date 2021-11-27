@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllJobs } from '../../functions/jobs';
+import Loading from '../reusableComponents/Loading';
 import TableJob from '../reusableComponents/TableJob';
 const Jobs = () => {
 	const [jobsList, setJobsList] = useState([]);
@@ -12,7 +13,7 @@ const Jobs = () => {
 	}, []);
 	return (
 		<div>
-			{jobsList ? <TableJob key={jobsList._id} data={jobsList} /> : <div>Loading...</div>}
+			{jobsList ? <TableJob key={jobsList._id} data={jobsList} /> : <Loading/>}
 		</div>
 	);
 };
