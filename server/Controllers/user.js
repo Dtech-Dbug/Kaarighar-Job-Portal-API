@@ -14,9 +14,7 @@ exports.getCurrentUser = async (req, res) => {
 exports.getUserByID = async (req, res) => {
 	try {
 		console.log('PARAMS-->', req.params.id);
-		const user = await UserModel.findById(req.params.id).select(
-			'-password',
-		);
+		const user = await UserModel.findById(req.params.id).select('-password');
 		res.json(user);
 	} catch (err) {
 		console.error(err.message);
@@ -60,81 +58,91 @@ exports.registerUser = async (req, res) => {
 
 	// generate reference code
 	const referralCode = `${firstName}${lastName}${Math.floor(
-		Math.random() * 100000,
+		Math.random() * 100000
 	)}`;
 
 	try {
-		
 		//check if user already exists
 		let user = await UserModel.findOne({ mobileNumber });
 		if (user) {
 			return res.status(400).json({ msg: 'User already exists' });
 		} else {
+			//generation
+			const salt = await bcrypt.genSalt(10);
 
-		//generation
-		const salt = await bcrypt.genSalt(10);
+			//password
+			hashedPassword = await bcrypt.hash(password, salt);
 
-		//password
-		hashedPassword = await bcrypt.hash(password, salt);
+			// Creating user object and save
+			if (req.body.role === 'Job Seeker') {
+				user = await new UserModel({
+					firstName,
+					lastName,
+					email,
+					password: hashedPassword,
+					mobileNumber,
+					referralCode,
+					role,
+					aadharCard: {
+						aadharNumber: aadharCard.aadharNumber,
+						aadharImage: aadharCard.aadharImage,
+					},
+					panCard: {
+						panNumber: panCard.panNumber,
+						panImage: panCard.panImage,
+					},
+				}).save();
+			}
 
-		// Creating user object and save
-		if (req.body.role === 'Job Seeker') {
-			user = await new UserModel({
-				firstName,
-				lastName,
-				email,
-				password: hashedPassword,
-				mobileNumber,
-				referralCode,
-				role,
-				aadharCard: {
-					aadharNumber: aadharCard.aadharNumber,
-					aadharImage: aadharCard.aadharImage,
+			if (req.body.role === 'Recruiter') {
+				user = await new UserModel({
+					firstName,
+					lastName,
+					email,
+					password: hashedPassword,
+					mobileNumber,
+					role,
+					company: {
+						companyName: company.companyName,
+						companyRegNo: company.companyRegNo,
+						companyAddress: company.companyAddress,
+						companyContact: company.companyContact,
+					},
+				}).save();
+			}
+
+			// create admin
+			if (req.body.role === 'Admin') {
+				user = await new UserModel({
+					firstName,
+					lastName,
+					email,
+					password: hashedPassword,
+					mobileNumber,
+					role,
+				}).save();
+			}
+
+			await console.log('User saved->', user);
+
+			const payload = {
+				user: {
+					id: user.id,
+					role: user.role,
 				},
-				panCard: {
-					panNumber: panCard.panNumber,
-					panImage: panCard.panImage,
-				},
-			}).save();
+			};
+
+			// Creating the JWT token
+			jwt.sign(
+				payload,
+				process.env.JWT_SECRET,
+				{ expiresIn: '5 days' },
+				(err, token) => {
+					if (err) throw err;
+					res.json({ token });
+				}
+			);
 		}
-
-		if (req.body.role === 'Recruiter') {
-			user = await new UserModel({
-				firstName,
-				lastName,
-				email,
-				password: hashedPassword,
-				mobileNumber,
-				role,
-				company: {
-					companyName: company.companyName,
-					companyRegNo: company.companyRegNo,
-					companyAddress: company.companyAddress,
-					companyContact: company.companyContact,
-				},
-			}).save();
-		}
-
-		await console.log('User saved->', user);
-
-		const payload = {
-			user: {
-				id: user.id,
-				role: user.role,
-			},
-		};
-
-		// Creating the JWT token
-		jwt.sign(
-			payload,
-			process.env.JWT_SECRET,
-			{ expiresIn: '5 days' },
-			(err, token) => {
-				if (err) throw err;
-				res.json({ token });
-			},
-		);
-	}		
 	} catch (err) {
 		console.error(err.message);
 
@@ -153,9 +161,7 @@ exports.loginUser = async (req, res) => {
 
 		// checking if user exists or not
 		if (!user) {
-			return res
-				.status(400)
-				.json({ errors: [{ msg: 'Invalid Credentials' }] });
+			return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
 		}
 
 		//compare the req.body.password with the password in the database
@@ -184,7 +190,7 @@ exports.loginUser = async (req, res) => {
 			(err, token) => {
 				if (err) throw err;
 				res.json({ token, login: true });
-			},
+			}
 		);
 	} catch (err) {
 		console.error(err.message);
@@ -207,7 +213,6 @@ exports.getUsers = async (req, res) => {
 	}
 };
 
-
 //controller function to verify users by admin
 exports.verifyUsers = async (req, res) => {
 	try {
@@ -219,7 +224,7 @@ exports.verifyUsers = async (req, res) => {
 		const findUserAndUpdate = await UserModel.findByIdAndUpdate(
 			{ _id: userId },
 			{ verified: verifiedState },
-			{ new: true },
+			{ new: true }
 		).exec();
 		console.log('Recruiter Verified');
 		res.json(findUserAndUpdate);
@@ -241,7 +246,7 @@ exports.resetPassword = async (req, res) => {
 	const updatePassword = await UserModel.findOneAndUpdate(
 		{ mobileNumber: mobileNumber },
 		{ password: hashedPassword },
-		{ new: true },
+		{ new: true }
 	).exec();
 	res.json(updatePassword);
 };
@@ -263,7 +268,7 @@ exports.setUpUserProfile = async (req, res) => {
 					experience,
 				},
 			},
-			{ new: true },
+			{ new: true }
 		);
 		res.json(updateUser);
 	} catch (err) {
@@ -275,16 +280,16 @@ exports.setUpUserProfile = async (req, res) => {
 exports.addUserAddress = async (req, res) => {
 	try {
 		const {
-				addressType,
-				addressLine1,
-				addressLine2,
-				city,
-				state,
-	 			country,
-				pincode,
-				longitude,
-				latitude,
-			} = req.body;
+			addressType,
+			addressLine1,
+			addressLine2,
+			city,
+			state,
+			country,
+			pincode,
+			longitude,
+			latitude,
+		} = req.body;
 
 		const { id } = req.user;
 		const updateUser = await UserModel.findOneAndUpdate(
@@ -304,7 +309,7 @@ exports.addUserAddress = async (req, res) => {
 					},
 				},
 			},
-			{ new: true },
+			{ new: true }
 		);
 		res.json(updateUser);
 	} catch (err) {
@@ -325,7 +330,7 @@ exports.deleteUserAddress = async (req, res) => {
 					address: { _id: addressId },
 				},
 			},
-			{ new: true },
+			{ new: true }
 		);
 		res.json(updateUser);
 	} catch (err) {
@@ -348,12 +353,14 @@ exports.getUserAddress = async (req, res) => {
 		const { addressId } = req.params;
 		const { id } = req.user;
 		const updateUser = await UserModel.findOne({ _id: id });
-		const address = updateUser.address.filter(address => address._id == addressId);
+		const address = updateUser.address.filter(
+			(address) => address._id == addressId
+		);
 		res.json(address);
 	} catch (err) {
 		console.log('ERROR WHILE GETTING ADDRESS-->', err.message);
 	}
-}
+};
 
 // delete address from user.address array
 exports.deleteUserAddress = async (req, res) => {
@@ -368,30 +375,29 @@ exports.deleteUserAddress = async (req, res) => {
 					address: { _id: addressId },
 				},
 			},
-			{ new: true },
+			{ new: true }
 		);
 		res.json(updateUser.address);
 	} catch (err) {
 		console.log('ERROR WHILE DELETING ADDRESS-->', err.message);
 	}
-}
-
+};
 
 // edit address from user.address array
 exports.editUserAddress = async (req, res) => {
 	try {
 		const { addressId } = req.params;
 		const {
-				addressType,
-				addressLine1,
-				addressLine2,
-				city,
-				state,
-	 			country,
-				pincode,
-				longitude,
-				latitude,
-			} = req.body;
+			addressType,
+			addressLine1,
+			addressLine2,
+			city,
+			state,
+			country,
+			pincode,
+			longitude,
+			latitude,
+		} = req.body;
 
 		const { id } = req.user;
 		const updateUser = await UserModel.findOneAndUpdate(
@@ -410,10 +416,10 @@ exports.editUserAddress = async (req, res) => {
 					'address.latitude': latitude,
 				},
 			},
-			{ new: true },
+			{ new: true }
 		);
 		res.json(updateUser.address);
 	} catch (err) {
 		console.log('ERROR WHILE EDITING ADDRESS-->', err.message);
 	}
-}
+};
