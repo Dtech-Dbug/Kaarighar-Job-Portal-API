@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Layout, Avatar, Input, Menu, Dropdown, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { UserOutlined } from '@ant-design/icons';
@@ -23,6 +24,11 @@ const NavHeader = ({ user, logout, auth: { isAuthenticated, loading } }) => {
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
+				<Button type="text">
+					<Link to="/me">Profile</Link>
+				</Button>
+			</Menu.Item>
+			<Menu.Item key="1">
 				<Button danger type="text" onClick={logout}>
 					Logout
 				</Button>
@@ -39,7 +45,7 @@ const NavHeader = ({ user, logout, auth: { isAuthenticated, loading } }) => {
 				suffix={suffix}
 			/>
 			<Dropdown overlay={menu} trigger={['click']}>
-				<Avatar size="large" icon={<UserOutlined />} />	
+				<Avatar size="large" icon={<UserOutlined />} />
 			</Dropdown>
 		</Header>
 	);

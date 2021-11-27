@@ -25,3 +25,11 @@ export const getUserById = async (id) => {
 		},
 	});
 };
+
+export const getCurrentUser = async () => {
+	return await axios.get(`${API_URL}/me`, {
+		headers: {
+			'auth-token': localStorage.getItem('token'),
+		},
+	});
+}

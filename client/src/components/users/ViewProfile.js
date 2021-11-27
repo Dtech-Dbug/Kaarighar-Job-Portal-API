@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { getUserById } from '../../functions/users';
-import { Avatar, Badge, Divider, Col, Row ,Image} from 'antd';
+import { Avatar, Badge, Divider, Col, Row, Image } from 'antd';
 import Loading from '../reusableComponents/Loading';
-import { HiBadgeCheck ,HiLocationMarker,HiMail,HiUser,HiOfficeBuilding,HiBriefcase,HiBookOpen,HiDocumentText} from 'react-icons/hi';
+import ItemDescription from '../reusableComponents/ItemDescription';
+import {
+	HiBadgeCheck,
+	HiLocationMarker,
+	HiMail,
+	HiUser,
+	HiOfficeBuilding,
+	HiBriefcase,
+	HiBookOpen,
+	HiDocumentText,
+} from 'react-icons/hi';
+
 const ViewProfile = ({ match }) => {
 	const [userProfile, setUserProfile] = useState(null);
-	// const [profileInfo, setProfileInfo] = useState(null);
-	const DescriptionItem = ({ title, content }) => (
-		<div className="flex items-center">
-			<h2 className="font-bold py-2 pr-1">
-				{title ? (
-					<span>{title}:</span>
-				) : (
-					<span className="text-red-500"> No Data</span>
-				)}
-			</h2>
-			{content ? (
-				<span>{content}</span>
-			) : (
-				<span className="text-red-500"> No Data</span>
-			)}
-		</div>
-	);
 
 	useEffect(() => {
 		getUserById(match.params.id)
@@ -41,13 +35,14 @@ const ViewProfile = ({ match }) => {
 					<h1 className="flex items-center  justify-center font-bold text-2xl m-6">
 						{`${userProfile.firstName}'s Profile`}
 					</h1>
-					
+
 					<div className="flex my-4">
-						<HiUser 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Personal</p>
+						<HiUser
+							style={{
+								fontSize: '1.5rem',
+							}}
+						/>
+						<p className="font-bold flex text-lg ml-4">Personal</p>
 					</div>
 					{userProfile.verified ? (
 						<Badge
@@ -60,7 +55,8 @@ const ViewProfile = ({ match }) => {
 										fontSize: '1.5rem',
 									}}
 								/>
-							}>
+							}
+						>
 							<Avatar
 								className="bg-blue-900 align-middle mb-4"
 								size={{
@@ -72,7 +68,8 @@ const ViewProfile = ({ match }) => {
 									xxl: 90,
 								}}
 								shape="square"
-								gap={1}>
+								gap={1}
+							>
 								{userProfile.avatar
 									? userProfile.avatar
 									: userProfile.firstName.charAt(0)}
@@ -90,7 +87,8 @@ const ViewProfile = ({ match }) => {
 								xxl: 90,
 							}}
 							shape="square"
-							gap={1}>
+							gap={1}
+						>
 							{userProfile.avatar
 								? userProfile.avatar
 								: userProfile.firstName.charAt(0)}
@@ -98,13 +96,13 @@ const ViewProfile = ({ match }) => {
 					)}
 					<Row>
 						<Col span={12}>
-							<DescriptionItem
+							<ItemDescription
 								title="First Name"
 								content={userProfile.firstName}
 							/>
 						</Col>
 						<Col span={12}>
-							<DescriptionItem
+							<ItemDescription
 								title="Last Name"
 								content={userProfile.lastName}
 							/>
@@ -112,125 +110,100 @@ const ViewProfile = ({ match }) => {
 					</Row>
 					<Row>
 						<Col span={12}>
-							<DescriptionItem
+							<ItemDescription
 								title="Mobile"
 								content={userProfile.mobileNumber}
 							/>
 						</Col>
 						<Col span={12}>
-							<DescriptionItem
-								title="Email"
-								content={userProfile.email}
-							/>
+							<ItemDescription title="Email" content={userProfile.email} />
 						</Col>
 					</Row>
 					<Row>
 						<Col span={12}>
-							<DescriptionItem
-								title="Birthday"
-								content="February 2,1900"
-							/>
+							<ItemDescription title="Birthday" content="February 2,1900" />
 						</Col>
 						<Col span={12}>
 							<a href="/" target="_blank">
-								<DescriptionItem
+								<ItemDescription
 									title="Website"
 									content="www.ashishxcode.com"
 								/>
 							</a>
 						</Col>
 					</Row>
-					<DescriptionItem
-						title="About"
-						content={userProfile.profile.about}
-					/>
+					<ItemDescription title="About" content={userProfile.profile.about} />
 					<div className="flex my-4">
-						<HiMail 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Contact</p>
+						<HiMail
+							style={{
+								fontSize: '1.5rem',
+							}}
+						/>
+						<p className="font-bold flex text-lg ml-4">Contact</p>
 					</div>
 					<Row>
 						<Col span={12}>
-							<DescriptionItem
-								title="Email"
-								content={userProfile.email}
-							/>
+							<ItemDescription title="Email" content={userProfile.email} />
 						</Col>
 						<Col span={12}>
-							<DescriptionItem
+							<ItemDescription
 								title="Mobile Number"
 								content={userProfile.mobileNumber}
 							/>
 						</Col>
 					</Row>
 					<div className="flex my-4">
-						<HiLocationMarker 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Address</p>
+						<HiLocationMarker
+							style={{
+								fontSize: '1.5rem',
+							}}
+						/>
+						<p className="font-bold flex text-lg ml-4">Address</p>
 					</div>
-					{
-						userProfile.address.map((item, index) => {
-							return (
-								<div>
-									<Row>
+					{userProfile.address.map((item, index) => {
+						return (
+							<div>
+								<Row>
 									<p className="font-bold mt-2">{item.addressType}</p>
 									<Col span={24}>
-										<DescriptionItem
+										<ItemDescription
 											title="Address"
 											content={`${item.addressLine1} ${item.addressLine2}`}
 										/>
 									</Col>
-							</Row>
-					<Row>
-						<Col span={12}>
-							<DescriptionItem
-								title="City"
-								content={item.city}
-							/>
-						</Col>
-						<Col span={12}>
-							<DescriptionItem
-								title="Pincode"
-								content={item.pincode}
-							/>
-						</Col>
-					</Row>
-					<Row>
-						<Col span={12}>
-							<DescriptionItem
-								title="State"
-								content={item.state}
-							/>
-						</Col>
-						<Col span={12}>
-							<DescriptionItem
-								title="Country"
-								content={item.country}
-							/>
-						</Col>
-					</Row>
-					<hr/>
-								</div>
-								
-								)}
-							)
-
-					}
+								</Row>
+								<Row>
+									<Col span={12}>
+										<ItemDescription title="City" content={item.city} />
+									</Col>
+									<Col span={12}>
+										<ItemDescription title="Pincode" content={item.pincode} />
+									</Col>
+								</Row>
+								<Row>
+									<Col span={12}>
+										<ItemDescription title="State" content={item.state} />
+									</Col>
+									<Col span={12}>
+										<ItemDescription title="Country" content={item.country} />
+									</Col>
+								</Row>
+								<hr />
+							</div>
+						);
+					})}
 
 					{userProfile.role === 'Job Seeker' && (
 						<Row>
 							<Col span={12}>
 								<div className="flex my-4">
-						<HiBookOpen 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Eduction</p>
-					</div>
+									<HiBookOpen
+										style={{
+											fontSize: '1.5rem',
+										}}
+									/>
+									<p className="font-bold flex text-lg ml-4">Eduction</p>
+								</div>
 								{userProfile.profile.education.map(
 									({
 										school,
@@ -245,58 +218,48 @@ const ViewProfile = ({ match }) => {
 										<div key={_id}>
 											<Row>
 												<Col span={12}>
-													<DescriptionItem
-														title="School"
-														content={school}
-													/>
+													<ItemDescription title="School" content={school} />
 												</Col>
 												<Col span={12}>
-													<DescriptionItem
-														title="Degree"
-														content={degree}
-													/>
+													<ItemDescription title="Degree" content={degree} />
 												</Col>
 											</Row>
 											<Row>
 												<Col span={12}>
-													<DescriptionItem
-														title="From"
-														content={from}
-													/>
+													<ItemDescription title="From" content={from} />
 												</Col>
 												<Col span={12}>
-													<DescriptionItem
+													<ItemDescription
 														title="To"
-														content={
-															current ? 'Now' : to
-														}
+														content={current ? 'Now' : to}
 													/>
 												</Col>
 											</Row>
 											<Row>
-												<DescriptionItem
+												<ItemDescription
 													title="Field of Study"
 													content={fieldofstudy}
 												/>
 											</Row>
 											<Row>
-												<DescriptionItem
+												<ItemDescription
 													title="Description"
 													content={description}
 												/>
 											</Row>
 										</div>
-									),
+									)
 								)}
 							</Col>
 							<Col span={12}>
 								<div className="flex my-4">
-						<HiBriefcase 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Experience</p>
-					</div>
+									<HiBriefcase
+										style={{
+											fontSize: '1.5rem',
+										}}
+									/>
+									<p className="font-bold flex text-lg ml-4">Experience</p>
+								</div>
 								{userProfile.profile.experience.map(
 									({
 										company,
@@ -311,48 +274,34 @@ const ViewProfile = ({ match }) => {
 										<div key={_id}>
 											<Row>
 												<Col span={12}>
-													<DescriptionItem
-														title="Title"
-														content={title}
-													/>
+													<ItemDescription title="Title" content={title} />
 												</Col>
 												<Col span={12}>
-													<DescriptionItem
-														title="Company"
-														content={company}
-													/>
+													<ItemDescription title="Company" content={company} />
 												</Col>
 											</Row>
 											<Row>
 												<Col span={12}>
-													<DescriptionItem
-														title="From"
-														content={from}
-													/>
+													<ItemDescription title="From" content={from} />
 												</Col>
 												<Col span={12}>
-													<DescriptionItem
+													<ItemDescription
 														title="To"
-														content={
-															current ? 'Now' : to
-														}
+														content={current ? 'Now' : to}
 													/>
 												</Col>
 											</Row>
 											<Row>
-												<DescriptionItem
-													title="Location"
-													content={location}
-												/>
+												<ItemDescription title="Location" content={location} />
 											</Row>
 											<Row>
-												<DescriptionItem
+												<ItemDescription
 													title="Description"
 													content={description}
 												/>
 											</Row>
 										</div>
-									),
+									)
 								)}
 							</Col>
 						</Row>
@@ -360,47 +309,39 @@ const ViewProfile = ({ match }) => {
 					<Divider />
 					{userProfile.role === 'Recruiter' ? (
 						<>
-							
-					<div className="flex my-4">
-						<HiOfficeBuilding 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Company</p>
-					</div>
+							<div className="flex my-4">
+								<HiOfficeBuilding
+									style={{
+										fontSize: '1.5rem',
+									}}
+								/>
+								<p className="font-bold flex text-lg ml-4">Company</p>
+							</div>
 							<Row>
 								<Col span={12}>
-									<DescriptionItem
+									<ItemDescription
 										title="Name"
-										content={
-											userProfile.company.companyName
-										}
+										content={userProfile.company.companyName}
 									/>
 								</Col>
 								<Col span={12}>
-									<DescriptionItem
+									<ItemDescription
 										title="Regestration No."
-										content={
-											userProfile.company.companyRegNo
-										}
+										content={userProfile.company.companyRegNo}
 									/>
 								</Col>
 							</Row>
 							<Row>
 								<Col span={12}>
-									<DescriptionItem
+									<ItemDescription
 										title="Address"
-										content={
-											userProfile.company.companyAddress
-										}
+										content={userProfile.company.companyAddress}
 									/>
 								</Col>
 								<Col span={12}>
-									<DescriptionItem
+									<ItemDescription
 										title="Contact"
-										content={
-											userProfile.company.companyContact
-										}
+										content={userProfile.company.companyContact}
 									/>
 								</Col>
 							</Row>
@@ -408,33 +349,37 @@ const ViewProfile = ({ match }) => {
 					) : null}
 					{userProfile.role === 'Job Seeker' ? (
 						<>
-
 							<div className="flex my-4">
-						<HiDocumentText 
-						style={{
-							fontSize: '1.5rem',
-						}}/>
-							<p className="font-bold flex text-lg ml-4">Documents</p>
-					</div>
+								<HiDocumentText
+									style={{
+										fontSize: '1.5rem',
+									}}
+								/>
+								<p className="font-bold flex text-lg ml-4">Documents</p>
+							</div>
 							<Row>
 								<Col span={12}>
-									<DescriptionItem
+									<ItemDescription
 										title="Aadhar Card"
-										content={
-											userProfile.aadharCard.aadharNumber
-										}
+										content={userProfile.aadharCard.aadharNumber}
 									/>
-								<Image
-      width={300} src={userProfile.aadharCard.aadharImage} alt="aadhar" />
+									<Image
+										width={300}
+										src={userProfile.aadharCard.aadharImage}
+										alt="aadhar"
+									/>
 								</Col>
 								<Col span={12}>
-									<DescriptionItem
+									<ItemDescription
 										title="Pan Card"
 										content={userProfile.panCard.panNumber}
 									/>
 
-										<Image
-      width={300} src={userProfile.panCard.panImage} alt="aadhar" />
+									<Image
+										width={300}
+										src={userProfile.panCard.panImage}
+										alt="aadhar"
+									/>
 								</Col>
 							</Row>
 
@@ -442,10 +387,9 @@ const ViewProfile = ({ match }) => {
 						</>
 					) : null}
 					<Divider />
-					
 				</div>
 			) : (
-				<Loading/>
+				<Loading />
 			)}
 		</div>
 	);
