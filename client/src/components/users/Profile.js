@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser } from '../../functions/users';
-import { Avatar, Badge, Divider, Col, Row, Image } from 'antd';
+import { Avatar, Col, Row, Image } from 'antd';
 import Loading from '../reusableComponents/Loading';
 import ItemDescription from '../reusableComponents/ItemDescription';
-import {
-	HiLocationMarker,
-	HiMail,
-	HiUser,
-	HiOfficeBuilding,
-	HiBriefcase,
-	HiBookOpen,
-	HiDocumentText,
-} from 'react-icons/hi';
+import { HiLocationMarker, HiUser } from 'react-icons/hi';
 
 const Profile = () => {
-	const [userProfile, setUserProfile] = useState({});
+	const [userProfile, setUserProfile] = useState(null);
 
 	useEffect(() => {
-		getCurrentUser().then((user) => {
-			setUserProfile(user.data);
-			console.log('Admin Profile', userProfile);
-		});
+		getCurrentUser()
+			.then((res) => {
+				setUserProfile(res.data);
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
 	}, []);
 
 	return (
@@ -39,23 +34,25 @@ const Profile = () => {
 						/>
 						<p className="font-bold flex text-lg ml-4">Personal</p>
 					</div>
-					{/* <Avatar
-						className="bg-blue-900 align-middle mb-4"
-						size={{
-							xs: 24,
-							sm: 32,
-							md: 40,
-							lg: 64,
-							xl: 70,
-							xxl: 90,
-						}}
-						shape="square"
-						gap={1}
-					>
-						{userProfile.avatar
-							? userProfile.avatar
-							: userProfile.firstName.charAt(0)}
-					</Avatar> */}
+					{userProfile.firstName ? (
+						<Avatar
+							className="bg-blue-900 align-middle mb-4"
+							size={{
+								xs: 24,
+								sm: 32,
+								md: 40,
+								lg: 64,
+								xl: 70,
+								xxl: 90,
+							}}
+							shape="square"
+							gap={1}
+						>
+							{userProfile.avatar
+								? userProfile.avatar
+								: userProfile.firstName.charAt(0)}
+						</Avatar>
+					) : null}
 					<Row>
 						<Col span={12}>
 							<ItemDescription
@@ -90,6 +87,38 @@ const Profile = () => {
 						/>
 						<p className="font-bold flex text-lg ml-4">Address</p>
 					</div>
+					{userProfile.address.map((item, index) => {
+						return (
+							<div>
+								<Row>
+									<p className="font-bold mt-2">{item.addressType}</p>
+									<Col span={24}>
+										<ItemDescription
+											title="Address"
+											content={`${item.addressLine1} ${item.addressLine2}`}
+										/>
+									</Col>
+								</Row>
+								<Row>
+									<Col span={12}>
+										<ItemDescription title="City" content={item.city} />
+									</Col>
+									<Col span={12}>
+										<ItemDescription title="Pincode" content={item.pincode} />
+									</Col>
+								</Row>
+								<Row>
+									<Col span={12}>
+										<ItemDescription title="State" content={item.state} />
+									</Col>
+									<Col span={12}>
+										<ItemDescription title="Country" content={item.country} />
+									</Col>
+								</Row>
+								<hr />
+							</div>
+						);
+					})}
 				</div>
 			) : (
 				<Loading />
