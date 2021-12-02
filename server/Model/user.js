@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -22,20 +22,43 @@ const userSchema = new Schema(
 			type: String,
 			required: 'Password is Required',
 		},
-		userImageDetails: {
+
+		avatar: {
 			type: String,
+			default: 'http://www.gravatar.com/avatar/?d=identicon',
 		},
 
 		email: String,
 
-		aadharCard: {
-			aadharNumber: Number,
-			aadharImage: String,
+		panCard: {
+			aadharNumber: String,
+			aadharImage: {
+				type: String,
+			},
+			filePath: {
+				type: String,
+			},
+			fileType: {
+				type: String,
+			},
+			fileSize: {
+				type: String,
+			},
 		},
-
 		panCard: {
 			panNumber: String,
-			panImage: String,
+			fileName: {
+				type: String,
+			},
+			filePath: {
+				type: String,
+			},
+			fileType: {
+				type: String,
+			},
+			fileSize: {
+				type: String,
+			},
 		},
 
 		company: {
@@ -58,7 +81,6 @@ const userSchema = new Schema(
 				latitude: String,
 			},
 		],
-
 
 		profile: {
 			skills: {
@@ -131,7 +153,7 @@ const userSchema = new Schema(
 			enum: ['Admin', 'Job Seeker', 'Recruiter'],
 		},
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
 
-module.exports = mongoose.model("USER", userSchema);
+module.exports = mongoose.model('USER', userSchema);
