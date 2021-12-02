@@ -1,71 +1,95 @@
-import React, { useState, useEffect } from "react";
-import { readCategory, editCategory } from "../../functions/categories";
-// import CategoryForm from "./CategoryForm";
-import { Card, Form, Button, Input } from /* Upload, message*/ "antd";
-import "antd/dist/antd.css";
-
-//function to fetch data of a sinle category
+import React, { useState, useEffect } from 'react';
+import { readCategory, editCategory } from '../../functions/categories';
+import { Card, Button, message } from 'antd';
+import 'antd/dist/antd.css';
+import { RiLayout2Line } from 'react-icons/ri';
 
 const EditCategory = ({ match, history }) => {
-  const [category, setCategory] = useState();
-  const [formValue, setFormValue] = useState("");
+	// edit category
+	const [newCategory, setNewCategory] = useState({
+		title: '',
+		file: '',
+	});
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+	useEffect(() => {
+		fetchData();
+	}, []);
 
-  // const { title } = category;
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const formData = new FormData();
+		formData.append('title', newCategory.title);
+		formData.append('file', newCategory.file);
 
-  const fetchData = () =>
-    readCategory(match.params.slug).then((res) => {
-      console.log("Categoty:", res);
-      console.log("RES -->", res.data.title);
+		console.log(newCategory);
 
-      setCategory(res.data);
-      setFormValue(res.data.title);
-    });
-  const handleCategoryChange = (e) => {
-    setFormValue(e.target.value);
-  };
-  const handleEditFormSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form value", formValue);
-    editCategory(match.params.slug, formValue)
-      .then((res) => history.push("/category"))
-      .catch((err) => console.log(err.message));
-  };
+		editCategory(match.params.slug, formData)
+			.then((response) => {
+				if (response.status === 200) {
+					message.success('Category Edited Successfully');
+					history.push('/category');
+				}
+			})
+			.catch((error) => {
+				message.error('Error Editing Category');
+			});
+	};
 
-  const editCategoryForm = () => (
-    <Card className="w-full">
-      <Form name="Add Category" layout="vertical">
-        <input
-          class="ant-input p-2"
-          type="text"
-          value={formValue}
-          onChange={handleCategoryChange}
-        />
+	const handleChange = (e) => {
+		setNewCategory({ ...newCategory, [e.target.title]: e.target.value });
+	};
 
-        <Button
-          onClick={handleEditFormSubmit}
-          type="primary"
-          size="large"
-          className=" my-4"
-        >
-          Edit Category
-        </Button>
-      </Form>
-    </Card>
-  );
+	const handlefile = (e) => {
+		setNewCategory({ ...newCategory, file: e.target.files[0] });
+	};
 
-  console.log("Match", match);
-  return (
-    <>
-      {/* <h1>Edit category : {match.params.slug} </h1> */}
-      <br />
-      <div>{editCategoryForm()}</div>
-      {/* <CategoryForm /> */}
-    </>
-  );
+	// const { title } = category;
+
+	const fetchData = () =>
+		readCategory(match.params.slug).then((res) => {
+			setNewCategory(res.data);
+		});
+
+	return (
+		<>
+			<h1 className="flex items-center font-bold text-lg py-1.5">
+				<RiLayout2Line />
+				&nbsp;Edit Category : {match.params.slug}
+			</h1>
+			<br />
+			<Card className="w-full">
+				<form
+					onSubmit={handleSubmit}
+					method="post"
+					enctype="multipart/form-data"
+				>
+					<input
+						placeholder="Enter Category Name."
+						className="w-full p-2 my-2 border-2"
+						type="text"
+						title="title"
+						value={newCategory.title}
+						onChange={handleChange}
+					/>
+					<input
+						type="file"
+						accept=".png, .jpg, .jpeg"
+						title="file"
+						className="w-full my-2"
+						onChange={handlefile}
+					></input>
+					<Button
+						type="primary"
+						htmlType="submit"
+						size="large"
+						className=" my-4"
+					>
+						Edit Category
+					</Button>
+				</form>
+			</Card>
+		</>
+	);
 };
 
 export default EditCategory;

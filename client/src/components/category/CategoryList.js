@@ -35,10 +35,10 @@ const CategoryList = ({ categoryList, handleCategoryDelete }) => {
 					render={(record) => (
 						<Space size="middle">
 							<Button type="primary">
-								<Link to={`/category/${record.slug}`}>View</Link>
+								<Link to={`/category/view/${record.slug}`}>View</Link>
 							</Button>
 							<Button type="dashed">
-								<Link to={`/category/${record.slug}`}>Edit</Link>
+								<Link to={`/category/edit/${record.slug}`}>Edit</Link>
 							</Button>
 							<Button
 								danger

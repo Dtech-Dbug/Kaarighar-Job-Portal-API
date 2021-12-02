@@ -4,7 +4,6 @@ import CategoryList from './CategoryList';
 import {
 	getAllCategories,
 	deleteCategory,
-	// editCategory,
 } from '../../functions/categories';
 
 import { RiLayout2Line } from 'react-icons/ri';

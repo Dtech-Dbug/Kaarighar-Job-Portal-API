@@ -7,7 +7,7 @@ import ViewProfile from '../components/users/ViewProfile';
 import Profile from '../components/users/Profile';
 import Jobs from '../components/job/jobs';
 import ViewJob from '../components/job/ViewJob';
-import EditCategory from '../components/category/editCategory';
+import EditCategory from '../components/category/EditCategory';
 import ViewCategory from '../components/category/ViewCategory';
 
 const Routes = (props) => {
@@ -20,7 +20,16 @@ const Routes = (props) => {
 			<PrivateRoute exact path="/category" component={Category} />
 			<PrivateRoute exact path="/jobs" component={Jobs} />
 			<PrivateRoute exact path="/job/:id" component={ViewJob} />
-			<PrivateRoute exact path="/category/:slug" component={ViewCategory} />
+			<PrivateRoute
+				exact
+				path="/category/view/:slug"
+				component={ViewCategory}
+			/>
+			<PrivateRoute
+				exact
+				path="/category/edit/:slug"
+				component={EditCategory}
+			/>
 		</Switch>
 	);
 };
