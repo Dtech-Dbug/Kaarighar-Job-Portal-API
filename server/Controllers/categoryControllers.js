@@ -1,6 +1,7 @@
 const slugify = require('slugify');
 const CATEGORIES = require('../Model/jobCategories');
 const fs = require('fs');
+const path = require('path');
 //controller functions for category CRUD
 
 exports.createCategory = async (req, res) => {

@@ -1,7 +1,30 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { upload } = require('../Helper/fileupload');
+
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'uploads/category');
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	},
+});
+
+const fileFilter = (req, file, cb) => {
+	const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+	if (allowedFileTypes.includes(file.mimetype)) {
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
+};
+
+const upload = multer({
+	storage: storage,
+	limits: { fieldSize: 10 * 1024 * 1024 },
+	fileFilter,
+});
 
 //middlewares
 const { auth, isAdmin } = require('../Middleware/auth');
@@ -34,7 +57,7 @@ router.get('/admin/category/:slug', readCategory);
 //remove category
 router.delete('/admin/category/:slug', auth, isAdmin, removeCategory);
 
-//update categories 
+//update categories
 router
 	.put(
 		'/admin/category/:slug',

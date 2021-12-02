@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Space, Button } from 'antd';
+import { Table, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { readCategory, getAllCategories } from '../../functions/categories';
 import { RiLayout2Line } from 'react-icons/ri';
 import { createSubCategory } from '../../functions/categories';
+import ImageHolder from '../reusableComponents/ImageHolder';
 const { Column } = Table;
 
 const ViewCategory = ({ match, history }) => {
@@ -79,10 +80,7 @@ const ViewCategory = ({ match, history }) => {
 						</h1>
 						<p>Category ID : {category._id}</p>
 					</div>
-					<img
-						src={category.images.filePath}
-						alt={`${category.title} category image`}
-					/>
+					<ImageHolder FILE_NAME={`category/${category.images.fileName}`} />
 				</div>
 			)}
 
