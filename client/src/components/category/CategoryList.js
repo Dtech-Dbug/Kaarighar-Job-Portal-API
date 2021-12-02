@@ -14,7 +14,8 @@ const CategoryList = ({ categoryList, handleCategoryDelete }) => {
 					onChange(current) {
 						setPage(current);
 					},
-				}}>
+				}}
+			>
 				<Column
 					title="No"
 					key="no"
@@ -33,17 +34,17 @@ const CategoryList = ({ categoryList, handleCategoryDelete }) => {
 					title="Action"
 					render={(record) => (
 						<Space size="middle">
+							<Button type="primary">
+								<Link to={`/category/${record.slug}`}>View</Link>
+							</Button>
 							<Button type="dashed">
-								<Link to={`/category/${record.slug}`}>
-									Edit
-								</Link>
+								<Link to={`/category/${record.slug}`}>Edit</Link>
 							</Button>
 							<Button
 								danger
 								type="dashed"
-								onClick={() =>
-									handleCategoryDelete(record.slug)
-								}>
+								onClick={() => handleCategoryDelete(record.slug)}
+							>
 								Delete
 							</Button>
 						</Space>
