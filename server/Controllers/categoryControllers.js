@@ -83,7 +83,7 @@ exports.removeCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
 	try {
-		console.log('EDIT Category Details->', req.body.values);
+		console.log('EDIT Category Details->', req.body);
 
 		const { title } = req.body;
 
@@ -93,6 +93,7 @@ exports.updateCategory = async (req, res) => {
 			},
 			{
 				title: title,
+				slug: slugify(title),
 				images: {
 					fileName: req.file.originalname,
 					filePath: req.file.path,
